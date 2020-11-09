@@ -16,6 +16,7 @@ public:
     void updateText(const std::string &newText);
 private:
     std::string text;
+    // TODO: font, size, etc...
 };
 
 #endif //CLIENT_LABEL_H
