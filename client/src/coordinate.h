@@ -7,11 +7,11 @@ public:
 
     Coordinate(double px, double py) : x(px), y(py) {}
 
-    inline double getX() {
+    inline double getX() const {
         return x;
     }
 
-    inline double getY() {
+    inline double getY() const {
         return y;
     }
 

@@ -29,6 +29,10 @@ struct TileInfo {
     Tile selectedTile;
 };
 
+struct TowerInfo {
+    Tower tower;
+};
+
 struct PuzzleInfo {
     Puzzle chosenPuzzle;
 };
@@ -64,6 +68,14 @@ union EventInfo {
     CitadelInfo citadelInfo;
     GameResultsInfo gameResultsInfo;
     NoInfoEvent noInfo;
+};
+
+class Event {
+public:
+    Event(EventType ptype, EventInfo pinfo) : type(ptype), info(pinfo) {}
+private:
+    EventType type;
+    EventInfo info;
 };
 
 #endif //LAST_SAVIORS_EVENT_H
