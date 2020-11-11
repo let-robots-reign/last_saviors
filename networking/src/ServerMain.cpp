@@ -1,8 +1,8 @@
-#include "GameServer.h"
+#include "GameTCPServer.h"
 
 int main() {
     const uint16_t PORT = 1337;
-    GameServer Server;
+    GameTCPServer Server;
     Server.Bind(PORT);
     Server.Start();
     return 0;

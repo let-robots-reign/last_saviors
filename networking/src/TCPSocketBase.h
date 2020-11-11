@@ -12,16 +12,18 @@
 
 struct SocketAddress {
 public:
-    SocketAddress(const uint32_t address_, const uint16_t port_);
+    SocketAddress(){};  //temp
+    SocketAddress(const uint32_t address, const uint16_t port);
     SocketAddress(const sockaddr &sockaddr_);
     
     std::string ToString() const;
 
-    static std::shared_ptr<SocketAddress> Create(std::string_view address_);
+    static std::shared_ptr<SocketAddress> Create(std::string_view address);
 
 private:
-    const uint32_t m_ip;
-    const uint16_t m_port;
+    //I just want it to compile
+    /*const*/ uint32_t m_ip;
+    /*const*/ uint16_t m_port;
     sockaddr m_sockaddr;
 
 };
@@ -33,7 +35,7 @@ public:
     ~TCPSocketBase();
 
 protected:
-    TCPSocketBase(int socket_);
+    TCPSocketBase(int socket);
 
 private:
     int m_socket;

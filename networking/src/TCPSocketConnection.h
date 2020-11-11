@@ -1,5 +1,6 @@
 #pragma once
 #include "TCPSocketBase.h"
+#include <vector>
 
 class TCPSocketConnection : public TCPSocketBase {
 public:
