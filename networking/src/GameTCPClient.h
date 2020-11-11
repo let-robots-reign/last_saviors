@@ -1,7 +1,7 @@
 #pragma once
-#include "TCPServer.h"
+#include "TCPClient.h"
 
-class GameTCPClient {
+class GameTCPClient : public TCPClient {
 public:
     GameTCPClient();
     ~GameTCPClient();
@@ -13,4 +13,3 @@ private:
     void ProcessPacket(std::shared_ptr<Packet>);
 
 };
-

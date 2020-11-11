@@ -1,7 +1,7 @@
 #pragma once
 #include "TCPServer.h"
 
-class GameTCPServer {
+class GameTCPServer : public TCPServer {
 public:
     GameTCPServer();
     ~GameTCPServer();
@@ -13,4 +13,3 @@ protected:
     virtual void Tick();
 
 };
-
