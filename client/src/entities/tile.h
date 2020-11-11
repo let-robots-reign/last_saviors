@@ -6,6 +6,7 @@ enum TileType {
     RoadTile,
     BlockTile,
     PlacedTowerTile,
+    PlacedShaftTile,
     CitadelTile
 };
 

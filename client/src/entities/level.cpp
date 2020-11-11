@@ -1,8 +1,20 @@
 #include "level.h"
 
-Level::Level(std::string map, Grid g) : mapGenerator(std::move(map)), grid(std::move(g)) {}
+Level::Level(std::string map) : mapGenerator(std::move(map)), grid(Grid(1000, 1000)) {}
 
-void Level::initLevel() {
+void Level::initScene() {
+
+}
+
+void Level::initGrid() {
+
+}
+
+void Level::startWave() {
+
+}
+
+void Level::spawnEnemies() {
 
 }
 

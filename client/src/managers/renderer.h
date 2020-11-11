@@ -22,6 +22,14 @@ public:
 
     void updateEnemy();
 
+    inline Level getLevel() {
+        return level;
+    }
+
+    inline HUD getHUD() {
+        return hud;
+    }
+
 private:
     Level level;
     HUD hud;

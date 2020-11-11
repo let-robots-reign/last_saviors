@@ -7,16 +7,23 @@
 
 class Level {
 public:
-    Level(std::string map, Grid g);
+    explicit Level(std::string map);
 
-    void initLevel();
+    void initScene();
 
     inline Grid getGrid() const {
         return grid;
     }
+
 private:
     std::string mapGenerator;
     Grid grid;
+
+    void initGrid();
+
+    void startWave();
+
+    void spawnEnemies();
 };
 
 #endif //CLIENT_LEVEL_H
