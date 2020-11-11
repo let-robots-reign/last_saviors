@@ -1,7 +1,7 @@
 #ifndef CLIENT_USER_INPUT_H
 #define CLIENT_USER_INPUT_H
 
-#include "coordinate.h"
+#include "entities/coordinate.h"
 
 enum GameState {
     MainMenu,

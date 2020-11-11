@@ -3,8 +3,8 @@
 
 #include <utility>
 
-#include "hud.h"
-#include "level.h"
+#include "entitites/hud.h"
+#include "entities/level.h"
 
 class Renderer {
 public:

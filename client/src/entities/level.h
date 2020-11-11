@@ -7,11 +7,13 @@
 
 class Level {
 public:
-    Level(std::string map, Grid g) : mapGenerator(std::move(map)), grid(std::move(g)) {}
+    Level(std::string map, Grid g);
 
     void initLevel();
 
-    Grid getGrid();
+    inline Grid getGrid() const {
+        return grid;
+    }
 private:
     std::string mapGenerator;
     Grid grid;

@@ -1,7 +1,7 @@
 #ifndef CLIENT_MANAGER_H
 #define CLIENT_MANAGER_H
 
-#include "event.h"
+#include "event/event.h"
 
 class Manager {
 public:

@@ -3,9 +3,9 @@
 
 class Coordinate {
 public:
-    Coordinate() : x(0), y(0) {}
+    Coordinate();
 
-    Coordinate(double px, double py) : x(px), y(py) {}
+    Coordinate(double px, double py);
 
     inline double getX() const {
         return x;

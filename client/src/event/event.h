@@ -1,7 +1,7 @@
 #ifndef LAST_SAVIORS_EVENT_H
 #define LAST_SAVIORS_EVENT_H
 
-#include "coordinate.h"
+#include "entities/coordinate.h"
 
 enum EventType {
     MouseClicked,
@@ -72,7 +72,7 @@ union EventInfo {
 
 class Event {
 public:
-    Event(EventType ptype, EventInfo pinfo) : type(ptype), info(pinfo) {}
+    Event(EventType ptype, EventInfo pinfo);
 private:
     EventType type;
     EventInfo info;

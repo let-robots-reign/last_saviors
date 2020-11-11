@@ -2,12 +2,12 @@
 #define CLIENT_HUD_H
 
 #include <vector>
-#include "widget.h"
-#include "event.h"
+#include "widgets/widget.h"
+#include "event/event.h"
 
 class HUD {
 public:
-    HUD(std::vector<Widget> w) : widgets(w) {}
+    explicit HUD(std::vector<Widget> w);
 
     void addWidget(const Widget &widget);
 

@@ -11,7 +11,7 @@ enum TileType {
 
 class Tile {
 public:
-    explicit Tile(TileType type) : tileType(type) {}
+    explicit Tile(TileType type);
 
     bool canPlaceTower();
 

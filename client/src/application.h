@@ -1,9 +1,9 @@
 #ifndef CLIENT_APPLICATION_H
 #define CLIENT_APPLICATION_H
 
-#include "user_input_manager.h"
-#include "loader_manager.h"
-#include "renderer_manager.h"
+#include "managers/user_input_manager.h"
+#include "managers/loader_manager.h"
+#include "managers/renderer_manager.h"
 
 template<typename T>
 class Application {
