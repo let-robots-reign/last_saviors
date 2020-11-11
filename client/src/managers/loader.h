@@ -2,7 +2,7 @@
 #define CLIENT_LOADER_H
 
 enum LoadingResult {
-    SUCCESS,
+    LOADING_SUCCESS,
     ERROR_RESOURCES,
     ERROR_TEXTURES,
     ERROR_FONTS

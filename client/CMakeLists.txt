@@ -2,7 +2,6 @@ cmake_minimum_required(VERSION 3.16)
 project(client)
 
 set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_FLAGS "-Wall -Werror -Wpedantic")
 
 include_directories(src/)
 FILE(GLOB ENTITIES src/entities/*.cpp src/entities)

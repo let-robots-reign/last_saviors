@@ -2,15 +2,15 @@
 
 template<typename T>
 LoadingResult Loader<T>::loadResources() {
-    return SUCCESS;
+    return LOADING_SUCCESS;
 }
 
 template<typename T>
 LoadingResult Loader<T>::loadTextures() {
-    return SUCCESS;
+    return LOADING_SUCCESS;
 }
 
 template<typename T>
 LoadingResult Loader<T>::loadFonts() {
-    return SUCCESS;
+    return LOADING_SUCCESS;
 }

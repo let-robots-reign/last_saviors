@@ -23,7 +23,8 @@ enum EventType {
     CitadelAttacked,
     EnemyHitted,
     EnemyKilled,
-    GameFinished
+    GameFinished,
+    EmptyEvent
 };
 
 struct MouseClickInfo {
@@ -65,10 +66,17 @@ struct NoInfoEvent {
 };
 
 using EventInfo = std::variant<MouseClickInfo, TileInfo, TowerInfo, PuzzleInfo, PuzzleAnswerInfo, EnemyInfo, CitadelInfo, GameResultsInfo, NoInfoEvent>;
+//using EventInfo = std::variant<NoInfoEvent>;
 
 class Event {
 public:
+    Event();
+
     Event(EventType ptype, EventInfo pinfo);
+
+    void setType(EventType type);
+
+    void setInfo(const EventInfo &info);
 
 private:
     EventType type;

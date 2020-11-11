@@ -2,10 +2,10 @@
 
 UserInput::UserInput(GameState context) : currentGameState(context) {}
 
-char UserInput::getPressedKey() {
+char UserInput::getPressedKey() const {
     return 0;
 }
 
-Coordinate UserInput::getMouseCoords() {
+Coordinate UserInput::getMouseCoords() const {
     return Coordinate();
 }

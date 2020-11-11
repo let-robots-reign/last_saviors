@@ -1,13 +1,13 @@
 #include "user_input_manager.h"
 
-UserInputManager::UserInputManager(UserInput input) : userInput(input) {}
+UserInputManager::UserInputManager(UserInput input) : userInput(input), event(Event()) {}
 
 int UserInputManager::processEvent(const Event &pevent) {
     return 0;
 }
 
 Event UserInputManager::produceEvent() {
-    event.type = MouseClicked;
-    event.info = MouseClickInfo();
+    event.setType(EmptyEvent);
+    event.setInfo(NoInfoEvent());
     return event;
 }
