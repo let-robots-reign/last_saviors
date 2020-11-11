@@ -15,7 +15,7 @@ public:
 
 private:
 
-}
+};
 
 
 class TCPSocketClient : public TCPSocketConnection {
@@ -27,7 +27,7 @@ public:
 private:
 	bool m_connected;
 	
-}
+};
 
 
 class TCPSocketConnectedClient : public TCPSocketConnection {
@@ -42,7 +42,7 @@ private:
 
     friend class TCPSocketServer;
 
-}
+};
 
 class TCPSocketServer : public TCPSocketBase {
 public:
@@ -55,5 +55,5 @@ public:
 
 private:
 
-}
+};
 

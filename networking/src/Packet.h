@@ -13,7 +13,7 @@ enum PacketType : std::byte {
     PUZZLE_SOLUTION
     //...
     
-}
+};
 
 struct Packet {
 public:
@@ -23,5 +23,5 @@ public:
 protected:
     const std::vector<std::byte> m_data;
 
-}
+};
 

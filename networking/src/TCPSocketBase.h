@@ -24,7 +24,7 @@ private:
     const uint16_t m_port;
     sockaddr m_sockaddr;
 
-}
+};
 
 
 class TCPSocketBase {
@@ -38,4 +38,4 @@ protected:
 private:
     int m_socket;
 
-}
+};

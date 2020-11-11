@@ -28,5 +28,5 @@ private:
     TCPSocketClient m_socket;
     BinaryStream m_buffer;
 
-}
+};
 

@@ -31,4 +31,4 @@ public:
 private:
     std::vector<std::byte> m_data;
 
-}
+};

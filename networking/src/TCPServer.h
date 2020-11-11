@@ -35,5 +35,5 @@ private:
 
     void Loop();
 
-}
+};
 
