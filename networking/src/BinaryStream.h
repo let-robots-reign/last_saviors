@@ -6,7 +6,7 @@ public:
     BinaryStream();
     ~BinaryStream();
 
-    void Push(std::vector<std::byte> data);
+    void Push(const std::vector<std::byte> data);
     std::vector<std::byte> Pop(const size_t amount_bytes);
     
     template <typename T>
@@ -17,6 +17,7 @@ public:
 
     /*
         overload some methods for game objects, etc
+        mb inherit a class and overload methods there
     */
 
     template <typename T>
@@ -25,7 +26,7 @@ public:
     template <typename T>
     friend BinaryStream &operator>> (const T &data, BinaryStream &buffer);
 
-    const std::vector<std::byte> data() const;
+    const std::vector<std::byte> & data() const;
 
 private:
     std::vector<std::byte> m_data;

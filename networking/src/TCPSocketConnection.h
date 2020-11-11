@@ -22,7 +22,11 @@ class TCPSocketClient : public TCPSocketConnection {
 public:
     bool Connect(const SocketAddress &address);
     void Disconnect();
-
+    bool Connected();
+    
+private:
+	bool m_connected;
+	
 }
 
 
@@ -52,3 +56,4 @@ public:
 private:
 
 }
+

@@ -24,3 +24,4 @@ protected:
     const std::vector<std::byte> m_data;
 
 }
+

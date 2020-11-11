@@ -10,6 +10,7 @@ public:
 
 private:
     std::shared_ptr<Packet> ReadPacket();                   //from m_buffer
-    void ProcessPacket(const Packet);
+    void ProcessPacket(std::shared_ptr<Packet>);
 
 }
+
