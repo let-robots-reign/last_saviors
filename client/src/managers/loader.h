@@ -1,14 +1,21 @@
 #ifndef CLIENT_LOADER_H
 #define CLIENT_LOADER_H
 
-template<typename T>
+enum LoadingResult {
+    SUCCESS,
+    ERROR_RESOURCES,
+    ERROR_TEXTURES,
+    ERROR_FONTS
+};
+
+template<typename T> // T is the type of textures
 class Loader {
 public:
-    int loadResources();
+    LoadingResult loadResources();
 
-    int loadTextures();
+    LoadingResult loadTextures();
 
-    int loadFonts();
+    LoadingResult loadFonts();
 
 private:
     T background;

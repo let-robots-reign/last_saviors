@@ -3,12 +3,12 @@
 
 #include <utility>
 
-#include "entitites/hud.h"
+#include "entities/hud.h"
 #include "entities/level.h"
 
 class Renderer {
 public:
-    Renderer(Level plevel, HUD phud) : level(std::move(plevel)), hud(std::move(phud)) {}
+    Renderer(Level plevel, HUD phud);
 
     void renderMenu();
 
@@ -20,7 +20,7 @@ public:
 
     void updateTileAt(size_t x, size_t y);
 
-    void updateEnemies();
+    void updateEnemy();
 
 private:
     Level level;

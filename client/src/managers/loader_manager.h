@@ -8,15 +8,18 @@
 template<typename T>
 class LoaderManager : public Manager, public EventEmitter {
 public:
-    explicit LoaderManager(Loader<T> l) : loader(l) {}
+    explicit LoaderManager(Loader<T> l);
 
-    int processEvent(const Event &event) override;
+    LoadingResult load();
+
+    int processEvent(const Event &pevent) override;
 
     Event produceEvent() override;
 
 private:
     // TODO: same template question
     Loader<T> loader;
+    Event event;
 };
 
 #endif //CLIENT_LOADER_MANAGER_H

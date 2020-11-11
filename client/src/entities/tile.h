@@ -13,9 +13,11 @@ class Tile {
 public:
     explicit Tile(TileType type);
 
-    bool canPlaceTower();
+    void updateTile(TileType newType);
 
-    bool canPlaceShaft();
+    bool canPlaceTower() const;
+
+    bool canPlaceShaft() const;
 private:
     TileType tileType;
 };

@@ -3,10 +3,14 @@
 
 Tile::Tile(TileType type) : tileType(type) {}
 
-bool Tile::canPlaceTower() {
+void Tile::updateTile(TileType newType) {
+
+}
+
+bool Tile::canPlaceTower() const {
     return false;
 }
 
-bool Tile::canPlaceShaft() {
+bool Tile::canPlaceShaft() const {
     return false;
 }

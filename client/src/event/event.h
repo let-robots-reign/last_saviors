@@ -1,6 +1,7 @@
 #ifndef LAST_SAVIORS_EVENT_H
 #define LAST_SAVIORS_EVENT_H
 
+#include <variant>
 #include "entities/coordinate.h"
 
 enum EventType {
@@ -23,6 +24,10 @@ enum EventType {
     EnemyHitted,
     EnemyKilled,
     GameFinished
+};
+
+struct MouseClickInfo {
+    Coordinate mouse;
 };
 
 struct TileInfo {
@@ -59,20 +64,12 @@ struct NoInfoEvent {
 
 };
 
-union EventInfo {
-    TileInfo tileInfo;
-    TowerInfo towerInfo;
-    PuzzleInfo puzzleInfo;
-    PuzzleAnswerInfo answerInfo;
-    EnemyInfo enemyInfo;
-    CitadelInfo citadelInfo;
-    GameResultsInfo gameResultsInfo;
-    NoInfoEvent noInfo;
-};
+using EventInfo = std::variant<MouseClickInfo, TileInfo, TowerInfo, PuzzleInfo, PuzzleAnswerInfo, EnemyInfo, CitadelInfo, GameResultsInfo, NoInfoEvent>;
 
 class Event {
 public:
     Event(EventType ptype, EventInfo pinfo);
+
 private:
     EventType type;
     EventInfo info;

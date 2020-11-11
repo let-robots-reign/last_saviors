@@ -13,9 +13,11 @@ enum GameState {
 
 class UserInput {
 public:
-    UserInput(GameState context) : currentGameState(context) {}
+    explicit UserInput(GameState context);
 
-    Coordinate getMouseCoords();
+    char getPressedKey() const;
+
+    Coordinate getMouseCoords() const;
 
 private:
     GameState currentGameState;

@@ -8,7 +8,7 @@
 
 class RendererManager : public Manager {
 public:
-    RendererManager(Renderer r) : renderer(std::move(r)) {}
+    explicit RendererManager(Renderer r);
 
     int processEvent(const Event &event) override;
 

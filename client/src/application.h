@@ -8,9 +8,9 @@
 template<typename T>
 class Application {
 public:
-    Application() {} // TODO: think about Application constructor
+    Application() = default; // TODO: think about Application constructor
 
-    static Application getInstance();
+    static inline Application getInstance();
 
     void run();
 
