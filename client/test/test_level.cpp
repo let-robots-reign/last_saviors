@@ -12,7 +12,10 @@ TEST(TestLevel, testTiles) {
     Level level("");
     level.initScene();
 
-    const Grid grid = level.getGrid();
+    Grid grid = level.getGrid();
+    std::vector<Tile> tilesRow = {Tile(EmptyTile), Tile(EmptyTile), Tile(EmptyTile)};
+    std::vector<std::vector<Tile>> tiles(2, tilesRow);
+    grid.setTiles(tiles);
     grid.updateTileAt(1, 2, BlockTile);
     Tile tile = grid.getTileAt(1, 2);
     EXPECT_TRUE(tile.canPlaceTower());

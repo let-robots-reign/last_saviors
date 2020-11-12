@@ -18,3 +18,7 @@ const Tile &Grid::getTileAt(size_t x, size_t y) const {
 void Grid::updateTileAt(size_t x, size_t y, TileType newType) const {
 
 }
+
+void Grid::setTiles(const std::vector<std::vector<Tile>> &ptiles) {
+    Grid::tiles = ptiles;
+}

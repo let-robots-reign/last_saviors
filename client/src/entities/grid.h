@@ -14,6 +14,9 @@ public:
     const Tile &getTileAt(size_t x, size_t y) const;
 
     void updateTileAt(size_t x, size_t y, TileType newType) const;
+
+    void setTiles(const std::vector<std::vector<Tile>> &tiles);
+
 private:
     size_t width;
     size_t height;

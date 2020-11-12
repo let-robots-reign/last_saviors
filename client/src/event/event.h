@@ -2,7 +2,14 @@
 #define LAST_SAVIORS_EVENT_H
 
 #include <variant>
+#include <entities/tower.h>
+#include <entities/puzzle.h>
+#include <entities/enemy.h>
+#include <entities/citadel.h>
+#include <entities/wave.h>
 #include "entities/coordinate.h"
+#include "entities/tile.h"
+
 
 enum EventType {
     MouseClicked,
