@@ -1,10 +1,13 @@
 #ifndef LAST_SAVIORS_POINT_DAMAGE_TOWER_H
 #define LAST_SAVIORS_POINT_DAMAGE_TOWER_H
 
-#include "point_damage_tower_model.h"
+#include "model_factory.h"
 #include "tower.h"
+
 class PointDamageTower : public Tower {
    public:
+    PointDamageTower();
+    PointDamageTower(Coordinate position, int level = 1);
     void attack(Enemy* targets) override;
     bool canAttack() override;
     Enemy* findTargets() override;

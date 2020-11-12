@@ -2,10 +2,12 @@
 #define LAST_SAVIORS_MINDMASTER_H
 
 #include "enemy.h"
-#include "mindmaster_model.h"
+#include "model_factory.h"
 
-class Mindmaster : public Ememy {
+class Mindmaster : public Enemy {
    public:
+    Mindmaster();
+    Mindmaster(Coordinates position);
     void attack(AttackableBuilding *building) override;
     bool canAttack() override;
     void atDeath(Player *player) override;

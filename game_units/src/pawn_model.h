@@ -3,7 +3,7 @@
 
 struct PawnModel {
     const int MAX_HEALTH = 100;
-    const int ATTACK_RATE = 2;
+    const int ATTACK_COOLDOWN = 0.5;
     const int DAMAGE = 15;
     const double SPEED = 3;
     const int COINS_FOR_DEATH = 5;

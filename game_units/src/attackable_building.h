@@ -8,6 +8,8 @@ class AttackableBuilding : public Unit {
     int health;
 
    public:
+    AttackableBuilding();
+    AttackableBuilding(Coordinate position);
     void reduceHealth();
 };
 

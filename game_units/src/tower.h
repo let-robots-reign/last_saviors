@@ -10,6 +10,8 @@ class Tower : public AttackableBuilding {
     int level;
 
    public:
+    Tower();
+    Tower(Coordinate position, int level = 1);
     virtual void attack(Enemy* targets) = 0;
     virtual bool canAttack() = 0;
     virtual Enemy* findTargets() = 0;

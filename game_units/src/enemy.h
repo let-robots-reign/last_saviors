@@ -5,13 +5,14 @@
 #include "player.h"
 #include "unit.h"
 
-class Ememy : public Unit {
+class Enemy : public Unit {
    private:
-    int health;
-    time_t timeOfLastAttack;
+    int health_;
+    time_t timeOfLastAttack_;
 
    public:
-    void attack(AttackableBuilding *building) = 0;
+    Enemy();
+    Enemy(Coordinate position) void attack(AttackableBuilding *building) = 0;
     bool canAttack() = 0;
     void reduceHealth(AttackableBuilding *building);
     void atDeath(Player *player) = 0;

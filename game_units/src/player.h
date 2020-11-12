@@ -1,7 +1,7 @@
 #ifndef LAST_SAVIORS_PLAYER_H
 #define LAST_SAVIORS_PLAYER_H
 
-#include "tower_type.h"
+enum TowerType { AreaDamageTower, PointDamageTower };
 
 class Player {
    private:
@@ -9,6 +9,7 @@ class Player {
     int coins;
 
    public:
+    Player();
     void buildTower(TowerType type);
     void takePuzzle(int complexity);
     void increaseCoins(int value);

@@ -3,7 +3,7 @@
 
 struct MindmasterModel {
     const int MAX_HEALTH = 200;
-    const int ATTACK_RATE = 5;
+    const int ATTACK_COOLDOWN = 2;
     const int DAMAGE = 8000;  // todo больше башни
     const double SPEED = 1;
     const int COINS_FOR_DEATH = 10;
