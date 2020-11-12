@@ -22,7 +22,7 @@ protected:
     
 
     template <typename Container>
-    void Send(const size_t i_client, const Container &container) {
+    void Send(const size_t id, const Container &container) {
 
     }
     template <typename Container>
@@ -35,6 +35,7 @@ protected:
     void Stop();
     bool Running();
 
+    virtual void OnStart();
     virtual void OnConnect(const size_t id);
     virtual void OnDisconnect(const size_t id);
     virtual void OnProcess(const size_t id);

@@ -27,6 +27,9 @@ bool TCPServer::Running() {
     return m_running;
 }
 
+void TCPServer::OnStart() {
+    
+}
 void TCPServer::OnConnect(const size_t id) {
 
 }
