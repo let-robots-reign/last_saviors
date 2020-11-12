@@ -3,6 +3,12 @@
 #include "Packet.h"
 #include "BinaryStream.h"
 
+struct Client {
+public:
+    TCPSocketConnectedClient m_socket;
+    BinaryStream m_buffer;
+};
+
 class TCPServer {
 public:
     TCPServer();
@@ -12,7 +18,8 @@ public:
     void Start();    
 
 protected:
-    std::vector<TCPSocketConnectedClient> m_clients;
+    std::vector<Client> m_clients;
+    
 
     template <typename Container>
     void Send(const size_t i_client, const Container &container) {
@@ -26,6 +33,7 @@ protected:
     void ReceiveAndProcess();
     
     void Stop();
+    bool Running();
 
     virtual void OnConnect(const size_t id);
     virtual void OnDisconnect(const size_t id);
@@ -34,7 +42,7 @@ protected:
 
 private:
     TCPSocketServer m_socket;
-    std::vector<BinaryStream> m_buffer;
+    bool m_running;
 
     void Receive(const size_t i);                                               //to m_buffer
     void ReceiveAll();                                                          //to m_buffer

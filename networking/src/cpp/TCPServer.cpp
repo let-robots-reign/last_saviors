@@ -12,7 +12,7 @@ void TCPServer::Bind(uint16_t port) {
 
 }
 void TCPServer::Start() {
-
+    Loop();
 }
 
 void TCPServer::ReceiveAndProcess() {
@@ -21,6 +21,10 @@ void TCPServer::ReceiveAndProcess() {
 
 void TCPServer::Stop() {
 
+}
+
+bool TCPServer::Running() {
+    return m_running;
 }
 
 void TCPServer::OnConnect(const size_t id) {
@@ -45,6 +49,10 @@ void TCPServer::ReceiveAll() {
 }
 
 void TCPServer::Loop() {
-
+    while (Running()) {
+        ReceiveAndProcess();
+        Tick();
+        //sleep(...); //to have constant amount of ticks per second
+    }
 }
 

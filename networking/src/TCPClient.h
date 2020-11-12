@@ -7,7 +7,7 @@
 class TCPClient {
 public:
     TCPClient();
-    ~TCPClient();
+    virtual ~TCPClient();
     bool Connect(std::string_view address);
     bool Connect(const uint32_t ip, const uint16_t port);
 

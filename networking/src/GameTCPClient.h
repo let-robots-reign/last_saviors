@@ -7,7 +7,7 @@ public:
     GameTCPClient();
     ~GameTCPClient();
 
-    virtual void ReceiveAndProcess();  
+    void ReceiveAndProcess() override;  
     void Send(std::shared_ptr<Packet> packet);
 
 private:

@@ -7,7 +7,7 @@ GameTCPClient::~GameTCPClient() {
 
 }
 
-void TCPClient::Send(std::shared_ptr<Packet> packet) {
+void GameTCPClient::Send(std::shared_ptr<Packet> packet) {
 
 }
 
