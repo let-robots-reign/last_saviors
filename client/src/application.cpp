@@ -2,16 +2,13 @@
 
 #include <utility>
 
-template<typename T>
-Application<T>::Application(RendererManager rmanager, LoaderManager<T> lmanager, UserInputManager imanager)
-        : rendererManager(std::move(rmanager)), loaderManager(lmanager), userInputManager(std::move(imanager)) {};
+Application::Application(RendererManager rmanager, LoaderManager lmanager, UserInputManager imanager)
+        : rendererManager(std::move(rmanager)), loaderManager(std::move(lmanager)), userInputManager(std::move(imanager)) {};
 
-template<typename T>
-Application<T> Application<T>::getInstance() {
-    return Application();
+Application Application::getInstance() {
+    return instance;
 }
 
-template<typename T>
-void Application<T>::run() {
+void Application::run() {
 
 }

@@ -1,16 +1,13 @@
 #include "loader.h"
 
-template<typename T>
-LoadingResult Loader<T>::loadResources() {
+LoadingResult Loader::loadResources() {
     return LOADING_SUCCESS;
 }
 
-template<typename T>
-LoadingResult Loader<T>::loadTextures() {
+LoadingResult Loader::loadTextures() {
     return LOADING_SUCCESS;
 }
 
-template<typename T>
-LoadingResult Loader<T>::loadFonts() {
+LoadingResult Loader::loadFonts() {
     return LOADING_SUCCESS;
 }

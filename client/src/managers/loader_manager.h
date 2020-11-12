@@ -5,10 +5,9 @@
 #include "event/event_emitter.h"
 #include "loader.h"
 
-template<typename T>
 class LoaderManager : public Manager, public EventEmitter {
 public:
-    explicit LoaderManager(Loader<T> l);
+    explicit LoaderManager(Loader l);
 
     LoadingResult load();
 
@@ -16,9 +15,10 @@ public:
 
     Event produceEvent() override;
 
+
+
 private:
-    // TODO: same template question
-    Loader<T> loader;
+    Loader loader;
     Event event;
 };
 

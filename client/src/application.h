@@ -5,12 +5,9 @@
 #include "managers/loader_manager.h"
 #include "managers/renderer_manager.h"
 
-template<typename T>
 class Application {
 public:
-    Application() = default;
-
-    Application(RendererManager rmanager, LoaderManager<T> lmanager, UserInputManager imanager);
+    Application(RendererManager rmanager, LoaderManager lmanager, UserInputManager imanager);
 
     static inline Application getInstance();
 
@@ -19,7 +16,7 @@ public:
 private:
     static Application instance;
     RendererManager rendererManager;
-    LoaderManager<T> loaderManager;
+    LoaderManager loaderManager;
     UserInputManager userInputManager;
 };
 

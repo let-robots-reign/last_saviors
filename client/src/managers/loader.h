@@ -1,6 +1,8 @@
 #ifndef CLIENT_LOADER_H
 #define CLIENT_LOADER_H
 
+using texture_type = int;
+
 enum LoadingResult {
     LOADING_SUCCESS,
     ERROR_RESOURCES,
@@ -8,7 +10,6 @@ enum LoadingResult {
     ERROR_FONTS
 };
 
-template<typename T> // T is the type of textures
 class Loader {
 public:
     LoadingResult loadResources();
@@ -18,14 +19,13 @@ public:
     LoadingResult loadFonts();
 
 private:
-    T background;
-    T road;
-    T blocks;
-    T towers;
-    T citadel;
-    T enemies;
-    T font;
+    texture_type background;
+    texture_type road;
+    texture_type blocks;
+    texture_type towers;
+    texture_type citadel;
+    texture_type enemies;
+    texture_type font;
 };
-// TODO: template or not?
 
 #endif //CLIENT_LOADER_H
