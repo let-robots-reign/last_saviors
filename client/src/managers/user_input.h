@@ -1,15 +1,9 @@
 #ifndef CLIENT_USER_INPUT_H
 #define CLIENT_USER_INPUT_H
 
+#include "entities/game_state.h"
 #include "entities/coordinate.h"
 
-enum GameState {
-    MainMenu,
-    InGame,
-    InTowersMenu,
-    InPuzzle,
-    GameOver
-};
 
 class UserInput {
 public:

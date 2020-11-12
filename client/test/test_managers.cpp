@@ -1,29 +1,62 @@
 #include "gtest/gtest.h"
 #include "gmock/gmock.h"
 
+#include "entities/game_state.h"
 #include "managers/loader_manager.h"
+#include "managers/renderer_manager.h"
 
-// TODO: doesn't work yet
 using ::testing::Return;
 
-template<typename T>
-class MockLoader : public Loader<T> {
+class MockLoader : public Manager {
 public:
     MOCK_METHOD(LoadingResult, loadResources, ());
     MOCK_METHOD(LoadingResult, loadTextures, ());
     MOCK_METHOD(LoadingResult, loadFonts, ());
+    MOCK_METHOD(int, processEvent, (const Event &event));
+};
+
+class MockRenderer : public Manager {
+public:
+    MOCK_METHOD(RenderingResult, renderMenu, ());
+    MOCK_METHOD(RenderingResult, renderLevel, ());
+    MOCK_METHOD(RenderingResult, renderTowersMenu, ());
+    MOCK_METHOD(RenderingResult, renderPuzzleMenu, ());
+    MOCK_METHOD(RenderingResult, renderGameOver, ());
+    MOCK_METHOD(RenderingResult, renderGrid, ());
+    MOCK_METHOD(RenderingResult, renderEnemies, ());
+    MOCK_METHOD(RenderingResult, renderWidgets, ());
+    MOCK_METHOD(void, updateState, (GameState newState));
+    MOCK_METHOD(int, processEvent, (const Event &event));
 };
 
 TEST(TestManagers, testLoader) {
-    using texturesType = int; // sf::Texture
-    MockLoader<texturesType> mLoader;
+    MockLoader mLoader;
     EXPECT_CALL(mLoader, loadResources()).Times(1);
     EXPECT_CALL(mLoader, loadTextures()).Times(1);
     EXPECT_CALL(mLoader, loadFonts()).Times(1);
 
-    EXPECT_EQ(mLoader.loadResources(), LOADING_SUCCESS);
-    EXPECT_EQ(mLoader.loadTextures(), LOADING_SUCCESS);
-    EXPECT_EQ(mLoader.loadFonts(), LOADING_SUCCESS);
+    LoadingResult res = mLoader.loadResources();
+    ASSERT_THAT(res, LOADING_SUCCESS);
+    res = mLoader.loadTextures();
+    ASSERT_THAT(res, LOADING_SUCCESS);
+    res = mLoader.loadFonts();
+    ASSERT_THAT(res, LOADING_SUCCESS);
+
+//    Event event = Event(EverythingLoaded, NoInfoEvent());
+//    EXPECT_CALL(mLoader, processEvent(event)).Times(1);
 }
 
-// аналогично RendererManager и UserInputManager
+TEST(TestManagers, testRenderer) {
+    MockRenderer mRenderer;
+
+    EXPECT_CALL(mRenderer, renderMenu()).Times(1);
+
+    mRenderer.updateState(InGame);
+    EXPECT_CALL(mRenderer, renderLevel()).Times(1);
+
+    mRenderer.updateState(InPuzzle);
+    EXPECT_CALL(mRenderer, renderPuzzleMenu()).Times(1);
+
+    mRenderer.updateState(GameOver);
+    EXPECT_CALL(mRenderer, renderGameOver()).Times(1);
+}

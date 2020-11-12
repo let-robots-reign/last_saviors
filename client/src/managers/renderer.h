@@ -5,14 +5,29 @@
 
 #include "entities/hud.h"
 #include "entities/level.h"
+#include "entities/game_state.h"
+
+enum RenderingResult {
+    RENDERING_SUCCESS,
+    RENDERING_MENU_ERROR,
+    RENDERING_LEVEL_ERROR,
+    RENDERING_GAME_OVER_ERROR,
+    RENDERING_GRID_ERROR,
+    RENDERING_ENEMIES_ERROR,
+    RENDERING_WIDGETS_ERROR
+};
 
 class Renderer {
 public:
-    Renderer(Level plevel, HUD phud);
+    Renderer(Level plevel, HUD phud, GameState pstate);
 
     void renderMenu();
 
     void renderLevel();
+
+    void renderTowersMenu();
+
+    void renderPuzzleMenu();
 
     void renderGameOver();
 
@@ -22,6 +37,8 @@ public:
 
     void updateEnemy();
 
+    void updateState(GameState newState);
+
     inline Level getLevel() {
         return level;
     }
@@ -30,9 +47,14 @@ public:
         return hud;
     }
 
+    inline GameState getState() {
+        return state;
+    }
+
 private:
     Level level;
     HUD hud;
+    GameState state;
 
     void renderGrid();
 
