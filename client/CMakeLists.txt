@@ -14,5 +14,5 @@ add_subdirectory(test)
 
 add_library(client_lib ${ENTITIES} ${EVENT} ${MANAGERS} ${WIDGETS} ${SOURCES})
 
-add_executable(${PROJECT_NAME} src/application.cpp)
-target_link_libraries(${PROJECT_NAME} client_lib})
+add_executable(${PROJECT_NAME} src/main.cpp)
+target_link_libraries(${PROJECT_NAME} client_lib)

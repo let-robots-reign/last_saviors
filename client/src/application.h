@@ -8,7 +8,9 @@
 template<typename T>
 class Application {
 public:
-    Application() = default; // TODO: think about Application constructor
+    Application() = default;
+
+    Application(RendererManager rmanager, LoaderManager<T> lmanager, UserInputManager imanager);
 
     static inline Application getInstance();
 
@@ -17,7 +19,7 @@ public:
 private:
     static Application instance;
     RendererManager rendererManager;
-    LoaderManager<T> loaderManager; // TODO: same
+    LoaderManager<T> loaderManager;
     UserInputManager userInputManager;
 };
 
