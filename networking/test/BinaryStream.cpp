@@ -2,6 +2,8 @@
 #include "gmock/gmock.h"
 #include "BinaryStream.h"
 
+using namespace testing;
+
 TEST(BinaryStream, int_rw) {
     BinaryStream buffer;
     int a = 1337;
@@ -35,6 +37,7 @@ TEST(BinaryStream, vecbyte_pushpop) {
     EXPECT_EQ(buffer.data().size(), 0);
 }
 
+/*
 TEST(BinaryStream, int_operators) {
     BinaryStream buffer;
     int a = 1337;
@@ -45,3 +48,4 @@ TEST(BinaryStream, int_operators) {
     EXPECT_EQ(a, b);
     EXPECT_EQ(buffer.data().size(), 0);
 }
+*/

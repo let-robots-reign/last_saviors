@@ -17,14 +17,17 @@ public:
 
     /*
         overload some methods for game objects, etc
-        mb inherit a class and overload methods there
+        mb inherit a class and overload methods in it
     */
 
+    
+    /*
     template <typename T>
     friend BinaryStream &operator<< (T &data, BinaryStream &buffer);
 
     template <typename T>
     friend BinaryStream &operator>> (const T &data, BinaryStream &buffer);
+    */
 
     const std::vector<std::byte> & data() const;
 

@@ -7,17 +7,17 @@ TEST(Packets, ChatPacket) {
 
     ChatMessagePacket packet = ChatMessagePacket::Create(name, message);
     EXPECT_TRUE(packet.m_name == name);
-    EXPECT_TRUE(packet.m_message == messsage);
+    EXPECT_TRUE(packet.m_message == message);
 
     packet = ChatMessagePacket::FromPacket(packet.ToPacket());
     EXPECT_TRUE(packet.m_name == name);
-    EXPECT_TRUE(packet.m_message == messsage);
+    EXPECT_TRUE(packet.m_message == message);
 }
 
 TEST(Packets, DeleteObjectPacket) {
     const uint id = 1337;
     
-    DeleteObjectPacket packet = ChatMessagePacket::Create(id);
+    DeleteObjectPacket packet = DeleteObjectPacket::Create(id);
     EXPECT_TRUE(packet.m_id == id);
 
     packet = DeleteObjectPacket::FromPacket(packet.ToPacket());

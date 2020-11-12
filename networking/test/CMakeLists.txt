@@ -10,6 +10,8 @@ include_directories(${GTEST_INCLUDE_DIRS})
 find_package(GMock REQUIRED)
 include_directories(${GMOCK_INCLUDE_DIRS})
 
+include_directories(../)
+
 include_directories(../src)
 
 FILE(GLOB SOURCES *.cpp)
@@ -17,5 +19,5 @@ FILE(GLOB SOURCES *.cpp)
 add_executable(${PROJECT_NAME} ${SOURCES})
 target_link_libraries(${PROJECT_NAME} networking_lib)
 target_link_libraries(${PROJECT_NAME} ${GTEST_LIBRARIES})
-
+target_link_libraries(${PROJECT_NAME} ${GMOCK_LIBRARIES})
 

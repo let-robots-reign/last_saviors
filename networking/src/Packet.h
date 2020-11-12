@@ -17,6 +17,10 @@ enum PacketType : std::underlying_type_t<std::byte> {
 
 struct Packet {
 public:
+    Packet();
+    Packet(Packet &&);
+    Packet(const Packet &);
+    Packet& operator=(const Packet &);
     virtual std::shared_ptr<Packet> ToPacket() const = 0;
     PacketType Type();
 
