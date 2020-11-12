@@ -5,16 +5,16 @@
 #include "tower.h"
 
 class PointDamageTower : public Tower {
+   private:
+    const PointDamageTowerModel* model_;
+
    public:
-    PointDamageTower();
-    PointDamageTower(Coordinate position, int level = 1);
+    explicit PointDamageTower(const PointDamageTowerModel* model,
+                              Coordinate position = Coordinate(),
+                              int level = 1);
     void attack(Enemy* targets) override;
     bool canAttack() override;
     Enemy* findTargets() override;
-    void upgrade(Player* player) override;
-
-   private:
-    PointDamageTowerModel* model;
 };
 
 #endif  // LAST_SAVIORS_POINT_DAMAGE_TOWER_H

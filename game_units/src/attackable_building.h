@@ -5,12 +5,12 @@
 
 class AttackableBuilding : public Unit {
    private:
-    int health;
+    int health_;
 
    public:
-    AttackableBuilding();
-    AttackableBuilding(Coordinate position);
-    void reduceHealth();
+    explicit AttackableBuilding(int health, Coordinate position = Coordinate());
+    void reduceHealth(int value);
+    void setHeath(int value);
 };
 
 #endif  // LAST_SAVIORS_ATTACKABLEBUILDING_H

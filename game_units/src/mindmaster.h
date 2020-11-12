@@ -5,15 +5,15 @@
 #include "model_factory.h"
 
 class Mindmaster : public Enemy {
+   private:
+    const MindmasterModel *model_;
+
    public:
-    Mindmaster();
-    Mindmaster(Coordinates position);
+    explicit Mindmaster(const MindmasterModel *model,
+               Coordinate position = Coordinate());
     void attack(AttackableBuilding *building) override;
     bool canAttack() override;
     void atDeath(Player *player) override;
-
-   private:
-    MindmasterModel *model;
 };
 
 #endif  // LAST_SAVIORS_MINDMASTER_H

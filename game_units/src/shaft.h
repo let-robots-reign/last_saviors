@@ -1,19 +1,21 @@
 #ifndef LAST_SAVIORS_SHAFT_H
 #define LAST_SAVIORS_SHAFT_H
 
+#include <time.h>
+
 #include "model_factory.h"
 #include "player.h"
 #include "unit.h"
 
 class Shaft : public Unit {
    private:
-    time_t timeOfLastUsage;
-    int level;
-    ShaftModel *model;
+    time_t timeOfLastUsage_;
+    int level_;
+    const ShaftModel *model_;
 
    public:
-    Shaft();
-    Shaft(Coordinate position, int level = 1);
+    explicit Shaft(const ShaftModel *model, Coordinate position = Coordinate(),
+                   int level = 1);
     bool canGetCoins();
     void getCoins(Player *player);
 };

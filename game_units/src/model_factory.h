@@ -11,8 +11,13 @@
 #include "point_damage_tower_model.h"
 #include "shaft_model.h"
 
-emun ModelType{
-    AreaDamageTower, PointDamageTower, Citadel, Shaft, Pawn, Mindmaster,
+enum ModelType {
+    areaDamageTower,
+    pointDamageTower,
+    citadel,
+    shaft,
+    pawn,
+    mindmaster
 };
 
 class ModelFactory {

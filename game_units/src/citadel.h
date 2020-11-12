@@ -1,16 +1,16 @@
 #ifndef LAST_SAVIORS_CITADEL_H
 #define LAST_SAVIORS_CITADEL_H
 
-#import "attackable_building.h"
+#include "attackable_building.h"
 #include "model_factory.h"
 
 class Citadel : public AttackableBuilding {
    private:
-    CitadelModel* model;
+    const CitadelModel* model_;
 
    public:
-    Citadel();
-    Citadel(Coordinate position);
+    explicit Citadel(const CitadelModel* model,
+                     Coordinate position = Coordinate());
 };
 
 #endif  // LAST_SAVIORS_CITADEL_H

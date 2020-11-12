@@ -4,15 +4,14 @@
 #include "model_factory.h"
 
 class Pawn : public Enemy {
+   private:
+    const PawnModel *model_;
+
    public:
-    Pawn();
-    Pawn(Coordinate position);
+    explicit Pawn(const PawnModel *model, Coordinate position = Coordinate());
     void attack(AttackableBuilding *building) override;
     bool canAttack() override;
     void atDeath(Player *player) override;
-
-   private:
-    PawnModel *model;
 };
 
 #endif  // LAST_SAVIORS_PAWN_H
