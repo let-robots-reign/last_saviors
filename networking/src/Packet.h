@@ -24,6 +24,8 @@ public:
     virtual std::shared_ptr<Packet> ToPacket() const = 0;
     PacketType Type();
 
+    const std::vector<std::byte> &data() const;
+
 protected:
     const std::vector<std::byte> m_data;
 

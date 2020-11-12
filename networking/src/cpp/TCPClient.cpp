@@ -14,10 +14,6 @@ bool TCPClient::Connect(const uint32_t ip, const uint16_t port) {
 
 }
 
-void TCPClient::Send(std::shared_ptr<Packet>) {
-
-}
-
 void TCPClient::ReceiveAndProcess() {
 
 }
@@ -36,6 +32,4 @@ void TCPClient::Receive() {
 bool TCPClient::HasPackets() {
 
 }
-
-
 

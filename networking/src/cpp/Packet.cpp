@@ -20,3 +20,6 @@ PacketType Packet::Type() {
 
 }
 
+const Packet::std::vector<std::byte> &data() const {
+
+}

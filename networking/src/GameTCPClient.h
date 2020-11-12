@@ -1,5 +1,6 @@
 #pragma once
 #include "TCPClient.h"
+#include "Packet.h"
 
 class GameTCPClient : public TCPClient {
 public:
@@ -7,6 +8,7 @@ public:
     ~GameTCPClient();
 
     virtual void ReceiveAndProcess();  
+    void Send(std::shared_ptr<Packet> packet);
 
 private:
     std::shared_ptr<Packet> ReadPacket();                   //from m_buffer

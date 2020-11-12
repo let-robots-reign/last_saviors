@@ -15,13 +15,6 @@ void TCPServer::Start() {
 
 }
 
-void TCPServer::Send(const size_t i_client, std::shared_ptr<Packet> packet) {
-
-}
-void TCPServer::SendEveryone(std::shared_ptr<Packet> packet) {
-
-}
-
 void TCPServer::ReceiveAndProcess() {
 
 }
@@ -36,7 +29,7 @@ void TCPServer::OnConnect(const size_t id) {
 void TCPServer::OnDisconnect(const size_t id) {
 
 }
-void TCPServer::ProcessPacket(const size_t i_client, std::shared_ptr<Packet> packet) {
+void TCPServer::OnProcess(const size_t i_client) {
 
 }
 void TCPServer::Tick() {
@@ -54,5 +47,4 @@ void TCPServer::ReceiveAll() {
 void TCPServer::Loop() {
 
 }
-
 

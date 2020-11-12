@@ -14,8 +14,14 @@ public:
 protected:
     std::vector<TCPSocketConnectedClient> m_clients;
 
-    void Send(const size_t i_client, std::shared_ptr<Packet> packet);
-    void SendEveryone(std::shared_ptr<Packet> packet);
+    template <typename Container>
+    void Send(const size_t i_client, const Container &container) {
+
+    }
+    template <typename Container>
+    void SendEveryone(const Container &container) {
+
+    }
 
     void ReceiveAndProcess();
     
@@ -23,7 +29,7 @@ protected:
 
     virtual void OnConnect(const size_t id);
     virtual void OnDisconnect(const size_t id);
-    virtual void ProcessPacket(const size_t i_client, std::shared_ptr<Packet> packet);
+    virtual void OnProcess(const size_t id);
     virtual void Tick();
 
 private:

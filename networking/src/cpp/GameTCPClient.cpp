@@ -7,6 +7,10 @@ GameTCPClient::~GameTCPClient() {
 
 }
 
+void TCPClient::Send(std::shared_ptr<Packet> packet) {
+
+}
+
 void GameTCPClient::ReceiveAndProcess() {
 
 } 
