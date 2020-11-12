@@ -4,11 +4,6 @@
 void TCPSocketConnection::Send(const void *data, size_t data_length) {
 
 }
-template <typename Container>
-void TCPSocketConnection::Send(const Container &container) {
-
-}
-
 
 std::vector<std::byte> TCPSocketConnection::Receive() {
 

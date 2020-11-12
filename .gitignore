@@ -35,7 +35,7 @@
 /networking/.vscode
 /networking/build
 
-#cmake
+#cmake & build
 networking/CMakeCache.txt
 networking/CMakeFiles/
 networking/Makefile
@@ -45,4 +45,5 @@ networking/test/CMakeCache.txt
 networking/test/CMakeFiles/
 networking/test/Makefile
 networking/test/cmake_install.cmake
+networking/test/networking_unit_tests
 

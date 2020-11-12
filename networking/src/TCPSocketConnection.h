@@ -6,7 +6,9 @@ class TCPSocketConnection : public TCPSocketBase {
 public:
     void Send(const void *data, size_t data_length);
     template <typename Container>
-    void Send(const Container &container);   //requires Container to have: data(), size()
+    void Send(const Container &container) {
+        
+    }   //requires Container to have: data(), size()
 
 
     std::vector<std::byte> Receive();

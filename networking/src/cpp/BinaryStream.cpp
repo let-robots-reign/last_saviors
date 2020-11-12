@@ -16,13 +16,7 @@ std::vector<std::byte> BinaryStream::Pop(const size_t amount_bytes) {
 
 }
 
-template <typename T>
-void BinaryStream::Write(const T &data) {
-
-}
-
-template <typename T>
-void BinaryStream::Read(T &data) {
+const std::vector<std::byte> & BinaryStream::data() const {
 
 }
 
@@ -31,15 +25,4 @@ void BinaryStream::Read(T &data) {
     mb inherit a class and overload methods in it
 */
 
-/*
-template <typename T>
-BinaryStream &operator<< (T &data, BinaryStream &buffer) {
-
-}
-
-template <typename T>
-BinaryStream &operator>> (const T &data, BinaryStream &buffer) {
-
-}
-*/
 

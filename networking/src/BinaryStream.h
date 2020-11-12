@@ -10,10 +10,14 @@ public:
     std::vector<std::byte> Pop(const size_t amount_bytes);
     
     template <typename T>
-    void Write(const T &data);
+    void Write(const T &data) {
+
+    }
 
     template <typename T>
-    void Read(T &data);
+    void Read(T &data) {
+
+    }
 
     /*
         overload some methods for game objects, etc
@@ -21,13 +25,17 @@ public:
     */
 
     
-    /*
+    
     template <typename T>
-    friend BinaryStream &operator<< (T &data, BinaryStream &buffer);
+    friend BinaryStream &operator<< (BinaryStream &buffer, const T &data) {
+
+    }
 
     template <typename T>
-    friend BinaryStream &operator>> (const T &data, BinaryStream &buffer);
-    */
+    friend BinaryStream &operator>> (BinaryStream &buffer, const T &data) {
+
+    }
+    
 
     const std::vector<std::byte> & data() const;
 

@@ -11,5 +11,5 @@ FILE(GLOB SOURCES src/cpp/*.cpp)
 add_library(${PROJECT_NAME}_lib STATIC ${SOURCES})
 
 add_executable(${PROJECT_NAME} src/ServerMain.cpp)
-target_link_libraries(${PROJECT_NAME} PUBLIC ${PROJECT_NAME}_lib)
+target_link_libraries(${PROJECT_NAME} LINK_PUBLIC ${PROJECT_NAME}_lib)
 
