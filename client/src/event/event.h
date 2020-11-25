@@ -44,7 +44,7 @@ struct TileInfo {
 };
 
 struct TowerInfo {
-    Tower tower;
+    Tower *tower;
 };
 
 struct PuzzleInfo {
@@ -56,7 +56,7 @@ struct PuzzleAnswerInfo {
 };
 
 struct EnemyInfo {
-    Enemy enemy;
+    Enemy *enemy;
 };
 
 struct CitadelInfo {
@@ -66,13 +66,14 @@ struct CitadelInfo {
 struct GameResultsInfo {
     bool success;
     Citadel citadel;
-    Wave waveInfo;
+    IWave waveInfo;
 };
 
 struct NoInfoEvent {
 
 };
 
+// TODO: remove std::variant
 using EventInfo = std::variant<MouseClickInfo, TileInfo, TowerInfo, PuzzleInfo, PuzzleAnswerInfo, EnemyInfo, CitadelInfo, GameResultsInfo, NoInfoEvent>;
 //using EventInfo = std::variant<NoInfoEvent>;
 
