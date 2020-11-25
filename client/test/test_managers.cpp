@@ -1,9 +1,9 @@
 #include "gtest/gtest.h"
 #include "gmock/gmock.h"
 
-#include "entities/game_state.h"
-#include "managers/loader_manager.h"
-#include "managers/renderer_manager.h"
+#include "game_state.h"
+#include "loader_manager.h"
+#include "renderer_manager.h"
 
 using ::testing::Return;
 

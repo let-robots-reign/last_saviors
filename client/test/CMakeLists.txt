@@ -12,6 +12,7 @@ include_directories(${GMOCK_INCLUDE_DIRS})
 
 FILE(GLOB SOURCES *.cpp)
 include_directories(../src)
+include_directories(${header_dir_list})
 
 add_executable(${PROJECT_NAME} ${SOURCES})
 target_link_libraries(${PROJECT_NAME} client_lib)

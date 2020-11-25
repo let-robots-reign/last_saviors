@@ -1,7 +1,8 @@
 cmake_minimum_required(VERSION 3.16)
-project(client)
+project(game_units)
 
 set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_FLAGS "-Wall -Werror -Wpedantic")
 
 MACRO(HEADER_DIRECTORIES return_list)
     SET(WHERE_FROM ${ROOT}/entities/*.h ${ROOT}/client/*.h)
@@ -15,15 +16,15 @@ MACRO(HEADER_DIRECTORIES return_list)
     SET(${return_list} ${dir_list})
 ENDMACRO()
 
-file(GLOB_RECURSE ENTITIES ${ROOT}/entities/src/*.h ${ROOT}/entities/src/*.cpp)
+include_directories(src)
+
+HEADER_DIRECTORIES(header_entities_dir_list)
+#message("${header_entities_dir_list}")
+include_directories(${header_entities_dir_list})
+
+file(GLOB_RECURSE CLIENT ${ROOT}/client/src/*.h ${ROOT}/client/src/*.cpp)
 file(GLOB_RECURSE SOURCES ${PROJECT_SOURCE_DIR}/src/*.h ${PROJECT_SOURCE_DIR}/src/*.cpp)
 
-add_library(client_lib ${ENTITIES} ${SOURCES})
-
-HEADER_DIRECTORIES(header_client_dir_list)
-include_directories(${header_client_dir_list})
-
-add_subdirectory(test)
-
+add_library(game_units_lib ${CLIENT} ${SOURCES})
 add_executable(${PROJECT_NAME} src/main.cpp)
-target_link_libraries(${PROJECT_NAME} client_lib)
+target_link_libraries(${PROJECT_NAME} game_units_lib)

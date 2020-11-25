@@ -1,5 +1,6 @@
 #ifndef LAST_SAVIORS_PAWN_H
 #define LAST_SAVIORS_PAWN_H
+
 #include "enemy.h"
 #include "model_factory.h"
 

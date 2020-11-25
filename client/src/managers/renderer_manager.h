@@ -1,9 +1,9 @@
 #ifndef CLIENT_RENDERER_MANAGER_H
 #define CLIENT_RENDERER_MANAGER_H
 
-#include "manager.h"
-
 #include <utility>
+
+#include "manager.h"
 #include "renderer.h"
 
 class RendererManager : public Manager {

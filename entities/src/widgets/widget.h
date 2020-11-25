@@ -2,7 +2,7 @@
 #define CLIENT_WIDGET_H
 
 #include <cstddef>
-#include "entities/coordinate.h"
+#include "coordinate.h"
 
 class Widget {
 public:

@@ -2,7 +2,7 @@
 #define CLIENT_LOADER_MANAGER_H
 
 #include "manager.h"
-#include "event/event_emitter.h"
+#include "event_emitter.h"
 #include "loader.h"
 
 class LoaderManager : public Manager, public EventEmitter {

@@ -1,7 +1,7 @@
 #include "gtest/gtest.h"
 
-#include "widgets/label.h"
-#include "widgets/button.h"
+#include "label.h"
+#include "button.h"
 
 TEST(TestWidgets, testLabelText) {
     const Coordinate leftCorner(100, 100);

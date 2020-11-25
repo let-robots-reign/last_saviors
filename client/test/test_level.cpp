@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-#include "entities/level.h"
+#include "level.h"
 
 TEST(TestLevel, testLevelCreation) {
     Level level("");

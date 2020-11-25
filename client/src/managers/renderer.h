@@ -3,9 +3,9 @@
 
 #include <utility>
 
-#include "entities/hud.h"
-#include "entities/level.h"
-#include "entities/game_state.h"
+#include "hud.h"
+#include "level.h"
+#include "game_state.h"
 
 enum RenderingResult {
     RENDERING_SUCCESS,

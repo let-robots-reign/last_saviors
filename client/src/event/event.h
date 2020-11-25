@@ -2,13 +2,14 @@
 #define LAST_SAVIORS_EVENT_H
 
 #include <variant>
-#include <entities/tower.h>
-#include <entities/puzzle.h>
-#include <entities/enemy.h>
-#include <entities/citadel.h>
-#include <entities/wave.h>
-#include "entities/coordinate.h"
-#include "entities/tile.h"
+
+#include "tower.h"
+#include "puzzle.h"
+#include "enemy.h"
+#include "citadel.h"
+#include "wave.h"
+#include "coordinate.h"
+#include "tile.h"
 
 
 enum EventType {

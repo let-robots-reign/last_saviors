@@ -1,8 +1,8 @@
 #ifndef CLIENT_USER_INPUT_H
 #define CLIENT_USER_INPUT_H
 
-#include "entities/game_state.h"
-#include "entities/coordinate.h"
+#include "game_state.h"
+#include "coordinate.h"
 
 
 class UserInput {

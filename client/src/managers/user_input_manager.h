@@ -2,7 +2,7 @@
 #define CLIENT_USER_INPUT_MANAGER_H
 
 #include "manager.h"
-#include "event/event_emitter.h"
+#include "event_emitter.h"
 #include "user_input.h"
 
 class UserInputManager : public Manager, public EventEmitter {

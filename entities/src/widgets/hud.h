@@ -2,8 +2,8 @@
 #define CLIENT_HUD_H
 
 #include <vector>
-#include "widgets/widget.h"
-#include "event/event.h"
+#include "widget.h"
+#include "event.h"
 
 class HUD {
 public:
