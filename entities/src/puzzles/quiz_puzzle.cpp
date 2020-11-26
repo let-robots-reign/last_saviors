@@ -6,3 +6,5 @@ QuizPuzzle::QuizPuzzle(size_t id, const std::string &question, size_t puzzleComp
                        std::vector<std::string> answerOptions, std::string correctAnswer)
         : Puzzle(id, question, puzzleComplexity), answerOptions(std::move(answerOptions)),
         correctAnswer(std::move(correctAnswer)) {}
+
+QuizPuzzle::QuizPuzzle() = default;

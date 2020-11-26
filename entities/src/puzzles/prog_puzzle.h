@@ -8,6 +8,8 @@ class ProgPuzzle : public Puzzle {
 private:
     std::string answer;
 public:
+    ProgPuzzle();
+
     ProgPuzzle(size_t id, const std::string &question, size_t puzzleComplexity, const std::string &answer);
 };
 

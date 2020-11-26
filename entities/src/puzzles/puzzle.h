@@ -11,6 +11,8 @@ private:
     size_t puzzleComplexity;
 public:
     Puzzle(size_t id, std::string question, size_t puzzleComplexity);
+
+    Puzzle();
 };
 
 #endif //LAST_SAVIORS_PUZZLE_H
