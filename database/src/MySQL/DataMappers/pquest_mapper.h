@@ -5,7 +5,7 @@
 
 class PQuestMapper : public IPQuestMapper {
 public:
-    ProgQuestion getRandProgQuestion() override;
+    ProgPuzzle getRandProgPuzzle() override;
 };
 
 

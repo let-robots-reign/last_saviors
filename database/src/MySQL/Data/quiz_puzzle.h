@@ -1,11 +1,10 @@
 #ifndef DATABASE_QUIZQUESTION_H
 #define DATABASE_QUIZQUESTION_H
 
-
 #include <string>
 #include <vector>
 
-class QuizQuestion {
+class QuizPuzzle {
 public:
     int id;
     std::string question;

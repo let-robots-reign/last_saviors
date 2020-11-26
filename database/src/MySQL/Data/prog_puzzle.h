@@ -3,7 +3,7 @@
 
 #include <string>
 
-class ProgQuestion {
+class ProgPuzzle {
 public:
     int id;
     std::string question;

@@ -11,7 +11,6 @@ include_directories(${GTEST_INCLUDE_DIRS})
 #include_directories(${GMOCK_INCLUDE_DIRS})
 
 FILE(GLOB SOURCES *.cpp)
-message("${header_db_dir_list}")
 include_directories(${header_db_dir_list})
 
 add_executable(${PROJECT_NAME} ${SOURCES})

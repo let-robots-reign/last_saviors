@@ -20,10 +20,10 @@ std::vector<UserScore> MySQL::getTopNScore(int N) {
     return std::vector<UserScore>();
 }
 
-QuizQuestion MySQL::getRandQuizQuestion() {
-    return QuizQuestion();
+QuizPuzzle MySQL::getRandQuizPuzzle() {
+    return QuizPuzzle();
 }
 
-ProgQuestion MySQL::getRandProgQuestion() {
-    return ProgQuestion();
+ProgPuzzle MySQL::getRandProgPuzzle() {
+    return ProgPuzzle();
 }

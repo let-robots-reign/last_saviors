@@ -24,10 +24,10 @@ std::vector<UserScore> GameDB::getTopNScore(int N) {
     return std::vector<UserScore>();
 }
 
-QuizQuestion GameDB::getRandQuizQuestion() {
-    return QuizQuestion();
+QuizPuzzle GameDB::getRandQuizPuzzle() {
+    return QuizPuzzle();
 }
 
-ProgQuestion GameDB::getRandProgQuestion() {
-    return ProgQuestion();
+ProgPuzzle GameDB::getRandProgPuzzle() {
+    return ProgPuzzle();
 }

@@ -1,11 +1,11 @@
 #ifndef DATABASE_IPQUESTMAPPER_H
 #define DATABASE_IPQUESTMAPPER_H
 
-#include "prog_question.h"
+#include "prog_puzzle.h"
 
 class IPQuestMapper {
 public:
-    virtual ProgQuestion getRandProgQuestion() = 0;
+    virtual ProgPuzzle getRandProgPuzzle() = 0;
 };
 
 

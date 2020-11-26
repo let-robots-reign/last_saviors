@@ -6,8 +6,8 @@
 #include "dbms.h"
 #include "user_score.h"
 #include "user.h"
-#include "quiz_question.h"
-#include "prog_question.h"
+#include "quiz_puzzle.h"
+#include "prog_puzzle.h"
 
 class GameDB {
 private:
@@ -23,9 +23,9 @@ public:
 
     std::vector<UserScore> getTopNScore(int N);
 
-    QuizQuestion getRandQuizQuestion();
+    QuizPuzzle getRandQuizPuzzle();
 
-    ProgQuestion getRandProgQuestion();
+    ProgPuzzle getRandProgPuzzle();
 
 private:
     std::unique_ptr<GameDB> db = nullptr;

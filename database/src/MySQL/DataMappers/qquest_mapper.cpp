@@ -1,5 +1,5 @@
 #include "qquest_mapper.h"
 
-QuizQuestion QQuestMapper::getRandQuizQuestion() {
-    return QuizQuestion();
+QuizPuzzle QQuestMapper::getRandQuizPuzzle() {
+    return QuizPuzzle();
 }

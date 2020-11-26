@@ -5,7 +5,7 @@
 
 class QQuestMapper : IQQuestMapper{
 public:
-    QuizQuestion getRandQuizQuestion() override;
+    QuizPuzzle getRandQuizPuzzle() override;
 };
 
 

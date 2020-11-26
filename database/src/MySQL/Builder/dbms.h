@@ -4,8 +4,8 @@
 #include <vector>
 #include "user.h"
 #include "user_score.h"
-#include "quiz_question.h"
-#include "prog_question.h"
+#include "quiz_puzzle.h"
+#include "prog_puzzle.h"
 
 class DBMS {
 public:
@@ -19,9 +19,9 @@ public:
 
     virtual std::vector<UserScore> getTopNScore(int N) = 0;
 
-    virtual QuizQuestion getRandQuizQuestion() = 0;
+    virtual QuizPuzzle getRandQuizPuzzle() = 0;
 
-    virtual ProgQuestion getRandProgQuestion() = 0;
+    virtual ProgPuzzle getRandProgPuzzle() = 0;
 };
 
 

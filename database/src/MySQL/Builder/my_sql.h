@@ -21,9 +21,9 @@ public:
 
     std::vector<UserScore> getTopNScore(int N) override;
 
-    QuizQuestion getRandQuizQuestion() override;
+    QuizPuzzle getRandQuizPuzzle() override;
 
-    ProgQuestion getRandProgQuestion() override;
+    ProgPuzzle getRandProgPuzzle() override;
 
 private:
     std::shared_ptr<IDBConn> dbConn = nullptr;

@@ -1,11 +1,11 @@
 #ifndef DATABASE_IQQUESTMAPPER_H
 #define DATABASE_IQQUESTMAPPER_H
 
-#include "quiz_question.h"
+#include "quiz_puzzle.h"
 
 class IQQuestMapper {
 public:
-    virtual QuizQuestion getRandQuizQuestion() = 0;
+    virtual QuizPuzzle getRandQuizPuzzle() = 0;
 };
 
 
