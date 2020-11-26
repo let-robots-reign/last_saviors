@@ -1,12 +1,12 @@
 #include "gtest/gtest.h"
 #include "gmock/gmock.h"
 
-#include "../WaveGenerator/IWave.h"
+#include "loader.h"
+#include "IWave.h"
 
 using ::testing::Return;
 
-template<typename T>
-class MockLoader : public Loader<T> {
+class MockLoader : public Loader {
 public:
     MOCK_METHOD(LoadingResult, loadResources, ());
     MOCK_METHOD(LoadingResult, loadTextures, ());
@@ -15,7 +15,7 @@ public:
 
 TEST(TestManagers, testLoader) {
     using texturesType = int; // sf::Texture
-    MockLoader<IWave> mLoader;
+    MockLoader mLoader;
     EXPECT_CALL(mLoader, loadResources()).Times(1);
     EXPECT_CALL(mLoader, loadTextures()).Times(1);
     EXPECT_CALL(mLoader, loadFonts()).Times(1);

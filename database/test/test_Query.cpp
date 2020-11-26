@@ -1,7 +1,8 @@
 #include "gtest/gtest.h"
 
-#include "../../MySQL/Builder/BDDirector.h"
-#include "../../MySQL/Builder/MySQLBuilder.h"
+#include "DBServerInfo.h"
+#include "BDDirector.h"
+#include "MySQLBuilder.h"
 
 TEST(TestGameDB, testSignIn) {
     BDDirector *director = new BDDirector();

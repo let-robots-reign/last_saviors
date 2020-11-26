@@ -1,7 +1,6 @@
 #ifndef DATABASE_IUSERSMAPPER_H
 #define DATABASE_IUSERSMAPPER_H
 
-
 #include "User.h"
 
 class IUsersMapper {

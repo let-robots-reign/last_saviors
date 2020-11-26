@@ -11,7 +11,8 @@ include_directories(${GTEST_INCLUDE_DIRS})
 #include_directories(${GMOCK_INCLUDE_DIRS})
 
 FILE(GLOB SOURCES *.cpp)
-include_directories(../src/MySQL/Builder)
+message("${header_db_dir_list}")
+include_directories(${header_db_dir_list})
 
 add_executable(${PROJECT_NAME} ${SOURCES})
 target_link_libraries(${PROJECT_NAME} db_lib)

@@ -4,7 +4,7 @@ bool BDDirector::setDirector(IDBBuilder *builder) {
     return false;
 }
 
-GameDB * BDDirector::buildDataBase(DBServerInfo *info) {
+GameDB *BDDirector::buildDataBase(DBServerInfo *info) {
     return nullptr;
 }
 
