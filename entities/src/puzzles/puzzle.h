@@ -5,11 +5,12 @@
 #include <string>
 
 class Puzzle {
-protected:
+private:
     size_t id;
     std::string question;
-    std::string answer;
     size_t puzzleComplexity;
+public:
+    Puzzle(size_t id, std::string question, size_t puzzleComplexity);
 };
 
 #endif //LAST_SAVIORS_PUZZLE_H
