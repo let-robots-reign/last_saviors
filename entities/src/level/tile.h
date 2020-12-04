@@ -1,6 +1,8 @@
 #ifndef CLIENT_TILE_TYPE_H
 #define CLIENT_TILE_TYPE_H
 
+#include <map>
+
 enum TileType {
     EmptyTile,
     RoadTile,
@@ -8,6 +10,15 @@ enum TileType {
     PlacedTowerTile,
     PlacedShaftTile,
     CitadelTile
+};
+
+std::map<char, TileType> symbolsToTileTypes = {
+        {'0', EmptyTile},
+        {'_', RoadTile},
+        {'b', BlockTile},
+        {'t', PlacedTowerTile},
+        {'s', PlacedShaftTile},
+        {'C', CitadelTile}
 };
 
 class Tile {
