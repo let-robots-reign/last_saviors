@@ -1,7 +1,9 @@
 #pragma once
 #include <vector>
 
-class Serializable {
+struct Serializable {
 public:
     virtual std::vector<std::byte> ToBinary() const = 0;
-}
+    virtual ~Serializable() = 0;
+};
+
