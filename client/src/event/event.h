@@ -35,61 +35,125 @@ enum EventType {
     EmptyEvent
 };
 
-struct MouseClickInfo {
+class IEvent {
+public:
+    explicit IEvent(EventType type);
+
+    virtual EventType getEventType() = 0;
+
+private:
+    EventType type;
+};
+
+class MouseClickEvent : public IEvent {
+public:
+    MouseClickEvent(EventType type, const Coordinate &mouse);
+
+    inline const Coordinate &getMouse() const {
+        return mouse;
+    }
+
+private:
     Coordinate mouse;
 };
 
-struct TileInfo {
+class TileEvent : public IEvent {
+public:
+    TileEvent(EventType type, const Tile &selectedTile);
+
+    inline const Tile &getSelectedTile() const {
+        return selectedTile;
+    }
+
+private:
     Tile selectedTile;
 };
 
-struct TowerInfo {
+class TowerEvent : public IEvent {
+public:
+    TowerEvent(EventType type, Tower *tower);
+
+    inline const Tower *getTower() const {
+        return tower;
+    }
+
+private:
     Tower *tower;
 };
 
-struct PuzzleInfo {
+class PuzzleEvent : public IEvent {
+public:
+    PuzzleEvent(EventType type, Puzzle chosenPuzzle);
+
+    inline const Puzzle &getPuzzle() const {
+        return chosenPuzzle;
+    }
+
+private:
     Puzzle chosenPuzzle;
 };
 
-struct PuzzleAnswerInfo {
+class PuzzleAnswerEvent : public IEvent {
+public:
+    PuzzleAnswerEvent(EventType type, bool answerCorrectness);
+
+    inline const bool &getAnswerCorrectness() const {
+        return answerCorrectness;
+    }
+
+private:
     bool answerCorrectness;
 };
 
-struct EnemyInfo {
+class EnemyEvent : public IEvent {
+public:
+    EnemyEvent(EventType type, Enemy *enemy);
+
+    inline const Enemy *getEnemy() const {
+        return enemy;
+    };
+private:
     Enemy *enemy;
 };
 
-struct CitadelInfo {
+class CitadelEvent : public IEvent {
+public:
+    CitadelEvent(EventType type, const Citadel &citadel);
+
+    inline const Citadel &getCitadel() const {
+        return citadel;
+    }
+
+private:
     Citadel citadel;
 };
 
-struct GameResultsInfo {
+class GameResultsEvent : public IEvent {
+public:
+    GameResultsEvent(EventType type, bool success, const Citadel &citadel, const IWave &waveInfo);
+
+    inline const bool &getSuccess() const {
+        return success;
+    }
+
+    inline const Citadel &getCitadel() const {
+        return citadel;
+    }
+
+    inline const IWave &getWave() const {
+        return waveInfo;
+    }
+
+private:
     bool success;
     Citadel citadel;
     IWave waveInfo;
 };
 
-struct NoInfoEvent {
-
-};
-
-// TODO: remove std::variant
-using EventInfo = std::variant<MouseClickInfo, TileInfo, TowerInfo, PuzzleInfo, PuzzleAnswerInfo, EnemyInfo, CitadelInfo, GameResultsInfo, NoInfoEvent>;
-//using EventInfo = std::variant<NoInfoEvent>;
-
-class Event {
+class NoInfoEvent : public IEvent {
 public:
-    Event();
-
-    Event(EventType ptype, EventInfo pinfo);
-
-    void setType(EventType type);
-
-    void setInfo(const EventInfo &info);
-
-private:
-    EventType type;
-    EventInfo info;
+    explicit NoInfoEvent(EventType type);
 };
+
 
 #endif //LAST_SAVIORS_EVENT_H
