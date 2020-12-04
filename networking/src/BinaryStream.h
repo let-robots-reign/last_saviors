@@ -21,7 +21,7 @@ public:
 
     /*
         overload some methods for game objects, etc
-        mb inherit a class and overload methods in it
+        mb inherit a class and override methods in it
     */
 
     
