@@ -6,7 +6,6 @@
 /*const*/
 
 struct ChatMessagePacket : Packet {
-public:
     ChatMessagePacket& operator=(ChatMessagePacket&&);
     std::shared_ptr<Packet> ToPacket() const override;
     ChatMessagePacket (std::string_view name, std::string_view message);
