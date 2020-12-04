@@ -6,7 +6,7 @@ void HUD::addWidget(const Widget &widget) {
     widgets.push_back(widget);
 }
 
-void HUD::processEvent(const Event &event) {
+void HUD::processEvent(const IEvent &event) {
 
 }
 

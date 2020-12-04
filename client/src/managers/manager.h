@@ -5,7 +5,7 @@
 
 class Manager {
 public:
-    virtual int processEvent(const Event &event) = 0;
+    virtual int processEvent(const IEvent &event) = 0;
 };
 
 #endif //CLIENT_MANAGER_H

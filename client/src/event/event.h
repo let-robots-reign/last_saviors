@@ -39,7 +39,9 @@ class IEvent {
 public:
     explicit IEvent(EventType type);
 
-    virtual EventType getEventType() = 0;
+    const EventType &getEventType() const {
+        return type;
+    }
 
 private:
     EventType type;

@@ -10,7 +10,7 @@ class RendererManager : public Manager {
 public:
     explicit RendererManager(Renderer r);
 
-    int processEvent(const Event &event) override;
+    int processEvent(const IEvent &event) override;
 
 private:
     Renderer renderer;

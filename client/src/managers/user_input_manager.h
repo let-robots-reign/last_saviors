@@ -7,14 +7,14 @@
 
 class UserInputManager : public Manager, public EventEmitter {
 public:
-    explicit UserInputManager(UserInput input);
+    explicit UserInputManager(const UserInput &userInput);
 
-    int processEvent(const Event &pevent) override;
+    int processEvent(const IEvent &pevent) override;
 
-    Event produceEvent() override;
+    IEvent *produceEvent() override;
+
 private:
     UserInput userInput;
-    Event event;
 };
 
 #endif //CLIENT_USER_INPUT_MANAGER_H

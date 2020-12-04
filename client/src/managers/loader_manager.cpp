@@ -1,15 +1,15 @@
 #include "loader_manager.h"
 
-LoaderManager::LoaderManager(Loader l) : loader(l) {}
+LoaderManager::LoaderManager(const Loader &l) : loader(l) {}
 
 LoadingResult LoaderManager::load() {
     return ERROR_TEXTURES;
 }
 
-int LoaderManager::processEvent(const Event &pevent) {
+int LoaderManager::processEvent(const IEvent &pevent) {
     return 0;
 }
 
-Event LoaderManager::produceEvent() {
-    return Event(EverythingLoaded, NoInfoEvent());
+IEvent *LoaderManager::produceEvent() {
+    return new NoInfoEvent(EverythingLoaded);
 }

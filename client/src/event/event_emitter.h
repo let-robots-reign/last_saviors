@@ -5,7 +5,7 @@
 
 class EventEmitter {
 public:
-    virtual Event produceEvent() = 0;
+    virtual IEvent *produceEvent() = 0;
 };
 
 #endif //LAST_SAVIORS_EVENT_EMITTER_H

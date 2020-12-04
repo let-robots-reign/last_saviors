@@ -12,7 +12,7 @@ public:
     MOCK_METHOD(LoadingResult, loadResources, ());
     MOCK_METHOD(LoadingResult, loadTextures, ());
     MOCK_METHOD(LoadingResult, loadFonts, ());
-    MOCK_METHOD(int, processEvent, (const Event &event));
+    MOCK_METHOD(int, processEvent, (const IEvent &event));
 };
 
 class MockRenderer : public Manager {
@@ -26,7 +26,7 @@ public:
     MOCK_METHOD(RenderingResult, renderEnemies, ());
     MOCK_METHOD(RenderingResult, renderWidgets, ());
     MOCK_METHOD(void, updateState, (GameState newState));
-    MOCK_METHOD(int, processEvent, (const Event &event));
+    MOCK_METHOD(int, processEvent, (const IEvent &event));
 };
 
 TEST(TestManagers, testLoader) {
@@ -42,7 +42,7 @@ TEST(TestManagers, testLoader) {
     res = mLoader.loadFonts();
     ASSERT_THAT(res, LOADING_SUCCESS);
 
-//    Event event = Event(EverythingLoaded, NoInfoEvent());
+//    IEvent event = IEvent(EverythingLoaded, NoInfoEvent());
 //    EXPECT_CALL(mLoader, processEvent(event)).Times(1);
 }
 

@@ -11,7 +11,7 @@ public:
 
     void addWidget(const Widget &widget);
 
-    void processEvent(const Event &event);
+    void processEvent(const IEvent &event);
 
     void clear();
 

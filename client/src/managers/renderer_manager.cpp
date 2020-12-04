@@ -2,6 +2,6 @@
 
 RendererManager::RendererManager(Renderer r) : renderer(std::move(r)) {}
 
-int RendererManager::processEvent(const Event &event) {
+int RendererManager::processEvent(const IEvent &event) {
     return 0;
 }

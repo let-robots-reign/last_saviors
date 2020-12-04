@@ -7,19 +7,16 @@
 
 class LoaderManager : public Manager, public EventEmitter {
 public:
-    explicit LoaderManager(Loader l);
+    explicit LoaderManager(const Loader & l);
 
     LoadingResult load();
 
-    int processEvent(const Event &pevent) override;
+    int processEvent(const IEvent &pevent) override;
 
-    Event produceEvent() override;
-
-
+    IEvent *produceEvent() override;
 
 private:
     Loader loader;
-    Event event;
 };
 
 #endif //CLIENT_LOADER_MANAGER_H
