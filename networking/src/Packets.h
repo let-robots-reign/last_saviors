@@ -1,5 +1,6 @@
 #pragma once
 #include "Packet.h"
+#include <string>
 #include <string_view>
 
 //no time to write all the implementations -> unconst

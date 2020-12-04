@@ -1,5 +1,6 @@
 #include "../TCPSocketBase.h"
 #include <cstring>
+#include <string>
 
 SocketAddress::SocketAddress(const uint32_t address, const uint16_t port) : m_ip(address), m_port(port) {
 

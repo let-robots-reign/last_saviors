@@ -1,4 +1,5 @@
 #include "GameTCPServer.h"
+#include <cstdio>
 
 int main() {
     printf("Hello, World!\n");
@@ -8,3 +9,4 @@ int main() {
     Server.Start();
     return 0;
 }
+
