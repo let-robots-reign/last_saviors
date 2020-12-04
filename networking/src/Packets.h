@@ -12,6 +12,7 @@ struct ChatMessagePacket : Packet {
     ChatMessagePacket (std::string_view name, std::string_view message);
     static ChatMessagePacket Create(std::string_view name, std::string_view message);
     static ChatMessagePacket FromPacket(std::shared_ptr<Packet> Packet);
+    
     /*const*/ std::string m_name;
     /*const*/ std::string m_message;
 };
@@ -25,6 +26,7 @@ struct CreateObjectPacket : Packet {
     CreateObjectPacket (const uint id, const ObjectType type, const std::vector<std::byte> binary);
     static CreateObjectPacket Create(const uint id, const ObjectType type, const std::vector<std::byte> binary);
     static CreateObjectPacket FromPacket(std::shared_ptr<Packet> Packet);
+    
     /*const*/ uint m_id;
     /*const*/ ObjectType m_object_type;
     /*const*/ std::vector<std::byte> m_object_binary;
@@ -35,6 +37,7 @@ struct ModifyObjectPacket : Packet {
     ModifyObjectPacket (const uint id, const ObjectType type, const std::vector<std::byte> binary);
     static ModifyObjectPacket Create(const uint id, const ObjectType type, const std::vector<std::byte> binary);
     static ModifyObjectPacket FromPacket(std::shared_ptr<Packet> Packet);
+    
     /*const*/ uint m_id;
     /*const*/ ObjectType m_object_type;
     /*const*/ std::vector<std::byte> m_object_binary;
@@ -45,6 +48,7 @@ struct DeleteObjectPacket : Packet {
     DeleteObjectPacket (const uint id);
     static DeleteObjectPacket Create(const uint id);
     static DeleteObjectPacket FromPacket(std::shared_ptr<Packet> Packet);
+    
     /*const*/ uint m_id;
 };
 
@@ -55,6 +59,8 @@ struct EventPacket : Packet {
     EventPacket (const EventType type, const std::vector<std::byte> binary);
     static EventPacket Create(const EventType type, const std::vector<std::byte> binary);
     static EventPacket FromPacket(std::shared_ptr<Packet> Packet);
+    
     EventType m_event_type;
     /*const*/ std::vector<std::byte> m_event_binary;
 };
+
