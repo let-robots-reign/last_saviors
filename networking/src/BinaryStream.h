@@ -6,7 +6,7 @@ public:
     BinaryStream();
     ~BinaryStream();
 
-    void Push(const std::vector<std::byte> data);
+    void Push(const std::vector<std::byte> & data);
     std::vector<std::byte> Pop(const size_t amount_bytes);
     
     template <typename T>

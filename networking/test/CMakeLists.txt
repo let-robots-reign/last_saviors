@@ -11,7 +11,7 @@ include_directories(${GTEST_INCLUDE_DIRS})
 find_package(GMock REQUIRED)
 include_directories(${GMOCK_INCLUDE_DIRS})
 
-link_directories(..)
+link_directories(../lib)
 
 include_directories(../src)
 

@@ -8,7 +8,7 @@ BinaryStream::~BinaryStream() {
 
 }
 
-void BinaryStream::Push(const std::vector<std::byte> data) {
+void BinaryStream::Push(const std::vector<std::byte> & data) {
 
 }
 
