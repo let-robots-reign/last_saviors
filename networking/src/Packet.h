@@ -3,7 +3,7 @@
 #include <memory>
 
 //size is important. 256 types of packets is enough
-enum PacketType : std::underlying_type_t<std::byte> {
+enum PacketType : int8_t {
     CREATE_OBJECT,
     MODIFY_OBJECT,
     DELETE_OBJECT,
