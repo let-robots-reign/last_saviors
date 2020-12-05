@@ -4,11 +4,13 @@
 #include <cstddef>
 
 struct PawnModel {
-    const int MAX_HEALTH = 100;
-    const double ATTACK_COOLDOWN = 0.5;
-    const int DAMAGE = 15;
-    const double SPEED = 3;
-    const size_t COINS_FOR_DEATH = 5;
+    PawnModel();
+    const int kMaxHealth;
+    const int kDamage;
+    const double kSpeed;
+    const time_t
+        kAttackCooldown;  // todo attack cooldown too long but time in seconds
+    const size_t kCoinsForDeath;
 };
 
 #endif  // LAST_SAVIORS_PAWNMODEL_H

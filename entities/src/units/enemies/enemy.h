@@ -3,29 +3,22 @@
 
 #include <ctime>
 
-#include "attackable_building.h"
+#include "attackable.h"
+#include "list"
 #include "player.h"
 #include "unit.h"
 
-class Enemy : public Unit {
-private:
-    int health_;
+class Enemy : public Attackable {
+   protected:
+    time_t time_of_last_attack_;
 
-protected:
-    time_t timeOfLastAttack_;
+   public:
+    Enemy(int health, time_t current_time, Coordinate position = Coordinate());
 
-public:
-    explicit Enemy(int health, Coordinate position = Coordinate());
-
-    virtual void attack(AttackableBuilding *building) = 0;
-
-    virtual bool canAttack() = 0;
-
-    void reduceHealth(AttackableBuilding *building);
-
-    virtual void atDeath(Player *player) = 0;
-
-    inline int getHealth() const { return health_; };
+    virtual void attack(Attackable& target, time_t current_time) = 0;
+    virtual Attackable* findTarget(std::list<Attackable>& possible_targets) = 0;
+    virtual bool isReadyForAttack(time_t current_time) = 0;
+    virtual bool canAttack(const Attackable& target) = 0;
 };
 
 #endif  // LAST_SAVIORS_ENEMY_H

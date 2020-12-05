@@ -1,6 +1,6 @@
 #include "player.h"
 
-Player::Player() : coins(INITIAL_COINS) {}
+Player::Player() : coins_(INITIAL_COINS) {}
 
 void Player::buildShaft() {}
 

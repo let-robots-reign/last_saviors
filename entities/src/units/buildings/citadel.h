@@ -1,10 +1,11 @@
 #ifndef LAST_SAVIORS_CITADEL_H
 #define LAST_SAVIORS_CITADEL_H
 
-#include "attackable_building.h"
-#include "model_factory.h"
+#include "attackable.h"
+#include "citadel_model.h"
+#include "unit.h"
 
-class Citadel : public AttackableBuilding {
+class Citadel : public Attackable {
    private:
     const CitadelModel* model_;
 

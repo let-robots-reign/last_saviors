@@ -3,13 +3,13 @@
 
 #include <variant>
 
-#include "tower.h"
-#include "puzzle.h"
-#include "enemy.h"
 #include "citadel.h"
-#include "wave.h"
 #include "coordinate.h"
+#include "enemy.h"
+#include "puzzle.h"
 #include "tile.h"
+#include "units/buildings/towers/tower.h"
+#include "wave.h"
 
 
 enum EventType {
