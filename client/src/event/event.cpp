@@ -2,25 +2,48 @@
 
 #include <utility>
 
-IEvent::IEvent(EventType type) : type(type) {}
+template<typename ...TParams>
+TEvent<TParams...>::TEvent() : handlers() {}
 
-MouseClickEvent::MouseClickEvent(EventType type, const Coordinate &mouse) : IEvent(type), mouse(mouse) {}
+template<typename ...TParams>
+TEvent<TParams...>::~TEvent() {
+    for (EventHandler *handler : handlers) {
+        delete handler;
+    }
+    handlers.clear();
+}
 
-TileEvent::TileEvent(EventType type, const Tile &selectedTile) : IEvent(type), selectedTile(selectedTile) {}
+template<typename ...TParams>
+void TEvent<TParams...>::operator()(TParams... params) {
+    for (const EventHandler &handler : handlers) {
+        handler.call(params...);
+    }
+}
 
-TowerEvent::TowerEvent(EventType type, Tower *tower) : IEvent(type), tower(tower) {}
+template<typename ...TParams>
+void TEvent<TParams...>::operator+=(const TEvent::EventHandler &eventHandler) {
+    handlers.push_back(&eventHandler);
+}
 
-PuzzleEvent::PuzzleEvent(EventType type, Puzzle chosenPuzzle) : IEvent(type), chosenPuzzle(std::move(chosenPuzzle)) {}
-
-PuzzleAnswerEvent::PuzzleAnswerEvent(EventType type, bool answerCorrectness) : IEvent(type),
-                                                                               answerCorrectness(answerCorrectness) {}
-
-EnemyEvent::EnemyEvent(EventType type, Enemy *enemy) : IEvent(type), enemy(enemy) {}
-
-CitadelEvent::CitadelEvent(EventType type, const Citadel &citadel) : IEvent(type), citadel(citadel) {}
-
-GameResultsEvent::GameResultsEvent(EventType type, bool success, const Citadel &citadel, const IWave &waveInfo)
-        : IEvent(type), success(success), citadel(citadel), waveInfo(waveInfo) {}
-
-NoInfoEvent::NoInfoEvent(EventType type) : IEvent(type) {}
-
+//TEvent::TEvent(EventType type) : type(type) {}
+//
+//MouseClickEvent::MouseClickEvent(EventType type, const Coordinate &mouse) : TEvent(type), mouse(mouse) {}
+//
+//TileEvent::TileEvent(EventType type, const Tile &selectedTile) : TEvent(type), selectedTile(selectedTile) {}
+//
+//TowerEvent::TowerEvent(EventType type, Tower *tower) : TEvent(type), tower(tower) {}
+//
+//PuzzleEvent::PuzzleEvent(EventType type, Puzzle chosenPuzzle) : TEvent(type), chosenPuzzle(std::move(chosenPuzzle)) {}
+//
+//PuzzleAnswerEvent::PuzzleAnswerEvent(EventType type, bool answerCorrectness) : TEvent(type),
+//                                                                               answerCorrectness(answerCorrectness) {}
+//
+//EnemyEvent::EnemyEvent(EventType type, Enemy *enemy) : TEvent(type), enemy(enemy) {}
+//
+//CitadelEvent::CitadelEvent(EventType type, const Citadel &citadel) : TEvent(type), citadel(citadel) {}
+//
+//GameResultsEvent::GameResultsEvent(EventType type, bool success, const Citadel &citadel, const IWave &waveInfo)
+//        : TEvent(type), success(success), citadel(citadel), waveInfo(waveInfo) {}
+//
+//NoInfoEvent::NoInfoEvent(EventType type) : TEvent(type) {}
+//

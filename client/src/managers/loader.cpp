@@ -11,3 +11,16 @@ LoadingResult Loader::loadTextures() {
 LoadingResult Loader::loadFonts() {
     return LOADING_SUCCESS;
 }
+
+LoadingResult Loader::loadEverything() {
+    if (loadResources() != LOADING_SUCCESS) {
+        return ERROR_RESOURCES;
+    }
+    if (loadTextures() != LOADING_SUCCESS) {
+        return ERROR_TEXTURES;
+    }
+    if (loadFonts() != LOADING_SUCCESS) {
+        return ERROR_FONTS;
+    }
+    return LOADING_SUCCESS;
+}

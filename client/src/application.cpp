@@ -1,14 +1,42 @@
 #include "application.h"
+#include "label.h"
+#include "button.h"
 
-#include <utility>
 
-Application::Application(RendererManager rmanager, LoaderManager lmanager, UserInputManager imanager)
-        : rendererManager(std::move(rmanager)), loaderManager(std::move(lmanager)), userInputManager(std::move(imanager)) {}
+Application::Application(const Loader &loader, const Renderer &renderer)
+        : loader(loader), renderer(renderer) {}
 
-Application Application::getInstance() {
-    return instance;
+
+int Application::runMainMenu() {
+    std::vector<Widget *> mainMenuWidgets;
+    auto *mainLabel = new Label(100, 50, Coordinate(500, 300), "Last Saviors");
+    auto *playButton = new Button(100, 50, Coordinate(500, 400), "Start Game");
+    auto *exitButton = new Button(100, 50, Coordinate(500, 400), "Exit");
+    mainMenuWidgets.push_back(mainLabel);
+    mainMenuWidgets.push_back(playButton);
+    mainMenuWidgets.push_back(exitButton);
+
+    //playButton->onButtonClick += METHOD_HANDLER()
+
+    return 0;
 }
 
-void Application::run() {
+int Application::runGameProcess() {
 
+    return 0;
+}
+
+int Application::runTowersMenu() {
+
+    return 0;
+}
+
+int Application::runPuzzle() {
+
+    return 0;
+}
+
+int Application::runGameOverMenu() {
+
+    return 0;
 }

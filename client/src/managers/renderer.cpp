@@ -1,6 +1,6 @@
 #include "renderer.h"
 
-Renderer::Renderer(Level plevel, HUD phud, GameState pstate) : level(std::move(plevel)), hud(std::move(phud)), state(std::move(pstate)) {}
+Renderer::Renderer(Level plevel, HUD phud) : level(std::move(plevel)), hud(std::move(phud)) {}
 
 void Renderer::renderMenu() {
 
@@ -31,10 +31,6 @@ void Renderer::updateTileAt(size_t x, size_t y) {
 }
 
 void Renderer::updateEnemy() {
-
-}
-
-void Renderer::updateState(GameState newState) {
 
 }
 

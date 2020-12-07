@@ -8,8 +8,8 @@
 //class Wave : IWave {
 //public:
 //    std::vector<Enemy> virtual generateWave();
-//    virtual IEvent startWave();
-//    virtual IEvent stopWave();
+//    virtual TEvent startWave();
+//    virtual TEvent stopWave();
 //};
 
 

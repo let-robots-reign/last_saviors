@@ -3,6 +3,7 @@
 
 #include <string>
 #include "widget.h"
+#include "event.h"
 
 class Button : public Widget {
 public:
@@ -12,7 +13,12 @@ public:
         return pressed;
     }
 
-    void press();
+    inline void press() {
+        pressed = !pressed;
+    }
+
+    TEvent<Coordinate&> onButtonClick;
+
 private:
     std::string text;
     bool pressed;

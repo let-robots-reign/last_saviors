@@ -4,10 +4,10 @@
 //    return nullptr;
 //}
 //
-//IEvent Wave::startWave() {
+//TEvent Wave::startWave() {
 //    return nullptr;
 //}
 //
-//IEvent Wave::stopWave() {
+//TEvent Wave::stopWave() {
 //    return nullptr;
 //}

@@ -1,10 +1,7 @@
 #include "application.h"
 
 int main() {
-    Loader loader{};
-    LoaderManager loaderManager(loader);
-    Application application(RendererManager(Renderer(Level(""), HUD({}), MainMenu)), loaderManager,
-                                          UserInputManager(UserInput(MainMenu)));
-    application.run();
+    Application application(Loader(), Renderer(Level(""), HUD()));
+    application.runMainMenu();
     return 0;
 }

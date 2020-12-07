@@ -7,7 +7,7 @@
 
 using ::testing::Return;
 
-class MockLoader : public Manager {
+class MockLoader : public AbstractEventHandler {
 public:
     MOCK_METHOD(LoadingResult, loadResources, ());
     MOCK_METHOD(LoadingResult, loadTextures, ());
@@ -15,7 +15,7 @@ public:
     MOCK_METHOD(int, processEvent, (const IEvent &event));
 };
 
-class MockRenderer : public Manager {
+class MockRenderer : public AbstractEventHandler {
 public:
     MOCK_METHOD(RenderingResult, renderMenu, ());
     MOCK_METHOD(RenderingResult, renderLevel, ());
@@ -42,7 +42,7 @@ TEST(TestManagers, testLoader) {
     res = mLoader.loadFonts();
     ASSERT_THAT(res, LOADING_SUCCESS);
 
-//    IEvent event = IEvent(EverythingLoaded, NoInfoEvent());
+//    TEvent event = TEvent(EverythingLoaded, NoInfoEvent());
 //    EXPECT_CALL(mLoader, processEvent(event)).Times(1);
 }
 
