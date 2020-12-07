@@ -6,11 +6,17 @@
 template<typename TObject, typename ...TParams>
 class MethodEventHandler : public AbstractEventHandler<TParams...> {
     using TMethod = void (TObject::*)(TParams...);
-
+    using MethodHandlerType = MethodEventHandler<TObject, TParams...>;
 public:
     MethodEventHandler(const TObject &object, TMethod method);
 
     void call(TParams... params) final;
+
+protected:
+    bool equals(const AbstractEventHandler<TParams...> &rhs) const override {
+        const MethodHandlerType _rhs = dynamic_cast<const MethodHandlerType *>(&rhs);
+        return (_rhs != nullptr && &object == &_rhs.object && method == _rhs.method);
+    }
 
 private:
     TObject *object;

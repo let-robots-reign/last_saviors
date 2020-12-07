@@ -8,6 +8,7 @@
 template<typename ...TParams>
 class TEvent {
     using EventHandler = AbstractEventHandler<TParams...>;
+    using EventHandlerIt = typename std::list<EventHandler *>::const_iterator;
 
 public:
     TEvent();
@@ -16,10 +17,18 @@ public:
 
     void operator()(TParams... params);
 
-    void operator+=(const EventHandler &eventHandler);
+    bool operator+=(const EventHandler &eventHandler);
+
+    bool operator-=(const EventHandler &eventHandler);
 
 private:
     std::list<EventHandler *> handlers;
+
+    inline EventHandlerIt findEventHandler(const EventHandler &handler) const {
+        return std::find_if(handlers.cbegin(), handlers.cend(), [&handler](const EventHandler *rhs) {
+            return (*rhs == handler);
+        });
+    }
 };
 
 

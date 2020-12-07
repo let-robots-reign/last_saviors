@@ -21,9 +21,26 @@ void TEvent<TParams...>::operator()(TParams... params) {
 }
 
 template<typename ...TParams>
-void TEvent<TParams...>::operator+=(const TEvent::EventHandler &eventHandler) {
-    handlers.push_back(&eventHandler);
+bool TEvent<TParams...>::operator+=(const TEvent::EventHandler &eventHandler) {
+    if (findEventHandler(eventHandler) == handlers.end()) {
+        handlers.push_back(&eventHandler);
+        return true;
+    }
+    return false;
 }
+
+template<typename... TParams>
+bool TEvent<TParams...>::operator-=(const TEvent::EventHandler &eventHandler) {
+    auto it = findEventHandler(eventHandler);
+    if (it != handlers.end()) {
+        EventHandler *handlerToRemove = *it;
+        handlers.erase(handlerToRemove);
+        delete handlerToRemove;
+        return true;
+    }
+    return false;
+}
+
 
 //TEvent::TEvent(EventType type) : type(type) {}
 //
