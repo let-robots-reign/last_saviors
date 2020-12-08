@@ -51,7 +51,7 @@ void TEvent<TParams...>::operator()(TParams... params) {
 }
 
 template<typename ...TParams>
-bool TEvent<TParams...>::addHandler(const EventHandler &eventHandler) {
+bool TEvent<TParams...>::addHandler(EventHandler &eventHandler) {
     std::unique_lock<std::shared_mutex> handlerListMutexLock(handlerListMutex);
 
     if (findEventHandler(eventHandler) == handlers.end()) {
@@ -62,7 +62,7 @@ bool TEvent<TParams...>::addHandler(const EventHandler &eventHandler) {
 }
 
 template<typename... TParams>
-bool TEvent<TParams...>::removeHandler(const EventHandler &eventHandler) {
+bool TEvent<TParams...>::removeHandler(EventHandler &eventHandler) {
     std::unique_lock<std::shared_mutex> handlerListMutexLock(handlerListMutex);
 
     auto it = findEventHandler(eventHandler);

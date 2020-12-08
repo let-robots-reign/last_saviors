@@ -18,8 +18,10 @@ protected:
     virtual bool removeHandler(EventHandler &eventHandler) = 0;
 
 public:
+    // подписка на событие
     bool operator+=(EventHandler &eventHandler);
 
+    // отписка от события
     bool operator-=(EventHandler &eventHandler);
 };
 
@@ -36,15 +38,15 @@ public:
 protected:
     void operator()(TParams... params);
 
-    bool addHandler(const EventHandler &eventHandler) override;
+    bool addHandler(EventHandler &eventHandler) override;
 
-    bool removeHandler(const EventHandler &eventHandler) override;
+    bool removeHandler(EventHandler &eventHandler) override;
 
 private:
     std::list<EventHandler *> handlers;
 
     mutable EventHandlerIt currentIt;
-    mutable bool isCurrentItRemoved;
+    mutable bool isCurrentItRemoved;  // для корректной обработки самоотписки от события
     mutable std::shared_mutex handlerListMutex;
 
     inline EventHandlerIt findEventHandler(const EventHandler &handler) const {

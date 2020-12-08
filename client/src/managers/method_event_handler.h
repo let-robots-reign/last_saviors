@@ -3,6 +3,7 @@
 
 #include "event_handler.h"
 
+// обработчик события - метод класса
 template<typename TObject, typename ...TParams>
 class MethodEventHandler : public AbstractEventHandler<TParams...> {
     using TMethod = void (TObject::*)(TParams...);
