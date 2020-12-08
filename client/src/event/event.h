@@ -7,20 +7,38 @@
 
 
 template<typename ...TParams>
-class TEvent {
+class IEvent {
+protected:
     using EventHandler = AbstractEventHandler<TParams...>;
-    using EventHandlerIt = typename std::list<EventHandler *>::const_iterator;
 
+    IEvent();
+
+    virtual bool addHandler(EventHandler &eventHandler) = 0;
+
+    virtual bool removeHandler(EventHandler &eventHandler) = 0;
+
+public:
+    bool operator+=(EventHandler &eventHandler);
+
+    bool operator-=(EventHandler &eventHandler);
+};
+
+
+template<typename ...TParams>
+class TEvent : public IEvent<TParams...> {
+    using EventHandler = typename IEvent<TParams...>::EventHandler;
+    using EventHandlerIt = typename std::list<EventHandler *>::const_iterator;
 public:
     TEvent();
 
     ~TEvent();
 
+protected:
     void operator()(TParams... params);
 
-    bool operator+=(EventHandler &eventHandler);
+    bool addHandler(const EventHandler &eventHandler) override;
 
-    bool operator-=(const EventHandler &eventHandler);
+    bool removeHandler(const EventHandler &eventHandler) override;
 
 private:
     std::list<EventHandler *> handlers;

@@ -2,8 +2,22 @@
 
 #include <utility>
 
+template<typename... TParams>
+IEvent<TParams...>::IEvent() = default;
+
+
+template<typename... TParams>
+bool IEvent<TParams...>::operator+=(IEvent::EventHandler &eventHandler) {
+    return addHandler(eventHandler);
+}
+
+template<typename... TParams>
+bool IEvent<TParams...>::operator-=(IEvent::EventHandler &eventHandler) {
+    return removeHandler(eventHandler);
+}
+
 template<typename ...TParams>
-TEvent<TParams...>::TEvent() : handlers(), currentIt(), isCurrentItRemoved(), handlerListMutex() {}
+TEvent<TParams...>::TEvent() : IEvent<TParams...>(), handlers(), currentIt(), isCurrentItRemoved(), handlerListMutex() {}
 
 template<typename ...TParams>
 TEvent<TParams...>::~TEvent() {
@@ -37,7 +51,7 @@ void TEvent<TParams...>::operator()(TParams... params) {
 }
 
 template<typename ...TParams>
-bool TEvent<TParams...>::operator+=(TEvent::EventHandler &eventHandler) {
+bool TEvent<TParams...>::addHandler(const EventHandler &eventHandler) {
     std::unique_lock<std::shared_mutex> handlerListMutexLock(handlerListMutex);
 
     if (findEventHandler(eventHandler) == handlers.end()) {
@@ -48,7 +62,7 @@ bool TEvent<TParams...>::operator+=(TEvent::EventHandler &eventHandler) {
 }
 
 template<typename... TParams>
-bool TEvent<TParams...>::operator-=(const TEvent::EventHandler &eventHandler) {
+bool TEvent<TParams...>::removeHandler(const EventHandler &eventHandler) {
     std::unique_lock<std::shared_mutex> handlerListMutexLock(handlerListMutex);
 
     auto it = findEventHandler(eventHandler);
