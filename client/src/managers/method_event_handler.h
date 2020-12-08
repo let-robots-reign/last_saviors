@@ -14,10 +14,7 @@ public:
     void call(TParams... params) final;
 
 protected:
-    bool equals(const AbstractEventHandler<TParams...> &rhs) const override {
-        const MethodHandlerType _rhs = dynamic_cast<const MethodHandlerType *>(&rhs);
-        return (_rhs != nullptr && &object == &_rhs.object && method == _rhs.method);
-    }
+    bool equals(const AbstractEventHandler<TParams...> &rhs) const override;
 
 private:
     TObject *object;
