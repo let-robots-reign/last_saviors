@@ -3,7 +3,7 @@
 #include <utility>
 
 template<typename ...TParams>
-TEvent<TParams...>::TEvent() : handlers() {}
+TEvent<TParams...>::TEvent() : handlers(), currentIt(), isCurrentItRemoved(), handlerListMutex() {}
 
 template<typename ...TParams>
 TEvent<TParams...>::~TEvent() {
@@ -15,15 +15,33 @@ TEvent<TParams...>::~TEvent() {
 
 template<typename ...TParams>
 void TEvent<TParams...>::operator()(TParams... params) {
-    for (const EventHandler &handler : handlers) {
-        handler.call(params...);
+    handlerListMutex.lock_shared();
+
+    isCurrentItRemoved = false;
+    currentIt = handlers.begin();
+    while (currentIt != handlers.end()) {
+        handlerListMutex.unlock_shared();
+        *currentIt->call(params...);
+        handlerListMutex.lock_shared();
+
+        if (isCurrentItRemoved) {
+            isCurrentItRemoved = false;
+
+            EventHandlerIt itToRemove = currentIt;
+            deleteHandler(itToRemove);
+        }
+        ++currentIt;
     }
+
+    handlerListMutex.unlock_shared();
 }
 
 template<typename ...TParams>
-bool TEvent<TParams...>::operator+=(const TEvent::EventHandler &eventHandler) {
+bool TEvent<TParams...>::operator+=(TEvent::EventHandler &eventHandler) {
+    std::unique_lock<std::shared_mutex> handlerListMutexLock(handlerListMutex);
+
     if (findEventHandler(eventHandler) == handlers.end()) {
-        handlers.push_back(&eventHandler);
+        handlers.push_back(std::move(eventHandler));
         return true;
     }
     return false;
@@ -31,11 +49,15 @@ bool TEvent<TParams...>::operator+=(const TEvent::EventHandler &eventHandler) {
 
 template<typename... TParams>
 bool TEvent<TParams...>::operator-=(const TEvent::EventHandler &eventHandler) {
+    std::unique_lock<std::shared_mutex> handlerListMutexLock(handlerListMutex);
+
     auto it = findEventHandler(eventHandler);
     if (it != handlers.end()) {
-        EventHandler *handlerToRemove = *it;
-        handlers.erase(handlerToRemove);
-        delete handlerToRemove;
+        if (it == currentIt) {
+            isCurrentItRemoved = true;
+        } else {
+            deleteHandler(it);
+        }
         return true;
     }
     return false;

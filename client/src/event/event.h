@@ -2,6 +2,7 @@
 #define LAST_SAVIORS_EVENT_H
 
 #include <list>
+#include <shared_mutex>
 #include "event_handler.h"
 
 
@@ -17,17 +18,27 @@ public:
 
     void operator()(TParams... params);
 
-    bool operator+=(const EventHandler &eventHandler);
+    bool operator+=(EventHandler &eventHandler);
 
     bool operator-=(const EventHandler &eventHandler);
 
 private:
     std::list<EventHandler *> handlers;
 
+    mutable EventHandlerIt currentIt;
+    mutable bool isCurrentItRemoved;
+    mutable std::shared_mutex handlerListMutex;
+
     inline EventHandlerIt findEventHandler(const EventHandler &handler) const {
         return std::find_if(handlers.cbegin(), handlers.cend(), [&handler](const EventHandler *rhs) {
             return (*rhs == handler);
         });
+    }
+
+    inline void deleteHandler(EventHandlerIt it) {
+        EventHandler *handlerToRemove = *it;
+        handlers.erase(it);
+        delete handlerToRemove;
     }
 };
 
