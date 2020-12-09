@@ -25,5 +25,5 @@ void GameServerVisitor::OnProcess(const size_t i_client) {
 
 
 void GameServerVisitor::ProcessPacket(const size_t i_client, std::shared_ptr<Packet> packet) {
-    
+
 }
