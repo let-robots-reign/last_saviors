@@ -31,4 +31,3 @@ private:
     BinaryStream m_buffer;
 
 };
-

@@ -1,61 +1,90 @@
+#pragma once
 #include "../TCPServer.h"
 
-
-TCPServer::TCPServer() {
-
-}
-TCPServer::~TCPServer() {
+template<typename ServerVisitor>
+TCPServer<ServerVisitor>::TCPServer() : m_visitor(*this), m_running(false) {
 
 }
 
-void TCPServer::Bind(uint16_t port) {
+template<typename ServerVisitor>
+TCPServer<ServerVisitor>::~TCPServer() {
 
 }
-void TCPServer::Start() {
+
+template<typename ServerVisitor>
+void TCPServer<ServerVisitor>::Bind(const uint16_t port) {
+
+}
+
+template<typename ServerVisitor>
+void TCPServer<ServerVisitor>::Start() {
+    m_running = true;
     Loop();
 }
 
-void TCPServer::ReceiveAndProcess() {
+template<typename ServerVisitor>
+void TCPServer<ServerVisitor>::ReceiveAndProcess() {
 
 }
 
-void TCPServer::Stop() {
-
+template<typename ServerVisitor>
+void TCPServer<ServerVisitor>::Stop() {
+    m_running = false;
 }
 
-bool TCPServer::Running() {
+template<typename ServerVisitor>
+bool TCPServer<ServerVisitor>::Running() {
     return m_running;
 }
 
-void TCPServer::OnStart() {
-    
-}
-void TCPServer::OnConnect(const size_t id) {
+/*
+    visitor section starts
+*/
 
-}
-void TCPServer::OnDisconnect(const size_t id) {
-
-}
-void TCPServer::OnProcess(const size_t i_client) {
-
-}
-void TCPServer::Tick() {
-
+template<typename ServerVisitor>
+void TCPServer<ServerVisitor>::OnStart() {
+    m_visitor.OnStart();
 }
 
-
-void TCPServer::Receive(const size_t i) {
-
-}
-void TCPServer::ReceiveAll() {
-
+template<typename ServerVisitor>
+void TCPServer<ServerVisitor>::OnConnect(const size_t id) {
+    m_visitor.OnConnect(id);
 }
 
-void TCPServer::Loop() {
+template<typename ServerVisitor>
+void TCPServer<ServerVisitor>::OnDisconnect(const size_t id) {
+    m_visitor.OnDisconnect(id);
+}
+
+template<typename ServerVisitor>
+void TCPServer<ServerVisitor>::OnProcess(const size_t i_client) {
+    m_visitor.OnProcess(i_client);
+}
+
+template<typename ServerVisitor>
+void TCPServer<ServerVisitor>::Tick() {
+    m_visitor.Tick();
+}
+
+/*
+    visitor section ends
+*/
+
+template<typename ServerVisitor>
+void TCPServer<ServerVisitor>::Receive(const size_t i) {
+
+}
+
+template<typename ServerVisitor>
+void TCPServer<ServerVisitor>::ReceiveAll() {
+
+}
+
+template<typename ServerVisitor>
+void TCPServer<ServerVisitor>::Loop() {
     while (Running()) {
         ReceiveAndProcess();
         Tick();
         //sleep(...); //to have constant amount of ticks per second
     }
 }
-

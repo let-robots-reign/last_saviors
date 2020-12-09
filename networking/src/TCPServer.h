@@ -1,6 +1,5 @@
 #pragma once
 #include "TCPSocketConnection.h"
-#include "Packet.h"
 #include "BinaryStream.h"
 
 struct Client {
@@ -9,17 +8,16 @@ public:
     BinaryStream m_buffer;
 };
 
+template<typename ServerVisitor>
 class TCPServer {
 public:
     TCPServer();
     virtual ~TCPServer();
 
-    void Bind(uint16_t port);
+    void Bind(const uint16_t port);
     void Start();    
 
-protected:
-    std::vector<Client> m_clients;
-    
+private:    
 
     template <typename Container>
     void Send(const size_t id, const Container &container) {
@@ -31,24 +29,25 @@ protected:
     }
 
     void ReceiveAndProcess();
+    void ReceiveAll();                          //to m_buffer
+    void Receive(const size_t i);               //to m_buffer
     
     void Stop();
     bool Running();
+    void Loop();
 
-    virtual void OnStart();
-    virtual void OnConnect(const size_t id);
-    virtual void OnDisconnect(const size_t id);
-    virtual void OnProcess(const size_t id);
-    virtual void Tick();
+
+    void OnStart();
+    void OnConnect(const size_t id);
+    void OnDisconnect(const size_t id);
+    void OnProcess(const size_t id);
+    void Tick();
 
 private:
+    ServerVisitor m_visitor;
+    std::vector<Client> m_clients;
+
     TCPSocketServer m_socket;
     bool m_running;
 
-    void Receive(const size_t i);                                               //to m_buffer
-    void ReceiveAll();                                                          //to m_buffer
-
-    void Loop();
-
 };
-
