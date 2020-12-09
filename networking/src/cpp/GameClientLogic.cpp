@@ -18,7 +18,7 @@ void GameClientLogic::OnProcess() {
 
 }
 
-void GameClientLogic::ProcessPacket(const size_t i, std::shared_ptr<Packet> packet) {
+void GameClientLogic::ProcessPacket(std::shared_ptr<Packet> packet) {
     std::cout << "Client is processing a packet!\n";
 
 }

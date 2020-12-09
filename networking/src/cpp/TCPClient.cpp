@@ -12,7 +12,7 @@ bool TCPClient<ClientLogic>::Connect(std::string_view address) {
 }
 
 template<typename ClientLogic>
-bool TCPClient<ClientLogic>::Connect(SocketAddress adress) {
+bool TCPClient<ClientLogic>::Connect(SocketAddress address) {
     Connect(address);
 }
 

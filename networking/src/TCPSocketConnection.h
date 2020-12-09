@@ -40,7 +40,7 @@ public:
 private:
     SocketAddress m_socket_address;
 
-    TCPSocketConnectedClient(int socket, const sockaddr_in &client_info);
+    TCPSocketConnectedClient(int socket, const sockaddr_in & client_info);
 
     void Disconnect();
 

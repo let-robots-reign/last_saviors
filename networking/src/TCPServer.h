@@ -56,7 +56,7 @@ public:                                         //for ServerLogic
     void OnConnect(const size_t i);
     void OnDisconnect(const size_t i);
     void OnProcess(const size_t i);
-    void Tick();
+    void OnTick();
 
 
 private:

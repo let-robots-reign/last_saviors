@@ -13,19 +13,17 @@
 
 struct SocketAddress {
 public:
-    SocketAddress(){};  //temp
     SocketAddress(const uint32_t address, const uint16_t port);
-    SocketAddress(const sockaddr &sockaddr_);
+    SocketAddress(const sockaddr_in & address);
     
     std::string ToString() const;
 
     static std::shared_ptr<SocketAddress> Create(std::string_view address);
 
 private:
-    //I just want it to compile
-    /*const*/ uint32_t m_ip;
-    /*const*/ uint16_t m_port;
-    sockaddr m_sockaddr;
+    const uint32_t m_ip;
+    const uint16_t m_port;
+    sockaddr_in m_sockaddr;
 
 };
 

@@ -69,8 +69,8 @@ void TCPServer<ServerLogic>::OnProcess(const size_t i) {
 }
 
 template<typename ServerLogic>
-void TCPServer<ServerLogic>::Tick() {
-    m_logic.Tick();
+void TCPServer<ServerLogic>::OnTick() {
+    m_logic.OnTick();
 }
 
 template<typename ServerLogic>
