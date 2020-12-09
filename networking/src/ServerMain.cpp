@@ -1,13 +1,13 @@
 #include "TCPServer.h"
-#include "GameServerVisitor.h"
+#include "GameServerLogic.h"
 #include <cstdio>
 
-// we don't really need this file
+// example program
 
 int main() {
     printf("Hello, World!\n");
     const uint16_t PORT = 1337;
-    TCPServer<GameServerVisitor> Server;
+    TCPServer<GameServerLogic> Server;
     Server.Bind(PORT);
     Server.Start();
     return 0;

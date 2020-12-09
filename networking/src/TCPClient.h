@@ -1,7 +1,7 @@
 #pragma once
 #include "TCPSocketConnection.h"
-#include <string_view>
 #include "BinaryStream.h"
+#include <string_view>
 
 
 class TCPClient {

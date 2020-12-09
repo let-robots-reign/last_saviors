@@ -1,12 +1,10 @@
 #include "../TCPClient.h"
 
 
-TCPClient::TCPClient() {
+TCPClient::TCPClient() {}
 
-}
-TCPClient::~TCPClient() {
+TCPClient::~TCPClient() {}
 
-}
 bool TCPClient::Connect(std::string_view address) {
 
 }

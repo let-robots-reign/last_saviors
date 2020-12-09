@@ -5,9 +5,10 @@
 class TCPSocketConnection : public TCPSocketBase {
 public:
     void Send(const void *data, size_t data_length);
+
     template <typename Container>
     void Send(const Container &container) {
-        
+        Send(container.data(), container.size());
     }   //requires Container to have: data(), size()
 
 
@@ -47,6 +48,7 @@ private:
 
 };
 
+
 class TCPSocketServer : public TCPSocketBase {
 public:
     TCPSocketServer();
@@ -59,4 +61,3 @@ public:
 private:
 
 };
-

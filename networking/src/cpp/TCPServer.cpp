@@ -1,90 +1,103 @@
 #pragma once
 #include "../TCPServer.h"
 
-template<typename ServerVisitor>
-TCPServer<ServerVisitor>::TCPServer() : m_visitor(*this), m_running(false) {
+template<typename ServerLogic>
+TCPServer<ServerLogic>::TCPServer() : m_visitor(*this), m_running(false) {}
 
+template<typename ServerLogic>
+void TCPServer<ServerLogic>::Bind(const uint16_t port) {
+    m_socket.Bind(port);
 }
 
-template<typename ServerVisitor>
-TCPServer<ServerVisitor>::~TCPServer() {
-
-}
-
-template<typename ServerVisitor>
-void TCPServer<ServerVisitor>::Bind(const uint16_t port) {
-
-}
-
-template<typename ServerVisitor>
-void TCPServer<ServerVisitor>::Start() {
+template<typename ServerLogic>
+void TCPServer<ServerLogic>::Start() {
     m_running = true;
     Loop();
 }
 
-template<typename ServerVisitor>
-void TCPServer<ServerVisitor>::ReceiveAndProcess() {
-
+template<typename ServerLogic>
+void TCPServer<ServerLogic>::Loop() {
+    while (Running()) {
+        AcceptClients();
+        ReceiveAndProcess();
+        Tick();
+    }
 }
 
-template<typename ServerVisitor>
-void TCPServer<ServerVisitor>::Stop() {
+template<typename ServerLogic>
+void TCPServer<ServerLogic>::AcceptClients() {
+    while (m_socket.CanAccept()) {
+        m_clients.push_back(ServerClient(m_socket.Accept()));
+        OnConnect(m_clients.size() - 1);
+    }
+}
+
+template<typename ServerLogic>
+void TCPServer<ServerLogic>::ReceiveAndProcess() {
+    ReceiveAll();
+    ProcessAll();
+}
+
+template<typename ServerLogic>
+void TCPServer<ServerLogic>::Stop() {
     m_running = false;
 }
 
-template<typename ServerVisitor>
-bool TCPServer<ServerVisitor>::Running() {
+template<typename ServerLogic>
+bool TCPServer<ServerLogic>::Running() {
     return m_running;
 }
 
-/*
-    visitor section starts
-*/
-
-template<typename ServerVisitor>
-void TCPServer<ServerVisitor>::OnStart() {
+template<typename ServerLogic>
+void TCPServer<ServerLogic>::OnStart() {
     m_visitor.OnStart();
 }
 
-template<typename ServerVisitor>
-void TCPServer<ServerVisitor>::OnConnect(const size_t id) {
-    m_visitor.OnConnect(id);
+template<typename ServerLogic>
+void TCPServer<ServerLogic>::OnConnect(const size_t i) {
+    m_visitor.OnConnect(i);
 }
 
-template<typename ServerVisitor>
-void TCPServer<ServerVisitor>::OnDisconnect(const size_t id) {
-    m_visitor.OnDisconnect(id);
+template<typename ServerLogic>
+void TCPServer<ServerLogic>::OnDisconnect(const size_t i) {
+    m_visitor.OnDisconnect(i);
 }
 
-template<typename ServerVisitor>
-void TCPServer<ServerVisitor>::OnProcess(const size_t i_client) {
-    m_visitor.OnProcess(i_client);
+template<typename ServerLogic>
+void TCPServer<ServerLogic>::OnProcess(const size_t i) {
+    m_visitor.OnProcess(i);
 }
 
-template<typename ServerVisitor>
-void TCPServer<ServerVisitor>::Tick() {
+template<typename ServerLogic>
+void TCPServer<ServerLogic>::Tick() {
     m_visitor.Tick();
 }
 
-/*
-    visitor section ends
-*/
-
-template<typename ServerVisitor>
-void TCPServer<ServerVisitor>::Receive(const size_t i) {
-
+template<typename ServerLogic>
+void TCPServer<ServerLogic>::Receive(const size_t i) {
+    m_clients.at(i).Receive();
 }
 
-template<typename ServerVisitor>
-void TCPServer<ServerVisitor>::ReceiveAll() {
-
-}
-
-template<typename ServerVisitor>
-void TCPServer<ServerVisitor>::Loop() {
-    while (Running()) {
-        ReceiveAndProcess();
-        Tick();
-        //sleep(...); //to have constant amount of ticks per second
+template<typename ServerLogic>
+void TCPServer<ServerLogic>::ReceiveAll() {
+    for (size_t i = 0; i < m_clients.size(); ++i) {
+        Receive(i);
     }
+}
+
+template<typename ServerLogic>
+void TCPServer<ServerLogic>::ProcessAll() {
+    for (size_t i = 0; i < m_clients.size(); ++i) {
+        Process(i);
+    }
+}
+
+template<typename ServerLogic>
+void TCPServer<ServerLogic>::Process(const size_t i) {
+    OnProcess(i);
+}
+
+template<typename ServerLogic>
+const ServerClient & TCPServer<ServerLogic>::GetClient(const size_t i) const {
+    return m_clients.at(i);
 }
