@@ -3,22 +3,51 @@
 
 #include "event_handler.h"
 
+/*
+ * код вида playButton.onButtonClick += FUNCTOR_HANDLER(clickHandler);
+ * упадет, так как нельзя вывести типы только из функтора
+ * Чтобы это решить, заведем обертку FunctorHolder
+ */
+
+template<typename TFunctor>
+class FunctorHolder;
+
 template<typename TFunctor, typename ...TParams>
 class FunctorEventHandler : public AbstractEventHandler<TParams...> {
 public:
-    explicit FunctorEventHandler(TFunctor &functor);
+    explicit FunctorEventHandler(FunctorHolder<TFunctor> &holder);
 
     void call(TParams... params) final;
 
 private:
-    TFunctor &functor;
+    FunctorHolder<TFunctor> &functorHolder;
 };
 
-template<typename TFunctor, typename ...TParams>
-AbstractEventHandler<TParams...> &createFunctorEventHandler(TFunctor &&functor) {
-    return *new FunctorEventHandler<TFunctor, TParams...>(functor);
+template<typename TFunctor>
+class FunctorHolder {
+public:
+    explicit FunctorHolder(TFunctor &functor);
+
+    template<typename ...CallParams>
+    inline explicit operator AbstractEventHandler<CallParams...> &() {
+        return *new FunctorEventHandler<TFunctor, CallParams...>(*this);
+    }
+
+private:
+    TFunctor &functor;
+
+    // чтобы был возможен call() в FunctorEventHandler
+    template<typename Functor, typename ...TParams> friend class FunctorEventHandler;
+};
+
+template<typename TFunctor>
+FunctorHolder<TFunctor> &createFunctorEventHandler(TFunctor &&functor) {
+    return *new FunctorHolder<TFunctor>(functor);
 }
 
 #define FUNCTOR_HANDLER(Functor) createFunctorEventHandler(Functor)
+#define LAMBDA_HANDLER(Lambda) FUNCTOR_HANDLER(Lambda)
+#define STD_FUNCTION_HANDLER(StdFunction) FUNCTOR_HANDLER(StdFunction)
+#define FUNCTION_HANDLER(Function) FUNCTOR_HANDLER(&Function)
 
 #endif //LAST_SAVIORS_FUNCTOR_EVENT_HANDLER_H

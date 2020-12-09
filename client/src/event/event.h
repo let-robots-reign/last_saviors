@@ -19,10 +19,12 @@ protected:
 
 public:
     // подписка на событие
-    bool operator+=(EventHandler &eventHandler);
+    template<typename THandler>
+    bool operator+=(THandler &&handler);
 
     // отписка от события
-    bool operator-=(EventHandler &eventHandler);
+    template<typename THandler>
+    bool operator-=(THandler &&handler);
 };
 
 

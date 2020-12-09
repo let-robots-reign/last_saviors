@@ -7,17 +7,20 @@ IEvent<TParams...>::IEvent() = default;
 
 
 template<typename... TParams>
-bool IEvent<TParams...>::operator+=(IEvent::EventHandler &eventHandler) {
-    return addHandler(eventHandler);
+template<typename THandler>
+bool IEvent<TParams...>::operator+=(THandler &&handler) {
+    return addHandler(static_cast<EventHandler &>(handler));
 }
 
 template<typename... TParams>
-bool IEvent<TParams...>::operator-=(IEvent::EventHandler &eventHandler) {
-    return removeHandler(eventHandler);
+template<typename THandler>
+bool IEvent<TParams...>::operator-=(THandler &&handler) {
+    return removeHandler(static_cast<EventHandler &>(handler));
 }
 
 template<typename ...TParams>
-TEvent<TParams...>::TEvent() : IEvent<TParams...>(), handlers(), currentIt(), isCurrentItRemoved(), handlerListMutex() {}
+TEvent<TParams...>::TEvent()
+        : IEvent<TParams...>(), handlers(), currentIt(), isCurrentItRemoved(), handlerListMutex() {}
 
 template<typename ...TParams>
 TEvent<TParams...>::~TEvent() {
