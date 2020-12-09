@@ -17,7 +17,7 @@ public:
     void Bind(const uint16_t port);
     void Start();    
 
-private:    
+public:                                         //for visitor
 
     template <typename Container>
     void Send(const size_t id, const Container &container) {

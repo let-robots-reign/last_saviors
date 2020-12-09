@@ -2,6 +2,8 @@
 #include "GameServerVisitor.h"
 #include <cstdio>
 
+// we don't really need this file
+
 int main() {
     printf("Hello, World!\n");
     const uint16_t PORT = 1337;
@@ -10,4 +12,3 @@ int main() {
     Server.Start();
     return 0;
 }
-
