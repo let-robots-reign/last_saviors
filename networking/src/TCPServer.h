@@ -70,7 +70,7 @@ private:
 
 
 private:
-    ServerLogic m_visitor;
+    ServerLogic m_logic;
 
     TCPSocketServer m_socket;
     std::vector<ServerClient> m_clients;

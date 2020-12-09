@@ -2,7 +2,7 @@
 #include "../TCPServer.h"
 
 template<typename ServerLogic>
-TCPServer<ServerLogic>::TCPServer() : m_visitor(*this), m_running(false) {}
+TCPServer<ServerLogic>::TCPServer() : m_logic(*this), m_running(false) {}
 
 template<typename ServerLogic>
 void TCPServer<ServerLogic>::Bind(const uint16_t port) {
@@ -50,27 +50,27 @@ bool TCPServer<ServerLogic>::Running() {
 
 template<typename ServerLogic>
 void TCPServer<ServerLogic>::OnStart() {
-    m_visitor.OnStart();
+    m_logic.OnStart();
 }
 
 template<typename ServerLogic>
 void TCPServer<ServerLogic>::OnConnect(const size_t i) {
-    m_visitor.OnConnect(i);
+    m_logic.OnConnect(i);
 }
 
 template<typename ServerLogic>
 void TCPServer<ServerLogic>::OnDisconnect(const size_t i) {
-    m_visitor.OnDisconnect(i);
+    m_logic.OnDisconnect(i);
 }
 
 template<typename ServerLogic>
 void TCPServer<ServerLogic>::OnProcess(const size_t i) {
-    m_visitor.OnProcess(i);
+    m_logic.OnProcess(i);
 }
 
 template<typename ServerLogic>
 void TCPServer<ServerLogic>::Tick() {
-    m_visitor.Tick();
+    m_logic.Tick();
 }
 
 template<typename ServerLogic>
