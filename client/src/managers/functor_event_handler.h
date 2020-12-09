@@ -14,10 +14,14 @@ class FunctorHolder;
 
 template<typename TFunctor, typename ...TParams>
 class FunctorEventHandler : public AbstractEventHandler<TParams...> {
+    using FunctorHandlerType = FunctorEventHandler<TFunctor, TParams...>;
 public:
     explicit FunctorEventHandler(FunctorHolder<TFunctor> &holder);
 
     void call(TParams... params) final;
+
+protected:
+    bool equals(const AbstractEventHandler<TParams...> &rhs) const override;
 
 private:
     FunctorHolder<TFunctor> &functorHolder;
@@ -32,6 +36,10 @@ public:
     inline explicit operator AbstractEventHandler<CallParams...> &() {
         return *new FunctorEventHandler<TFunctor, CallParams...>(*this);
     }
+
+    bool operator==(const FunctorHolder<TFunctor> &rhs) const;
+
+    bool operator!=(const FunctorHolder<TFunctor> &rhs) const;
 
 private:
     TFunctor &functor;

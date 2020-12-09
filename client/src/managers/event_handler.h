@@ -1,5 +1,5 @@
-#ifndef CLIENT_MANAGER_H
-#define CLIENT_MANAGER_H
+#ifndef CLIENT_EVENT_HANDLER_H
+#define CLIENT_EVENT_HANDLER_H
 
 template<typename ...TParams>
 class AbstractEventHandler {
@@ -19,4 +19,4 @@ protected:
     virtual bool equals(const HandlerType &rhs) const = 0;
 };
 
-#endif //CLIENT_MANAGER_H
+#endif //CLIENT_EVENT_HANDLER_H
