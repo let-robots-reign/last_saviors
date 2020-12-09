@@ -17,8 +17,7 @@ private:
 
     void OnProcess();
 
-
-    void ProcessPacket(const size_t i, std::shared_ptr<Packet> packet);
+    void ProcessPacket(std::shared_ptr<Packet> packet);
 
 
     friend class TCPClient<GameClientLogic>;

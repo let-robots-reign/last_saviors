@@ -26,7 +26,7 @@ void TCPClient<ClientLogic>::ReceiveAndProcess() {
 
 template<typename ClientLogic>
 void TCPClient<ClientLogic>::Disconnect() {
-
+    m_socket.Disconnect();
 
     OnDisconnect();
 }
