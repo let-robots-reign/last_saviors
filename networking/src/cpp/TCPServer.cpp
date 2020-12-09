@@ -20,7 +20,7 @@ void TCPServer<ServerLogic>::Loop() {
     while (Running()) {
         AcceptClients();
         ReceiveAndProcess();
-        Tick();
+        OnTick();
     }
 }
 

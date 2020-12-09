@@ -8,12 +8,18 @@ TCPClient<ClientLogic>::~TCPClient() {}
 
 template<typename ClientLogic>
 bool TCPClient<ClientLogic>::Connect(std::string_view address) {
-    ///TODO
+    Connect(*SocketAddress::Create(address));
+}
+
+template<typename ClientLogic>
+bool TCPClient<ClientLogic>::Connect(SocketAddress adress) {
+    Connect(address);
 }
 
 template<typename ClientLogic>
 bool TCPClient<ClientLogic>::Connect(const uint32_t ip, const uint16_t port) {
-    
+    const SocketAddress address(ip, port);
+    m_socket.Connect(address);
     
     OnConnect();
 }
@@ -44,12 +50,12 @@ void TCPClient<ClientLogic>::Receive() {
 
 template<typename ClientLogic>
 bool TCPClient<ClientLogic>::HasPackets() {
-
+    
 }
 
 template<typename ClientLogic>
 void TCPClient<ClientLogic>::Process() {
-
+    OnProcess();
 }
 
 template<typename ClientLogic>

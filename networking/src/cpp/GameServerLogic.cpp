@@ -5,9 +5,10 @@ GameServerLogic::GameServerLogic(TCPServer<GameServerLogic> & server) : Server(s
 
 void GameServerLogic::OnStart() {
     std::cout << "Server has started!\n";
+    
 }
 
-void GameServerLogic::Tick() {
+void GameServerLogic::OnTick() {
     //to stop the example program
     Server.Stop();
     //game logic here

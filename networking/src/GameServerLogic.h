@@ -13,7 +13,7 @@ private:
 
     void OnStart();
 
-    void Tick();
+    void OnTick();
 
     void OnConnect(const size_t i);
 
