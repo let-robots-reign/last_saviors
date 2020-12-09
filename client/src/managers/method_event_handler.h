@@ -3,13 +3,15 @@
 
 #include "event_handler.h"
 
+template<typename TObject, typename TResult, typename ...TParams>
+class MethodHolder;
+
 // обработчик события - метод класса
-template<typename TObject, typename ...TParams>
+template<typename TMethodHolder, typename ...TParams>
 class MethodEventHandler : public AbstractEventHandler<TParams...> {
-    using TMethod = void (TObject::*)(TParams...);
-    using MethodHandlerType = MethodEventHandler<TObject, TParams...>;
+    using MethodHandlerType = MethodEventHandler<TMethodHolder, TParams...>;
 public:
-    MethodEventHandler(const TObject &object, TMethod method);
+    explicit MethodEventHandler(TMethodHolder &holder);
 
     void call(TParams... params) final;
 
@@ -17,8 +19,30 @@ protected:
     bool equals(const AbstractEventHandler<TParams...> &rhs) const override;
 
 private:
-    TObject *object;
+    TMethodHolder &methodHolder;
+};
+
+template<typename TObject, typename TResult, typename ...TParams>
+class MethodHolder {
+    using MethodHolderType = MethodHolder<TObject, TResult, TParams...>;
+    using TMethod = TResult(TObject::*)(TParams...);
+public:
+    MethodHolder(TObject &object, TMethod method);
+
+    template<typename ...CallParams>
+    inline explicit operator AbstractEventHandler<CallParams...> &() {
+        return *new MethodEventHandler<MethodHolderType, CallParams...>(*this);
+    }
+
+    bool operator==(const MethodHolderType &rhs) const;
+
+    bool operator!=(const MethodHolderType &rhs) const;
+
+private:
+    TObject &object;
     TMethod method;
+
+template<typename TMethodHolder, typename ...Params> friend class MethodEventHandler;
 };
 
 template<typename TObject, typename ...TParams>
