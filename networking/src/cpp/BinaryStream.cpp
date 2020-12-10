@@ -6,7 +6,7 @@ void BinaryStream::Push(const std::vector<std::byte> & data) {
 }
 
 std::vector<std::byte> BinaryStream::Pop(const size_t amount_bytes) {
-    std::vector popped(m_data.begin(), m_data.begin() + amount_bytes);
+    std::vector<std::byte> popped(m_data.begin(), m_data.begin() + amount_bytes);
     m_data.erase(m_data.begin(), m_data.begin() + amount_bytes);
     return popped;
 }
