@@ -23,10 +23,11 @@ public:
     bool Connected() const;
 
 protected:
-    TCPSocketConnection(bool connected);
+    TCPSocketConnection(int socket, bool connected);
 
-private:
+protected:
     bool m_connected;
+
 };
 
 

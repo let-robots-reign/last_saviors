@@ -10,8 +10,6 @@
 #include <memory>
 #include <string_view>
 
-#include "NetworkErrors.h"
-
 
 struct SocketAddress {
 public:
@@ -43,7 +41,7 @@ protected:
 public:
     bool HasData();
 
-private:
+protected:
     int m_socket;
     fd_set m_set;
 

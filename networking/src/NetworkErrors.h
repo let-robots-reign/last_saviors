@@ -16,6 +16,6 @@ public:
 
 class SocketGracefulDisconnect : public SocketDisconnect {
 public:
-    explicit SocketGracefulDisconnect(const TCPSocketConnection &socket);
-    const TCPSocketConnection &m_socket;
+    explicit SocketGracefulDisconnect(const TCPSocketConnection & socket);
+    const TCPSocketConnection & m_socket;
 };

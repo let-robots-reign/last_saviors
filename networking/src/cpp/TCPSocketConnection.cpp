@@ -1,8 +1,9 @@
 #include "../TCPSocketConnection.h"
+#include "../NetworkErrors.h"
 
 TCPSocketConnection::TCPSocketConnection() : m_connected(false) {}
 
-TCPSocketConnection::TCPSocketConnection(bool connected) : m_connected(connected) {}
+TCPSocketConnection::TCPSocketConnection(int socket, bool connected) : TCPSocketBase(socket), m_connected(connected) {}
 
 void TCPSocketConnection::Send(const void *data, size_t data_length) {
     if (send(m_socket, static_cast<const char *>(data), data_length, MSG_DONTWAIT) < 0) {
@@ -36,7 +37,7 @@ bool TCPSocketClient::Connect(const SocketAddress &address) {
     }
 
     sockaddr_in sockaddr = address.GetSockaddr();
-    if (connect(m_socket, (sockaddr*)&sockaddr, sizeof(sockaddr)) < 0) {
+    if (connect(m_socket, (struct sockaddr*)&sockaddr, sizeof(sockaddr)) < 0) {
         //error
         return false;
     }
@@ -47,9 +48,9 @@ bool TCPSocketClient::Connect(const SocketAddress &address) {
 
 
 
-TCPSocketConnectedClient::TCPSocketConnectedClient(int socket, const sockaddr_in &client_info) {
-
-}
+TCPSocketConnectedClient::TCPSocketConnectedClient(int socket, const sockaddr_in & client_info) :
+                                                                                                    TCPSocketConnection(socket, true),
+                                                                                                    m_socket_address(client_info) {}
 
 
 TCPSocketServer::TCPSocketServer() {}
