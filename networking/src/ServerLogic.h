@@ -4,15 +4,13 @@
 template<typename TClient>
 struct ServerLogic {
     friend class TCPServer<ServerLogic<TClient>>;
-private:
-    //TCPServer<ServerLogic, TClient> & Server;
 
 public:
     ServerLogic() = default;
 
 private:
     
-    ServerLogic(TCPServer<ServerLogic, TClient> & server) /*: Server(server)*/ {}
+    ServerLogic(TCPServer<ServerLogic, TClient> & server) {}
 
     void Send(const size_t i, const std::vector<std::byte> & data) {}
 
