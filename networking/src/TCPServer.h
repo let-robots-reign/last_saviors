@@ -2,6 +2,7 @@
 #include "TCPSocketConnection.h"
 #include "BinaryStream.h"
 
+
 struct ServerClient {
     ServerClient(TCPSocketConnectedClient socket) : m_socket(socket) {}
 
@@ -19,7 +20,9 @@ struct ServerClient {
 
 };
 
-template<typename ServerLogic>
+
+// second template parameter - custom client
+template<typename TServerLogic>
 class TCPServer {
 public:
     TCPServer();
@@ -32,18 +35,10 @@ public:                                         //for ServerLogic
 
     void Send(const size_t i, const std::vector<std::byte> & data);
 
-    template <typename Container>
-    void SendEveryone(const Container & container) {
-        for (size_t i = 0; i < m_clients.size(); ++i) {
-            Send(i, container);
-        }
-    }
-
-    void ReceiveAndProcess();    
+    void SendEveryone(const std::vector<std::byte> & data);
 
     void Stop();
     bool Running();
-    void Loop();
 
     ServerClient & GetClient(const size_t id);
 
@@ -56,6 +51,9 @@ public:                                         //for ServerLogic
 
 
 private:
+    void Loop();
+    void ReceiveAndProcess(); 
+
     void ReceiveAll();                          //to m_buffer
     void Receive(const size_t i);               //to m_buffer
 
@@ -66,7 +64,7 @@ private:
 
 
 private:
-    ServerLogic m_logic;
+    TServerLogic m_logic;
 
     TCPSocketServer m_socket;
     std::vector<ServerClient> m_clients;

@@ -1,23 +1,23 @@
 #include "../TCPClient.h"
 
-template<typename ClientLogic>
-TCPClient<ClientLogic>::TCPClient() : m_logic(*this) {}
+template<typename TClientLogic>
+TCPClient<TClientLogic>::TCPClient() : m_logic(*this) {}
 
-template<typename ClientLogic>
-TCPClient<ClientLogic>::~TCPClient() {}
+template<typename TClientLogic>
+TCPClient<TClientLogic>::~TCPClient() {}
 
-template<typename ClientLogic>
-bool TCPClient<ClientLogic>::Connect(std::string_view address) {
+template<typename TClientLogic>
+bool TCPClient<TClientLogic>::Connect(std::string_view address) {
     return Connect(*SocketAddress::Create(address));
 }
 
-template<typename ClientLogic>
-bool TCPClient<ClientLogic>::Connect(SocketAddress address) {
+template<typename TClientLogic>
+bool TCPClient<TClientLogic>::Connect(SocketAddress address) {
     return Connect(address);
 }
 
-template<typename ClientLogic>
-bool TCPClient<ClientLogic>::Connect(const uint32_t ip, const uint16_t port) {
+template<typename TClientLogic>
+bool TCPClient<TClientLogic>::Connect(const uint32_t ip, const uint16_t port) {
     const SocketAddress address(ip, port);
     m_socket.Connect(address);
     
@@ -25,56 +25,56 @@ bool TCPClient<ClientLogic>::Connect(const uint32_t ip, const uint16_t port) {
     return true;
 }
 
-template<typename ClientLogic>
-void TCPClient<ClientLogic>::Send(const std::vector<std::byte> & data) {
+template<typename TClientLogic>
+void TCPClient<TClientLogic>::Send(const std::vector<std::byte> & data) {
     m_logic.Send(data);
 }
 
-template<typename ClientLogic>
-void TCPClient<ClientLogic>::ReceiveAndProcess() {
+template<typename TClientLogic>
+void TCPClient<TClientLogic>::ReceiveAndProcess() {
     Receive();
     Process();
 }
 
-template<typename ClientLogic>
-void TCPClient<ClientLogic>::Disconnect() {
+template<typename TClientLogic>
+void TCPClient<TClientLogic>::Disconnect() {
     m_socket.Disconnect();
 
     OnDisconnect();
 }
 
-template<typename ClientLogic>
-bool TCPClient<ClientLogic>::Connected() {
+template<typename TClientLogic>
+bool TCPClient<TClientLogic>::Connected() {
     return m_socket.Connected();
 }
 
-template<typename ClientLogic>
-void TCPClient<ClientLogic>::Receive() {
+template<typename TClientLogic>
+void TCPClient<TClientLogic>::Receive() {
     if (m_socket.HasData())
         m_buffer.Push(m_socket.Receive());
 }
 
-template<typename ClientLogic>
-bool TCPClient<ClientLogic>::HasPackets() {
+template<typename TClientLogic>
+bool TCPClient<TClientLogic>::HasPackets() {
     ///TODO
 }
 
-template<typename ClientLogic>
-void TCPClient<ClientLogic>::Process() {
+template<typename TClientLogic>
+void TCPClient<TClientLogic>::Process() {
     OnProcess();
 }
 
-template<typename ClientLogic>
-void TCPClient<ClientLogic>::OnConnect() {
+template<typename TClientLogic>
+void TCPClient<TClientLogic>::OnConnect() {
     m_logic.OnConnect();
 }
 
-template<typename ClientLogic>
-void TCPClient<ClientLogic>::OnDisconnect() {
+template<typename TClientLogic>
+void TCPClient<TClientLogic>::OnDisconnect() {
     m_logic.OnDisconnect();
 }
 
-template<typename ClientLogic>
-void TCPClient<ClientLogic>::OnProcess() {
+template<typename TClientLogic>
+void TCPClient<TClientLogic>::OnProcess() {
     m_logic.OnProcess();
 }

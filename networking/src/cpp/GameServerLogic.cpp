@@ -1,6 +1,7 @@
 #include "../GameServerLogic.h"
 #include <iostream>
 
+
 GameServerLogic::GameServerLogic(TCPServer<GameServerLogic> & server) : Server(server) {}
 
 void GameServerLogic::Send(const size_t i, const std::vector<std::byte> & data) {
@@ -38,7 +39,6 @@ void GameServerLogic::OnProcess(const size_t i) {
     //get packets
     //call ProcessPacket
 }
-
 
 void GameServerLogic::ProcessPacket(const size_t i, std::shared_ptr<Packet> packet) {
     //process packet

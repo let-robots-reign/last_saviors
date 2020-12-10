@@ -1,14 +1,15 @@
 #pragma once
-#include "TCPServer.h"
+#include "ServerLogic.h"
 #include "Packet.h"
 
 
-struct GameServerLogic {
+struct GameServerLogic : public ServerLogic {
+    friend class TCPServer<GameServerLogic>;
 private:
     TCPServer<GameServerLogic> & Server;
 
 private:
-
+    
     GameServerLogic(TCPServer<GameServerLogic> & server);
 
     void Send(const size_t i, const std::vector<std::byte> & data);
@@ -25,8 +26,5 @@ private:
 
 
     void ProcessPacket(const size_t i, std::shared_ptr<Packet> packet);
-
-
-    friend class TCPServer<GameServerLogic>;
 
 };

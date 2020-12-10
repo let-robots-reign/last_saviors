@@ -1,9 +1,10 @@
 #pragma once
-#include "TCPClient.h"
+#include "ClientLogic.h"
 #include "Packet.h"
 
 
-struct GameClientLogic {
+struct GameClientLogic : public ClientLogic {
+    friend class TCPClient<GameClientLogic>;
 private:
     TCPClient<GameClientLogic> & Client;
 
@@ -20,8 +21,5 @@ private:
     void OnProcess();
 
     void ProcessPacket(std::shared_ptr<Packet> packet);
-
-
-    friend class TCPClient<GameClientLogic>;
 
 };
