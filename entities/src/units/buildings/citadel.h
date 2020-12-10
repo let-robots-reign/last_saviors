@@ -7,10 +7,10 @@
 
 class Citadel : public Attackable {
    private:
-    const CitadelModel* model_;
+    CitadelModel model_;
 
    public:
-    explicit Citadel(const CitadelModel* model,
+    explicit Citadel(const CitadelModel& model,
                      Coordinate position = Coordinate());
 };
 

@@ -6,7 +6,6 @@
 #include "enemy.h"
 
 class EnemyCreator {
-   private:
    public:
     virtual ~EnemyCreator() = default;
     virtual std::shared_ptr<Enemy> createEnemy(time_t current_time,

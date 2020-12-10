@@ -2,18 +2,19 @@
 #define LAST_SAVIORS_ATTACKABLE_H
 
 #include "unit.h"
+#include <stdexcept>
 
 class Attackable : public Unit {
    private:
-    int health_;
+    unsigned int health_;
 
    public:
-    explicit Attackable(int health, Coordinate position);
+    explicit Attackable(unsigned int health, Coordinate position) noexcept(false);
     ~Attackable() = default;
-    void reduceHealth(int value);
-    int getHealth() const { return health_; };
-    void setHealth(int value);
-    virtual void onFinish(){}
+    void reduceHealth(unsigned int value);
+    unsigned int getHealth() const { return health_; };
+    void setHealth(unsigned int value) noexcept(false);
+    virtual void atDeath(){}
 };
 
 

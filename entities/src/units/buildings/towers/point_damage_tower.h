@@ -6,10 +6,10 @@
 
 class PointDamageTower : public Tower {
    private:
-    const PointDamageTowerModel* model_;
+    PointDamageTowerModel model_;
 
    public:
-    PointDamageTower(const PointDamageTowerModel* model, time_t current_time,
+    PointDamageTower(const PointDamageTowerModel& model, time_t current_time,
                      Coordinate position = Coordinate(), int level = 1);
 };
 

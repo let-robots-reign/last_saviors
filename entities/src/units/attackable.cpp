@@ -1,14 +1,22 @@
 #include "attackable.h"
 
-void Attackable::reduceHealth(int value) {
-    health_ -= value;
-    if (health_ <= 0) {
-        onFinish();
+
+void Attackable::reduceHealth(unsigned int value) {
+    if (health_ <= value) {
+        atDeath();
+    } else {
+        health_ -= value;
     }
 }
-void Attackable::setHealth(int value) {
-    if (value <= 0) return;
+void Attackable::setHealth(unsigned int value) {
+    if (value == 0) throw std::invalid_argument("Zero health");
     health_ = value;
 }
-Attackable::Attackable(int health, Coordinate position)
-    : Unit(position), health_(health) {}
+Attackable::Attackable(unsigned int health, Coordinate position)
+    : Unit(position) {
+    try {
+        setHealth(health);
+    } catch (...) {
+        throw;
+    }
+}

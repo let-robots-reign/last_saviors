@@ -17,7 +17,7 @@ class Tower : public Attackable {
     virtual bool isReadyForAttack(time_t current_time) = 0;
     virtual std::list<Attackable> findTargets(
         std::list<Attackable> &enemies) = 0;
-    virtual void upgrade(time_t current_time) {
+    virtual void upgrade(time_t current_time) { //todo заменить все на unsigned int
         ++level_;  // todo ask model about max level
         time_of_last_attack_ = current_time;
     };

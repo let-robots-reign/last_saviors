@@ -10,11 +10,12 @@
 
 class Pawn : public Enemy {
    private:
-    const std::shared_ptr<PawnModel> model_;
+    const PawnModel model_;
 
    public:
-    Pawn(const std::shared_ptr<PawnModel> &model, time_t current_time,
+    Pawn(const PawnModel &model, time_t current_time,
          Coordinate position = Coordinate());
+    Pawn(const Pawn&) = delete;
     void attack(Attackable &target, time_t current_time) override;
     Attackable *findTarget(std::list<Attackable> &possible_targets) override;
     bool isReadyForAttack(time_t current_time) override;
