@@ -16,12 +16,18 @@ template<typename TFunctor, typename ...TParams>
 class FunctorEventHandler : public AbstractEventHandler<TParams...> {
     using FunctorHandlerType = FunctorEventHandler<TFunctor, TParams...>;
 public:
-    explicit FunctorEventHandler(FunctorHolder<TFunctor> &holder);
+    explicit FunctorEventHandler(FunctorHolder<TFunctor> &holder)
+            : AbstractEventHandler<TParams...>(), functorHolder(holder) {}
 
-    void call(TParams... params) final;
+    void call(TParams... params) final {
+        functorHolder.functor(params...);
+    }
 
 protected:
-    bool equals(const AbstractEventHandler<TParams...> &rhs) const override;
+    bool equals(const AbstractEventHandler<TParams...> &rhs) const override {
+        const auto *_rhs = dynamic_cast<const FunctorHandlerType *>(&rhs);
+        return (_rhs != nullptr && functorHolder == _rhs->functorHolder);
+    }
 
 private:
     FunctorHolder<TFunctor> &functorHolder;
@@ -30,22 +36,27 @@ private:
 template<typename TFunctor>
 class FunctorHolder {
 public:
-    explicit FunctorHolder(TFunctor &functor);
+    explicit FunctorHolder(TFunctor &functor) : functor(functor) {}
 
     template<typename ...CallParams>
     inline explicit operator AbstractEventHandler<CallParams...> &() {
         return *new FunctorEventHandler<TFunctor, CallParams...>(*this);
     }
 
-    bool operator==(const FunctorHolder<TFunctor> &rhs) const;
+    inline bool operator==(const FunctorHolder<TFunctor> &rhs) const {
+        return (functor == rhs.functor);
+    }
 
-    bool operator!=(const FunctorHolder<TFunctor> &rhs) const;
+    inline bool operator!=(const FunctorHolder<TFunctor> &rhs) const {
+        return !(*this == rhs);
+    }
 
 private:
     TFunctor &functor;
 
     // чтобы был возможен call() в FunctorEventHandler
-    template<typename Functor, typename ...TParams> friend class FunctorEventHandler;
+    template<typename Functor, typename ...TParams> friend
+    class FunctorEventHandler;
 };
 
 template<typename TFunctor>

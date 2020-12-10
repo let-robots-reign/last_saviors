@@ -11,12 +11,17 @@ template<typename TMethodHolder, typename ...TParams>
 class MethodEventHandler : public AbstractEventHandler<TParams...> {
     using MethodHandlerType = MethodEventHandler<TMethodHolder, TParams...>;
 public:
-    explicit MethodEventHandler(TMethodHolder &holder);
+    explicit MethodEventHandler(TMethodHolder &holder) : methodHolder(holder) {}
 
-    void call(TParams... params) final;
+    void call(TParams... params) final {
+        (methodHolder->object.*methodHolder->method)(params...);
+    }
 
 protected:
-    bool equals(const AbstractEventHandler<TParams...> &rhs) const override;
+    bool equals(const AbstractEventHandler<TParams...> &rhs) const override {
+        const auto *_rhs = dynamic_cast<const MethodHandlerType *>(&rhs);
+        return (_rhs != nullptr && *methodHolder == *_rhs->methodHolder);
+    }
 
 private:
     TMethodHolder &methodHolder;
@@ -27,22 +32,27 @@ class MethodHolder {
     using MethodHolderType = MethodHolder<TObject, TResult, TParams...>;
     using TMethod = TResult(TObject::*)(TParams...);
 public:
-    MethodHolder(TObject &object, TMethod method);
+    MethodHolder(TObject &object, TMethod method) : object(object), method(method) {}
 
     template<typename ...CallParams>
     inline explicit operator AbstractEventHandler<CallParams...> &() {
         return *new MethodEventHandler<MethodHolderType, CallParams...>(*this);
     }
 
-    bool operator==(const MethodHolderType &rhs) const;
+    inline bool operator==(const MethodHolderType &rhs) const {
+        return (&object == &rhs.object && method == rhs.method);
+    }
 
-    bool operator!=(const MethodHolderType &rhs) const;
+    inline bool operator!=(const MethodHolderType &rhs) const {
+        return !(*this == rhs);
+    }
 
 private:
     TObject &object;
     TMethod method;
 
-template<typename TMethodHolder, typename ...Params> friend class MethodEventHandler;
+    template<typename TMethodHolder, typename ...Params> friend
+    class MethodEventHandler;
 };
 
 template<typename TObject, typename ...TParams>

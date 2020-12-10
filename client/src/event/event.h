@@ -2,6 +2,7 @@
 #define LAST_SAVIORS_EVENT_H
 
 #include <list>
+#include <algorithm>
 #include <shared_mutex>
 #include "event_handler.h"
 
@@ -11,7 +12,7 @@ class IEvent {
 protected:
     using EventHandler = AbstractEventHandler<TParams...>;
 
-    IEvent();
+    IEvent() = default;
 
     virtual bool addHandler(EventHandler &eventHandler) = 0;
 
@@ -20,11 +21,15 @@ protected:
 public:
     // подписка на событие
     template<typename THandler>
-    bool operator+=(THandler &&handler);
+    inline bool operator+=(THandler &&handler) {
+        return addHandler(static_cast<EventHandler &>(handler));
+    }
 
     // отписка от события
     template<typename THandler>
-    bool operator-=(THandler &&handler);
+    inline bool operator-=(THandler &&handler) {
+        return removeHandler(static_cast<EventHandler &>(handler));
+    }
 };
 
 
@@ -33,16 +38,63 @@ class TEvent : public IEvent<TParams...> {
     using EventHandler = typename IEvent<TParams...>::EventHandler;
     using EventHandlerIt = typename std::list<EventHandler *>::const_iterator;
 public:
-    TEvent();
+    TEvent() : IEvent<TParams...>(), handlers(), currentIt(), isCurrentItRemoved(), handlerListMutex() {}
 
-    ~TEvent();
+    ~TEvent() {
+        for (EventHandler *handler : handlers) {
+            delete handler;
+        }
+        handlers.clear();
+    }
+
+    void operator()(TParams... params) {
+        handlerListMutex.lock_shared();
+
+        isCurrentItRemoved = false;
+        currentIt = handlers.begin();
+        while (currentIt != handlers.end()) {
+            handlerListMutex.unlock_shared();
+            (*currentIt)->call(params...);
+            handlerListMutex.lock_shared();
+
+            if (isCurrentItRemoved) {
+                isCurrentItRemoved = false;
+
+                EventHandlerIt itToRemove = currentIt;
+                deleteHandler(itToRemove);
+            }
+            ++currentIt;
+        }
+
+        handlerListMutex.unlock_shared();
+    }
 
 protected:
-    void operator()(TParams... params);
 
-    bool addHandler(EventHandler &eventHandler) override;
+    bool addHandler(EventHandler &eventHandler) override {
+        std::unique_lock<std::shared_mutex> handlerListMutexLock(handlerListMutex);
 
-    bool removeHandler(EventHandler &eventHandler) override;
+        if (findEventHandler(eventHandler) == handlers.end()) {
+            handlers.push_back(&eventHandler);
+            return true;
+        }
+        return false;
+    }
+
+    bool removeHandler(EventHandler &eventHandler) override {
+        std::unique_lock<std::shared_mutex> handlerListMutexLock(handlerListMutex);
+
+        auto it = findEventHandler(eventHandler);
+        if (it != handlers.end()) {
+            if (it == currentIt) {
+                isCurrentItRemoved = true;
+            } else {
+                deleteHandler(it);
+            }
+            return true;
+        }
+        return false;
+    }
 
 private:
     std::list<EventHandler *> handlers;
@@ -64,151 +116,4 @@ private:
     }
 };
 
-
-//enum EventType {
-//    MouseClicked,
-//    StartSingleMatch,
-//    StartMultiplayerMatch,
-//    EverythingLoaded,
-//    WaveStarted,
-//    WaveFinished,
-//    TilePressed,
-//    TowerMenuOpened,
-//    PuzzleOpened,
-//    PuzzleAnswered,
-//    TowerPlaced,
-//    TowerAttacked,
-//    TowerDestroyed,
-//    TowerBroken,
-//    TowerRepaired,
-//    CitadelAttacked,
-//    EnemyHitted,
-//    EnemyKilled,
-//    GameFinished,
-//    EmptyEvent
-//};
-//
-//class TEvent {
-//public:
-//    explicit TEvent(EventType type);
-//
-//    const EventType &getEventType() const {
-//        return type;
-//    }
-//
-//private:
-//    EventType type;
-//};
-//
-//class MouseClickEvent : public TEvent {
-//public:
-//    MouseClickEvent(EventType type, const Coordinate &mouse);
-//
-//    inline const Coordinate &getMouse() const {
-//        return mouse;
-//    }
-//
-//private:
-//    Coordinate mouse;
-//};
-//
-//class TileEvent : public TEvent {
-//public:
-//    TileEvent(EventType type, const Tile &selectedTile);
-//
-//    inline const Tile &getSelectedTile() const {
-//        return selectedTile;
-//    }
-//
-//private:
-//    Tile selectedTile;
-//};
-//
-//class TowerEvent : public TEvent {
-//public:
-//    TowerEvent(EventType type, Tower *tower);
-//
-//    inline const Tower *getTower() const {
-//        return tower;
-//    }
-//
-//private:
-//    Tower *tower;
-//};
-//
-//class PuzzleEvent : public TEvent {
-//public:
-//    PuzzleEvent(EventType type, Puzzle chosenPuzzle);
-//
-//    inline const Puzzle &getPuzzle() const {
-//        return chosenPuzzle;
-//    }
-//
-//private:
-//    Puzzle chosenPuzzle;
-//};
-//
-//class PuzzleAnswerEvent : public TEvent {
-//public:
-//    PuzzleAnswerEvent(EventType type, bool answerCorrectness);
-//
-//    inline const bool &getAnswerCorrectness() const {
-//        return answerCorrectness;
-//    }
-//
-//private:
-//    bool answerCorrectness;
-//};
-//
-//class EnemyEvent : public TEvent {
-//public:
-//    EnemyEvent(EventType type, Enemy *enemy);
-//
-//    inline const Enemy *getEnemy() const {
-//        return enemy;
-//    };
-//private:
-//    Enemy *enemy;
-//};
-//
-//class CitadelEvent : public TEvent {
-//public:
-//    CitadelEvent(EventType type, const Citadel &citadel);
-//
-//    inline const Citadel &getCitadel() const {
-//        return citadel;
-//    }
-//
-//private:
-//    Citadel citadel;
-//};
-//
-//class GameResultsEvent : public TEvent {
-//public:
-//    GameResultsEvent(EventType type, bool success, const Citadel &citadel, const IWave &waveInfo);
-//
-//    inline const bool &getSuccess() const {
-//        return success;
-//    }
-//
-//    inline const Citadel &getCitadel() const {
-//        return citadel;
-//    }
-//
-//    inline const IWave &getWave() const {
-//        return waveInfo;
-//    }
-//
-//private:
-//    bool success;
-//    Citadel citadel;
-//    IWave waveInfo;
-//};
-//
-//class NoInfoEvent : public TEvent {
-//public:
-//    explicit NoInfoEvent(EventType type);
-//};
-//
-//
 #endif //LAST_SAVIORS_EVENT_H

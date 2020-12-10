@@ -1,6 +1,8 @@
+#include <iostream>
 #include "application.h"
 #include "label.h"
 #include "button.h"
+#include "functor_event_handler.h"
 
 
 Application::Application(const Loader &loader, const Renderer &renderer)

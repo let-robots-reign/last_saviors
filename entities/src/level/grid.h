@@ -26,7 +26,18 @@ private:
     size_t height;
     std::string mapGenerator;
     bool initialized;
-    std::vector<std::vector<Tile>> tiles;
+    tilesContainer tiles;
+
+    TileType convertSymbolToType(const char symbol) const;
+    std::map<char, TileType> symbolsToTileTypes = {
+            {'0', EmptyTile},
+            {'_', RoadTile},
+            {'b', BlockTile},
+            {'t', PlacedTowerTile},
+            {'s', PlacedShaftTile},
+            {'C', CitadelTile}
+    };
+
 };
 
 #endif //CLIENT_GRID_H

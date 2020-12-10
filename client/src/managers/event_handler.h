@@ -9,9 +9,13 @@ public:
     // чтобы реализовать отписку (operator -=) от события, добавим операторы сравнения
     using HandlerType = AbstractEventHandler<TParams...>;
 
-    bool operator==(const HandlerType &rhs) const;
+    inline bool operator==(const HandlerType &rhs) const {
+        return equals(rhs);
+    }
 
-    bool operator!=(const HandlerType &rhs) const;
+    inline bool operator!=(const HandlerType &rhs) const {
+        return !(*this == rhs);
+    }
 
 protected:
     AbstractEventHandler() = default;

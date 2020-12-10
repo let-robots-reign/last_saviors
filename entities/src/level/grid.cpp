@@ -11,9 +11,13 @@ void Grid::buildGrid() {
     size_t line_index = 0;
     while (getline(iss, line, '\n')) {
         for (size_t char_index = 0; char_index < line.size(); ++char_index) {
-            tiles[line_index][char_index].updateTile(symbolsToTileTypes[line[char_index]]);
+            tiles[line_index][char_index].updateTile(convertSymbolToType(line[char_index]));
         }
     }
+}
+
+TileType Grid::convertSymbolToType(const char symbol) const {
+    return symbolsToTileTypes.at(symbol);
 }
 
 bool Grid::isInitialized() const {

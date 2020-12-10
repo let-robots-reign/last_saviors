@@ -12,15 +12,6 @@ enum TileType {
     CitadelTile
 };
 
-std::map<char, TileType> symbolsToTileTypes = {
-        {'0', EmptyTile},
-        {'_', RoadTile},
-        {'b', BlockTile},
-        {'t', PlacedTowerTile},
-        {'s', PlacedShaftTile},
-        {'C', CitadelTile}
-};
-
 class Tile {
 public:
     explicit Tile(TileType type);
@@ -30,6 +21,7 @@ public:
     bool canPlaceTower() const;
 
     bool canPlaceShaft() const;
+
 private:
     TileType tileType;
 };

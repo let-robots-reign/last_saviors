@@ -1,62 +1,30 @@
 #include "gtest/gtest.h"
 #include "gmock/gmock.h"
 
-#include "game_state.h"
-#include "loader_manager.h"
-#include "renderer_manager.h"
+#include "event.h"
+#include "functor_event_handler.h"
 
-using ::testing::Return;
+TEST(TestEventSystem, testFunctorHandlers) {
+    class TestPrint {
+    public:
+        TEvent<const std::string &> onPrint;
+    };
 
-class MockLoader : public AbstractEventHandler {
-public:
-    MOCK_METHOD(LoadingResult, loadResources, ());
-    MOCK_METHOD(LoadingResult, loadTextures, ());
-    MOCK_METHOD(LoadingResult, loadFonts, ());
-    MOCK_METHOD(int, processEvent, (const IEvent &event));
-};
+//    struct Functor {
+//        void operator()(const std::string &str) {
+//            std::cout << str << std::endl;
+//        }
+//    };
 
-class MockRenderer : public AbstractEventHandler {
-public:
-    MOCK_METHOD(RenderingResult, renderMenu, ());
-    MOCK_METHOD(RenderingResult, renderLevel, ());
-    MOCK_METHOD(RenderingResult, renderTowersMenu, ());
-    MOCK_METHOD(RenderingResult, renderPuzzleMenu, ());
-    MOCK_METHOD(RenderingResult, renderGameOver, ());
-    MOCK_METHOD(RenderingResult, renderGrid, ());
-    MOCK_METHOD(RenderingResult, renderEnemies, ());
-    MOCK_METHOD(RenderingResult, renderWidgets, ());
-    MOCK_METHOD(void, updateState, (GameState newState));
-    MOCK_METHOD(int, processEvent, (const IEvent &event));
-};
+    auto lambdaHandler = [](const std::string &str) {
+        std::cout << str << std::endl;
+    };
 
-TEST(TestManagers, testLoader) {
-    MockLoader mLoader;
-    EXPECT_CALL(mLoader, loadResources()).Times(1);
-    EXPECT_CALL(mLoader, loadTextures()).Times(1);
-    EXPECT_CALL(mLoader, loadFonts()).Times(1);
+    TestPrint tprint;
+//    Functor functor;
+//    tprint.onPrint += FUNCTOR_HANDLER(functor);
+    tprint.onPrint += LAMBDA_HANDLER(lambdaHandler);
 
-    LoadingResult res = mLoader.loadResources();
-    ASSERT_THAT(res, LOADING_SUCCESS);
-    res = mLoader.loadTextures();
-    ASSERT_THAT(res, LOADING_SUCCESS);
-    res = mLoader.loadFonts();
-    ASSERT_THAT(res, LOADING_SUCCESS);
+    tprint.onPrint("Hello");
 
-//    TEvent event = TEvent(EverythingLoaded, NoInfoEvent());
-//    EXPECT_CALL(mLoader, processEvent(event)).Times(1);
-}
-
-TEST(TestManagers, testRenderer) {
-    MockRenderer mRenderer;
-
-    EXPECT_CALL(mRenderer, renderMenu()).Times(1);
-
-    mRenderer.updateState(InGame);
-    EXPECT_CALL(mRenderer, renderLevel()).Times(1);
-
-    mRenderer.updateState(InPuzzle);
-    EXPECT_CALL(mRenderer, renderPuzzleMenu()).Times(1);
-
-    mRenderer.updateState(GameOver);
-    EXPECT_CALL(mRenderer, renderGameOver()).Times(1);
 }
