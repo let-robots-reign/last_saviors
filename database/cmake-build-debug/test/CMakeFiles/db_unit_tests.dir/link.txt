@@ -1,1 +1,0 @@
-/usr/bin/c++  --coverage -g   CMakeFiles/db_unit_tests.dir/test_main.cpp.o CMakeFiles/db_unit_tests.dir/test_obj_builder.cpp.o CMakeFiles/db_unit_tests.dir/test_query.cpp.o CMakeFiles/db_unit_tests.dir/test_wave_generator.cpp.o  -o db_unit_tests  ../libdb_lib.a /usr/lib/x86_64-linux-gnu/libpq.so /usr/lib/x86_64-linux-gnu/libgtest.a -lpthread 
