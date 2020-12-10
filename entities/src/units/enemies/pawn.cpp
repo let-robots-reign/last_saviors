@@ -12,7 +12,7 @@ bool Pawn::isReadyForAttack(time_t current_time) {
 }
 
 bool Pawn::canAttack(const Attackable &target) {
-    return typeid(target) == typeid(Citadel);
+    return typeid(target).hash_code() == typeid(Citadel).hash_code();
 }
 
 Attackable *Pawn::findTarget(std::list<Attackable> &possible_targets) {
