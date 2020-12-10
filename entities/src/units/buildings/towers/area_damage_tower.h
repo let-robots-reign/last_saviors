@@ -9,10 +9,10 @@ class AreaDamageTower : public Tower {
     const AreaDamageTowerModel model_;
 
    public:
-    explicit AreaDamageTower(
+    explicit AreaDamageTower(const
         AreaDamageTowerModel& model, time_t current_time,
         Coordinate position = Coordinate(),
-        int level = 1);  // todo тут копирование по-хорошему
+        int level = 1);
 };
 
 #endif  // LAST_SAVIORS_AREA_DAMAGE_TOWER_H
