@@ -4,27 +4,30 @@
 #include "event.h"
 #include "functor_event_handler.h"
 
-TEST(TestEventSystem, testFunctorHandlers) {
-    class TestPrint {
-    public:
-        TEvent<const std::string &> onPrint;
-    };
+class TestPrint {
+public:
+    explicit TestPrint() {}
 
-//    struct Functor {
-//        void operator()(const std::string &str) {
-//            std::cout << str << std::endl;
-//        }
-//    };
+    TEvent<const std::string &> onPrint;
+};
 
+TEST(TestEventSystem, testLambdaHandler) {
+    TestPrint tprint;
     auto lambdaHandler = [](const std::string &str) {
         std::cout << str << std::endl;
     };
-
-    TestPrint tprint;
-//    Functor functor;
-//    tprint.onPrint += FUNCTOR_HANDLER(functor);
     tprint.onPrint += LAMBDA_HANDLER(lambdaHandler);
 
-    tprint.onPrint("Hello");
+    tprint.onPrint("Lambda");
+}
 
+void functionHandler(const std::string &str) {
+    std::cout << str << std::endl;
+}
+
+TEST(TestEventSystem, testFunction) {
+    TestPrint tprint;
+
+    tprint.onPrint += FUNCTION_HANDLER(functionHandler);
+    tprint.onPrint("Function");
 }
