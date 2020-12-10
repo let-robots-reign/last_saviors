@@ -1,23 +1,19 @@
 #ifndef LAST_SAVIORS_PLAYER_H
 #define LAST_SAVIORS_PLAYER_H
 
+#include "player_model.h"
 #include <cstddef>
-
-enum TowerType { kAreaDamageTower, kPointDamageTower };
 
 class Player {
    private:
-    const size_t INITIAL_COINS = 200; // todo model
+    PlayerModel model_;
     size_t coins_;
 
    public:
-    Player();
-    void buildTower(TowerType type);//todo это вообще не надо
-    void takePuzzle(int complexity);
+    Player(const PlayerModel& model);
     void increaseCoins(size_t value);
     void reduceCoins(size_t value);
-    size_t getCoins() {return coins_; }
-    void buildShaft();
+    size_t getCoins() const {return coins_; }
 };
 
 #endif  // LAST_SAVIORS_PLAYER_H

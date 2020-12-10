@@ -1,13 +1,10 @@
 #include "player.h"
 
-Player::Player() : coins_(INITIAL_COINS) {}
 
-void Player::buildShaft() {}
+void Player::increaseCoins(size_t value) { coins_ += value; }
 
-void Player::buildTower(TowerType type) {}
-
-void Player::takePuzzle(int complexity) {}
-
-void Player::increaseCoins(size_t value) {}
-
-void Player::reduceCoins(size_t value) {}
+void Player::reduceCoins(size_t value) {
+    if (coins_ > value) coins_ -= value;
+}
+Player::Player(const PlayerModel& model)
+    : model_(model), coins_(model.initialCoins) {}

@@ -2,7 +2,7 @@
 #define LAST_SAVIORS_CITADEL_MODEL_H
 
 struct CitadelModel {
-    const int MAX_HEALTH;
+    unsigned int maxHealth;
 };
 
 #endif  // LAST_SAVIORS_CITADEL_MODEL_H
