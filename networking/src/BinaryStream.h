@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <array>
 
 struct BinaryStream {
 public:
@@ -13,11 +14,11 @@ public:
     template <typename T>
     void Write(const T &data) {
         const size_t size = sizeof(T);
-        std::vector<std::byte> binary(size);
+        std::array<std::byte, size> binary;
         const std::byte *begin = reinterpret_cast<const std::byte *>(std::addressof(data));
         const std::byte *end = begin + size;
         std::copy(begin, end, binary.begin());
-        Push(binary);
+        Push(std::vector<std::byte>(binary.begin(), binary.end()));   //xd
     }
 
     // for primitives, structs with no pointers, etc
@@ -36,13 +37,13 @@ public:
     
     
     template <typename T>
-    friend BinaryStream &operator<< (BinaryStream &buffer, const T &data) {
+    friend BinaryStream & operator<< (BinaryStream & buffer, const T & data) {
         buffer.Write(data);
         return buffer;
     }
 
     template <typename T>
-    friend BinaryStream &operator>> (BinaryStream &buffer, const T &data) {
+    friend BinaryStream & operator>> (BinaryStream & buffer, const T & data) {
         buffer.Read(data);
         return buffer;
     }
