@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="db_unit_tests"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="clang"/>
+		<Option virtualFolders="CMake Files\;CMake Files\test\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/home/ilya/Рабочий стол/last_saviors/database/cmake-build-debug/test"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/ilya/Рабочий\ стол/last_saviors/database/cmake-build-debug/test/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/ilya/Рабочий\ стол/last_saviors/database/cmake-build-debug/test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/ilya/Рабочий\ стол/last_saviors/database/cmake-build-debug/test/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/ilya/Рабочий\ стол/last_saviors/database/cmake-build-debug/test/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="db_unit_tests">
+				<Option output="/home/ilya/Рабочий стол/last_saviors/database/cmake-build-debug/test/db_unit_tests" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/ilya/Рабочий стол/last_saviors/database/cmake-build-debug/test"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="clang"/>
+				<Compiler>
+					<Add directory="/home/ilya/Рабочий стол/last_saviors/database/src/PostgresSQL/Builder"/>
+					<Add directory="/home/ilya/Рабочий стол/last_saviors/database/src/PostgresSQL/ConnectionPool"/>
+					<Add directory="/home/ilya/Рабочий стол/last_saviors/database/src/PostgresSQL/Data"/>
+					<Add directory="/home/ilya/Рабочий стол/last_saviors/database/src/PostgresSQL/DataMappers"/>
+					<Add directory="/usr/include/postgresql"/>
+					<Add directory="/usr/include/postgresql/12/server"/>
+					<Add directory="/usr/bin/../lib/gcc/x86_64-linux-gnu/9/../../../../include/c++/9"/>
+					<Add directory="/usr/bin/../lib/gcc/x86_64-linux-gnu/9/../../../../include/x86_64-linux-gnu/c++/9"/>
+					<Add directory="/usr/bin/../lib/gcc/x86_64-linux-gnu/9/../../../../include/c++/9/backward"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/llvm-9/lib/clang/9.0.1/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/ilya/Рабочий\ стол/last_saviors/database/cmake-build-debug/test/Makefile&quot;  VERBOSE=1 db_unit_tests"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/ilya/Рабочий\ стол/last_saviors/database/cmake-build-debug/test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/ilya/Рабочий\ стол/last_saviors/database/cmake-build-debug/test/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/ilya/Рабочий\ стол/last_saviors/database/cmake-build-debug/test/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="db_unit_tests/fast">
+				<Option output="/home/ilya/Рабочий стол/last_saviors/database/cmake-build-debug/test/db_unit_tests" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/ilya/Рабочий стол/last_saviors/database/cmake-build-debug/test"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="clang"/>
+				<Compiler>
+					<Add directory="/home/ilya/Рабочий стол/last_saviors/database/src/PostgresSQL/Builder"/>
+					<Add directory="/home/ilya/Рабочий стол/last_saviors/database/src/PostgresSQL/ConnectionPool"/>
+					<Add directory="/home/ilya/Рабочий стол/last_saviors/database/src/PostgresSQL/Data"/>
+					<Add directory="/home/ilya/Рабочий стол/last_saviors/database/src/PostgresSQL/DataMappers"/>
+					<Add directory="/usr/include/postgresql"/>
+					<Add directory="/usr/include/postgresql/12/server"/>
+					<Add directory="/usr/bin/../lib/gcc/x86_64-linux-gnu/9/../../../../include/c++/9"/>
+					<Add directory="/usr/bin/../lib/gcc/x86_64-linux-gnu/9/../../../../include/x86_64-linux-gnu/c++/9"/>
+					<Add directory="/usr/bin/../lib/gcc/x86_64-linux-gnu/9/../../../../include/c++/9/backward"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/llvm-9/lib/clang/9.0.1/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/ilya/Рабочий\ стол/last_saviors/database/cmake-build-debug/test/Makefile&quot;  VERBOSE=1 db_unit_tests/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/ilya/Рабочий\ стол/last_saviors/database/cmake-build-debug/test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/ilya/Рабочий\ стол/last_saviors/database/cmake-build-debug/test/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/ilya/Рабочий\ стол/last_saviors/database/cmake-build-debug/test/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/home/ilya/Рабочий стол/last_saviors/database/test/test_main.cpp">
+			<Option target="db_unit_tests"/>
+		</Unit>
+		<Unit filename="/home/ilya/Рабочий стол/last_saviors/database/test/test_obj_builder.cpp">
+			<Option target="db_unit_tests"/>
+		</Unit>
+		<Unit filename="/home/ilya/Рабочий стол/last_saviors/database/test/test_query.cpp">
+			<Option target="db_unit_tests"/>
+		</Unit>
+		<Unit filename="/home/ilya/Рабочий стол/last_saviors/database/test/test_wave_generator.cpp">
+			<Option target="db_unit_tests"/>
+		</Unit>
+		<Unit filename="/home/ilya/Рабочий стол/last_saviors/database/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/home/ilya/Рабочий стол/last_saviors/database/test/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\test\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

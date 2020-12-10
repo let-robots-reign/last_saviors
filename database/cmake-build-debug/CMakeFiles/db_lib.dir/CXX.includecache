@@ -1,0 +1,216 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../src/PostgresSQL/Builder/idb_conn.h
+string
+-
+db_server_info.h
+../src/PostgresSQL/Builder/db_server_info.h
+
+../src/PostgresSQL/ConnectionPool/pg_conn_pool.h
+memory
+-
+mutex
+-
+string
+-
+queue
+-
+condition_variable
+-
+libpq-fe.h
+-
+pgconnection.h
+../src/PostgresSQL/ConnectionPool/pgconnection.h
+
+../src/PostgresSQL/ConnectionPool/pgconnection.h
+memory
+-
+mutex
+-
+libpq-fe.h
+-
+
+../src/PostgresSQL/Data/db_server_info.h
+string
+-
+
+../src/PostgresSQL/Data/prog_puzzle.h
+string
+-
+
+../src/PostgresSQL/Data/quiz_puzzlez.h
+string
+-
+vector
+-
+
+../src/PostgresSQL/Data/user.h
+string
+-
+
+../src/PostgresSQL/Data/user_score.h
+
+../src/PostgresSQL/DataMappers/ipquest_mapper.h
+prog_puzzle.h
+../src/PostgresSQL/DataMappers/prog_puzzle.h
+
+../src/PostgresSQL/DataMappers/iqquest_mapper.h
+quiz_puzzlez.h
+../src/PostgresSQL/DataMappers/quiz_puzzlez.h
+
+../src/PostgresSQL/DataMappers/iscore_mapper.h
+vector
+-
+user_score.h
+../src/PostgresSQL/DataMappers/user_score.h
+
+../src/PostgresSQL/DataMappers/iusers_mapper.h
+user.h
+../src/PostgresSQL/DataMappers/user.h
+
+../src/PostgresSQL/DataMappers/pquest_mapper.h
+ipquest_mapper.h
+../src/PostgresSQL/DataMappers/ipquest_mapper.h
+
+../src/PostgresSQL/DataMappers/qquest_mapper.h
+iqquest_mapper.h
+../src/PostgresSQL/DataMappers/iqquest_mapper.h
+
+../src/PostgresSQL/DataMappers/score_mapper.h
+memory
+-
+iscore_mapper.h
+../src/PostgresSQL/DataMappers/iscore_mapper.h
+idb_conn.h
+../src/PostgresSQL/DataMappers/idb_conn.h
+
+../src/PostgresSQL/DataMappers/user_mapper.h
+memory
+-
+pg_conn_pool.h
+-
+iusers_mapper.h
+../src/PostgresSQL/DataMappers/iusers_mapper.h
+idb_conn.h
+../src/PostgresSQL/DataMappers/idb_conn.h
+
+/home/ilya/Рабочий стол/last_saviors/database/src/PostgresSQL/Builder/dbms.h
+vector
+-
+user.h
+/home/ilya/Рабочий стол/last_saviors/database/src/PostgresSQL/Builder/user.h
+user_score.h
+/home/ilya/Рабочий стол/last_saviors/database/src/PostgresSQL/Builder/user_score.h
+quiz_puzzlez.h
+/home/ilya/Рабочий стол/last_saviors/database/src/PostgresSQL/Builder/quiz_puzzlez.h
+prog_puzzle.h
+/home/ilya/Рабочий стол/last_saviors/database/src/PostgresSQL/Builder/prog_puzzle.h
+
+/home/ilya/Рабочий стол/last_saviors/database/src/PostgresSQL/Builder/idb_conn.h
+string
+-
+db_server_info.h
+/home/ilya/Рабочий стол/last_saviors/database/src/PostgresSQL/Builder/db_server_info.h
+
+/home/ilya/Рабочий стол/last_saviors/database/src/PostgresSQL/Builder/pgsql.cpp
+pgsql.h
+/home/ilya/Рабочий стол/last_saviors/database/src/PostgresSQL/Builder/pgsql.h
+
+/home/ilya/Рабочий стол/last_saviors/database/src/PostgresSQL/Builder/pgsql.h
+memory
+-
+dbms.h
+/home/ilya/Рабочий стол/last_saviors/database/src/PostgresSQL/Builder/dbms.h
+score_mapper.h
+/home/ilya/Рабочий стол/last_saviors/database/src/PostgresSQL/Builder/score_mapper.h
+qquest_mapper.h
+/home/ilya/Рабочий стол/last_saviors/database/src/PostgresSQL/Builder/qquest_mapper.h
+user_mapper.h
+/home/ilya/Рабочий стол/last_saviors/database/src/PostgresSQL/Builder/user_mapper.h
+pquest_mapper.h
+/home/ilya/Рабочий стол/last_saviors/database/src/PostgresSQL/Builder/pquest_mapper.h
+idb_conn.h
+/home/ilya/Рабочий стол/last_saviors/database/src/PostgresSQL/Builder/idb_conn.h
+
+/home/ilya/Рабочий стол/last_saviors/database/src/PostgresSQL/ConnectionPool/main.cpp
+thread
+-
+iostream
+-
+pg_conn_pool.h
+/home/ilya/Рабочий стол/last_saviors/database/src/PostgresSQL/ConnectionPool/pg_conn_pool.h
+
+/home/ilya/Рабочий стол/last_saviors/database/src/PostgresSQL/ConnectionPool/pg_conn_pool.cpp
+iostream
+-
+thread
+-
+pg_conn_pool.h
+/home/ilya/Рабочий стол/last_saviors/database/src/PostgresSQL/ConnectionPool/pg_conn_pool.h
+
+/home/ilya/Рабочий стол/last_saviors/database/src/PostgresSQL/ConnectionPool/pg_conn_pool.h
+memory
+-
+mutex
+-
+string
+-
+queue
+-
+condition_variable
+-
+libpq-fe.h
+-
+pgconnection.h
+/home/ilya/Рабочий стол/last_saviors/database/src/PostgresSQL/ConnectionPool/pgconnection.h
+
+/home/ilya/Рабочий стол/last_saviors/database/src/PostgresSQL/ConnectionPool/pgconnection.cpp
+pgconnection.h
+/home/ilya/Рабочий стол/last_saviors/database/src/PostgresSQL/ConnectionPool/pgconnection.h
+
+/home/ilya/Рабочий стол/last_saviors/database/src/PostgresSQL/ConnectionPool/pgconnection.h
+memory
+-
+mutex
+-
+libpq-fe.h
+-
+
+/home/ilya/Рабочий стол/last_saviors/database/src/PostgresSQL/DataMappers/iusers_mapper.h
+user.h
+/home/ilya/Рабочий стол/last_saviors/database/src/PostgresSQL/DataMappers/user.h
+
+/home/ilya/Рабочий стол/last_saviors/database/src/PostgresSQL/DataMappers/user_mapper.cpp
+iostream
+-
+user_mapper.h
+/home/ilya/Рабочий стол/last_saviors/database/src/PostgresSQL/DataMappers/user_mapper.h
+
+/home/ilya/Рабочий стол/last_saviors/database/src/PostgresSQL/DataMappers/user_mapper.h
+memory
+-
+pg_conn_pool.h
+-
+iusers_mapper.h
+/home/ilya/Рабочий стол/last_saviors/database/src/PostgresSQL/DataMappers/iusers_mapper.h
+idb_conn.h
+/home/ilya/Рабочий стол/last_saviors/database/src/PostgresSQL/DataMappers/idb_conn.h
+
+/usr/include/postgresql/libpq-fe.h
+stdio.h
+-
+postgres_ext.h
+/usr/include/postgresql/postgres_ext.h
+
+/usr/include/postgresql/pg_config_ext.h
+
+/usr/include/postgresql/postgres_ext.h
+pg_config_ext.h
+/usr/include/postgresql/pg_config_ext.h
+

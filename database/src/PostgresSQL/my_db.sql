@@ -1,0 +1,42 @@
+
+
+DROP TABLE IF EXISTS game_user CASCADE;
+DROP TABLE IF EXISTS leaderboard CASCADE;
+DROP TABLE IF EXISTS quiz_question CASCADE;
+DROP TABLE IF EXISTS programming_question CASCADE;
+DROP TABLE IF EXISTS game_config CASCADE;
+
+
+CREATE TABLE IF NOT EXISTS game_user (
+	user_id SERIAL PRIMARY KEY NOT NULL,
+	login VARCHAR(50) NOT NULL UNIQUE,
+	password VARCHAR(70) NOT NULL,
+	name VARCHAR(70) NOT NULL,
+	age INTEGER NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS leaderboard (
+	user_id INTEGER REFERENCES game_user (user_id) ON DELETE CASCADE NOT NULL,
+	score INTEGER NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS quiz_question (
+	qst_id SERIAL PRIMARY KEY NOT NULL,
+	complexity INTEGER NOT NULL,
+	question TEXT NOT NULL,
+	answer_options TEXT NOT NULL,
+	correct_answer TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS programming_question (
+	qst_id SERIAL PRIMARY KEY NOT NULL,
+	complexity INTEGER NOT NULL,
+	question TEXT NOT NULL,
+	correct_code TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS game_config (
+	cfg_id SERIAL PRIMARY KEY NOT NULL,
+	cfg text NOT NULL UNIQUE
+);
+

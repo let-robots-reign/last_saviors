@@ -1,0 +1,6 @@
+/home/ilya/Рабочий стол/last_saviors/database/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/ilya/Рабочий стол/last_saviors/database/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/ilya/Рабочий стол/last_saviors/database/cmake-build-debug/CMakeFiles/db_lib.dir
+/home/ilya/Рабочий стол/last_saviors/database/cmake-build-debug/test/CMakeFiles/rebuild_cache.dir
+/home/ilya/Рабочий стол/last_saviors/database/cmake-build-debug/test/CMakeFiles/edit_cache.dir
+/home/ilya/Рабочий стол/last_saviors/database/cmake-build-debug/test/CMakeFiles/db_unit_tests.dir
