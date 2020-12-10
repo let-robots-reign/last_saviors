@@ -21,8 +21,7 @@ struct ServerClient {
 };
 
 
-// second template parameter - custom client
-template<typename TServerLogic>
+template<typename TServerLogic, typename TClient = ServerClient>
 class TCPServer {
 public:
     TCPServer();
@@ -40,7 +39,7 @@ public:                                         //for ServerLogic
     void Stop();
     bool Running();
 
-    ServerClient & GetClient(const size_t id);
+    TClient & GetClient(const size_t id);
 
     // ServerLogic's methods
     void OnStart();
@@ -67,7 +66,7 @@ private:
     TServerLogic m_logic;
 
     TCPSocketServer m_socket;
-    std::vector<ServerClient> m_clients;
+    std::vector<TClient> m_clients;
     
     bool m_running;
 

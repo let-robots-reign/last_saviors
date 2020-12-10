@@ -2,15 +2,15 @@
 #include "ServerLogic.h"
 #include "Packet.h"
 
-
-struct GameServerLogic : public ServerLogic {
-    friend class TCPServer<GameServerLogic>;
+template<typename TClient>
+struct GameServerLogic : public ServerLogic<TClient> {
+    friend class TCPServer<GameServerLogic<TClient>>;
 private:
-    TCPServer<GameServerLogic> & Server;
+    TCPServer<GameServerLogic<TClient>, TClient> & Server;
 
 private:
-    
-    GameServerLogic(TCPServer<GameServerLogic> & server);
+
+    GameServerLogic(TCPServer<GameServerLogic<TClient>> & server);
 
     void Send(const size_t i, const std::vector<std::byte> & data);
 

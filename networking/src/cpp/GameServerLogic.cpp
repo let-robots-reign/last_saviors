@@ -1,10 +1,11 @@
 #include "../GameServerLogic.h"
 #include <iostream>
 
+template<typename TClient>
+GameServerLogic<TClient>::GameServerLogic(TCPServer<GameServerLogic<TClient>> & server) : Server(server) {}
 
-GameServerLogic::GameServerLogic(TCPServer<GameServerLogic> & server) : Server(server) {}
-
-void GameServerLogic::Send(const size_t i, const std::vector<std::byte> & data) {
+template<typename TClient>
+void GameServerLogic<TClient>::Send(const size_t i, const std::vector<std::byte> & data) {
     uint64_t size = data.size();
     BinaryStream stream;
     stream.Write(size);
@@ -12,34 +13,40 @@ void GameServerLogic::Send(const size_t i, const std::vector<std::byte> & data) 
     Server.GetClient(i).Send(data);
 }
 
-void GameServerLogic::OnStart() {
+template<typename TClient>
+void GameServerLogic<TClient>::OnStart() {
     std::cout << "Server has started!\n";
     
 }
 
-void GameServerLogic::OnTick() {
+template<typename TClient>
+void GameServerLogic<TClient>::OnTick() {
     //to stop the example program
     Server.Stop();
     //game logic here
     //sleep(...); //to have constant amount of ticks per second
 }
 
-void GameServerLogic::OnConnect(const size_t i) {
+template<typename TClient>
+void GameServerLogic<TClient>::OnConnect(const size_t i) {
     std::cout << "A client has just connected!\n";
 
 }
 
-void GameServerLogic::OnDisconnect(const size_t i) {
+template<typename TClient>
+void GameServerLogic<TClient>::OnDisconnect(const size_t i) {
     std::cout << "A client has just disconnected!\n";
 
 }
 
-void GameServerLogic::OnProcess(const size_t i) {
+template<typename TClient>
+void GameServerLogic<TClient>::OnProcess(const size_t i) {
     std::cout << "Processing a client!\n";
     //get packets
     //call ProcessPacket
 }
 
-void GameServerLogic::ProcessPacket(const size_t i, std::shared_ptr<Packet> packet) {
+template<typename TClient>
+void GameServerLogic<TClient>::ProcessPacket(const size_t i, std::shared_ptr<Packet> packet) {
     //process packet
 }
