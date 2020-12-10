@@ -3,14 +3,17 @@
 
 #include "enemy.h"
 #include "mindmaster_model.h"
+#include "algorithm"
+#include "tower.h"
 
 class Mindmaster : public Enemy {
    private:
-    const MindmasterModel *model_;
+    const MindmasterModel model_;
 
    public:
-    explicit Mindmaster(const MindmasterModel *model, time_t current_time,
+    explicit Mindmaster(const MindmasterModel& model, time_t current_time,
                         Coordinate position = Coordinate());
+    bool canAttack(const Attackable &target) override;
     void attack(Attackable &target, time_t current_time) override;
     Attackable *findTarget(std::list<Attackable> &possible_targets) override;
     bool isReadyForAttack(time_t current_time) override;

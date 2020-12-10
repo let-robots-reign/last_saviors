@@ -29,7 +29,7 @@ void PawnCreator::changeConfiguration(unsigned int maxHealth,
                                       size_t coinsForDeath) {
     if (!validityConfigurationCheck(maxHealth, damage, speed, attackCooldown,
                                     coinsForDeath)) {
-        throw std::invalid_argument("");  // todo error message;
+        throw std::invalid_argument("Used non-positive values");
     }
     model_ = {maxHealth, damage, speed, attackCooldown, coinsForDeath};
 }
