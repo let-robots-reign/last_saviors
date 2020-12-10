@@ -1,6 +1,5 @@
 #pragma once
 #include <vector>
-#include "Serializable.h"
 
 struct BinaryStream {
 public:
@@ -31,8 +30,7 @@ public:
     }
 
     /*
-        overload some methods for game objects, etc
-        mb inherit a class and override methods in it
+        game-specific template specializations are in BinaryStream.Game.cpp
     */
 
     
