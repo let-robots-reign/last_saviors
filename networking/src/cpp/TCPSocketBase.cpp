@@ -52,8 +52,37 @@ std::shared_ptr<SocketAddress> SocketAddress::Create(std::string_view address) {
     return std::make_shared<SocketAddress>(SocketAddress(ip, port));
 }
 
+sockaddr_in SocketAddress::GetSockaddr() const {
+    return m_sockaddr;
+}
 
 
-TCPSocketBase::TCPSocketBase() : m_socket(0) {}
-TCPSocketBase::~TCPSocketBase() {}
-TCPSocketBase::TCPSocketBase(int socket) : m_socket(socket) {}
+TCPSocketBase::TCPSocketBase() : m_socket(-1) {
+    m_socket = socket(AF_INET, SOCK_STREAM, 0);
+    if (m_socket == -1) {
+        //error
+    }
+    FD_ZERO(&m_set);
+}
+
+TCPSocketBase::~TCPSocketBase() {
+    if (m_socket != -1) {
+        close(m_socket);
+    }
+}
+
+TCPSocketBase::TCPSocketBase(int socket) : m_socket(socket) {
+    FD_ZERO(&m_set);
+}
+
+bool TCPSocketBase::HasData() {
+    static constexpr timeval tv = {0, 0};
+	FD_SET(m_socket, &m_set);
+    int ret = select(0, &m_set, 0, 0, const_cast<timeval*>(&tv));
+    if (ret == -1) {
+        throw SocketError(errno, "Socket select() failed");
+    }
+    else {
+        return ret;
+    }
+}

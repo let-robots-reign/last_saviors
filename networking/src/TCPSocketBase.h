@@ -10,6 +10,8 @@
 #include <memory>
 #include <string_view>
 
+#include "NetworkErrors.h"
+
 
 struct SocketAddress {
 public:
@@ -19,6 +21,8 @@ public:
     std::string ToString() const;
 
     static std::shared_ptr<SocketAddress> Create(std::string_view address);
+
+    sockaddr_in GetSockaddr() const;
 
 private:
     const uint32_t m_ip;
@@ -36,7 +40,11 @@ public:
 protected:
     TCPSocketBase(int socket);
 
+public:
+    bool HasData();
+
 private:
     int m_socket;
+    fd_set m_set;
 
 };

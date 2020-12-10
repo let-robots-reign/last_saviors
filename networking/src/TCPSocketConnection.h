@@ -4,6 +4,8 @@
 
 class TCPSocketConnection : public TCPSocketBase {
 public:
+    TCPSocketConnection();
+
     void Send(const void *data, size_t data_length);
 
     template <typename Container>
@@ -12,24 +14,25 @@ public:
     }   //requires Container to have: data(), size()
 
 
+
     std::vector<std::byte> Receive();
     std::vector<std::byte> Receive(const size_t size);
 
-    bool HasData();
+    void Disconnect();
+
+    bool Connected() const;
+
+protected:
+    TCPSocketConnection(bool connected);
 
 private:
-
+    bool m_connected;
 };
 
 
 class TCPSocketClient : public TCPSocketConnection {
 public:
     bool Connect(const SocketAddress &address);
-    void Disconnect();
-    bool Connected() const;
-    
-private:
-	bool m_connected;
 	
 };
 
@@ -41,8 +44,6 @@ private:
     SocketAddress m_socket_address;
 
     TCPSocketConnectedClient(int socket, const sockaddr_in & client_info);
-
-    void Disconnect();
 
     friend class TCPSocketServer;
 
