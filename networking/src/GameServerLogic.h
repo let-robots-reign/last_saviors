@@ -11,6 +11,8 @@ private:
 
     GameServerLogic(TCPServer<GameServerLogic> & server);
 
+    void Send(const size_t i, const std::vector<std::byte> & data);
+
     void OnStart();
 
     void OnTick();

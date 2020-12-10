@@ -11,6 +11,12 @@ std::vector<std::byte> BinaryStream::Pop(const size_t amount_bytes) {
     return popped;
 }
 
+template<>
+void BinaryStream::Write<Serializable>(const Serializable & serializable) {
+    std::vector<std::byte> binary(serializable.ToBinary());
+    Push(binary);
+}
+
 const std::vector<std::byte> & BinaryStream::data() const {
     return m_data;
 }

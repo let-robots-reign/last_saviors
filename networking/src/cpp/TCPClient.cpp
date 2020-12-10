@@ -26,6 +26,11 @@ bool TCPClient<ClientLogic>::Connect(const uint32_t ip, const uint16_t port) {
 }
 
 template<typename ClientLogic>
+void TCPClient<ClientLogic>::Send(const std::vector<std::byte> & data) {
+    m_logic.Send(data);
+}
+
+template<typename ClientLogic>
 void TCPClient<ClientLogic>::ReceiveAndProcess() {
     Receive();
     Process();

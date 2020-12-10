@@ -11,6 +11,8 @@ private:
 
     GameClientLogic(TCPClient<GameClientLogic> & client);
 
+    void Send(const std::vector<std::byte> & data);
+
     void OnConnect();
 
     void OnDisconnect();

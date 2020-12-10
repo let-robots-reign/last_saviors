@@ -8,9 +8,8 @@ struct ServerClient {
     TCPSocketConnectedClient m_socket;
     BinaryStream m_buffer;
 
-    template <typename Container>
-    void Send(const Container & container) {
-        m_socket.Send(container);
+    void Send(const std::vector<std::byte> & data) {
+        m_socket.Send(data);
     }
 
     void Receive() {
@@ -31,10 +30,7 @@ public:
 
 public:                                         //for ServerLogic
 
-    template <typename Container>
-    void Send(const size_t i, const Container & container) {
-        m_clients.at(i).Send(container);
-    }
+    void Send(const size_t i, const std::vector<std::byte> & data);
 
     template <typename Container>
     void SendEveryone(const Container & container) {
@@ -49,7 +45,7 @@ public:                                         //for ServerLogic
     bool Running();
     void Loop();
 
-    const ServerClient & GetClient(const size_t id) const;
+    ServerClient & GetClient(const size_t id);
 
     // ServerLogic's methods
     void OnStart();

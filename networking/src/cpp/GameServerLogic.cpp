@@ -3,6 +3,14 @@
 
 GameServerLogic::GameServerLogic(TCPServer<GameServerLogic> & server) : Server(server) {}
 
+void GameServerLogic::Send(const size_t i, const std::vector<std::byte> & data) {
+    uint64_t size = data.size();
+    BinaryStream stream;
+    stream.Write(size);
+    Server.GetClient(i).Send(stream.data());
+    Server.GetClient(i).Send(data);
+}
+
 void GameServerLogic::OnStart() {
     std::cout << "Server has started!\n";
     
@@ -27,10 +35,11 @@ void GameServerLogic::OnDisconnect(const size_t i) {
 
 void GameServerLogic::OnProcess(const size_t i) {
     std::cout << "Processing a client!\n";
-    
+    //get packets
+    //call ProcessPacket
 }
 
 
 void GameServerLogic::ProcessPacket(const size_t i, std::shared_ptr<Packet> packet) {
-
+    //process packet
 }

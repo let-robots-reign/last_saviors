@@ -5,6 +5,11 @@ template<typename ServerLogic>
 TCPServer<ServerLogic>::TCPServer() : m_logic(*this), m_running(false) {}
 
 template<typename ServerLogic>
+void TCPServer<ServerLogic>::Send(const size_t i, const std::vector<std::byte> & data) {
+    m_logic.Send(i, data);
+}
+
+template<typename ServerLogic>
 void TCPServer<ServerLogic>::Bind(const uint16_t port) {
     m_socket.Bind(port);
 }
@@ -98,6 +103,6 @@ void TCPServer<ServerLogic>::Process(const size_t i) {
 }
 
 template<typename ServerLogic>
-const ServerClient & TCPServer<ServerLogic>::GetClient(const size_t i) const {
+ServerClient & TCPServer<ServerLogic>::GetClient(const size_t i) {
     return m_clients.at(i);
 }

@@ -13,10 +13,7 @@ public:
     bool Connect(SocketAddress address);
     bool Connect(const uint32_t ip, const uint16_t port);
 
-    template<typename Container>
-    void Send(const Container &container) {
-        m_socket.Send(container);
-    }
+    void Send(const std::vector<std::byte> & data);
 
     void ReceiveAndProcess();
 

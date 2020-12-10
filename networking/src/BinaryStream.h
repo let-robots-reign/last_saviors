@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include "Serializable.h"
 
 struct BinaryStream {
 public:
@@ -13,6 +14,8 @@ public:
     void Write(const T &data) {
 
     }
+
+    
 
     template <typename T>
     void Read(T &data) {
