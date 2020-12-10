@@ -14,7 +14,7 @@ public:
     }   //requires Container to have: data(), size()
 
 
-
+    void Receive(void * buffer, size_t buffer_length, int & received);
     std::vector<std::byte> Receive();
     std::vector<std::byte> Receive(const size_t size);
 
@@ -53,8 +53,8 @@ private:
 
 class TCPSocketServer : public TCPSocketBase {
 public:
-    TCPSocketServer();
-    ~TCPSocketServer();
+    TCPSocketServer() = default;
+    ~TCPSocketServer() = default;
 
     void Bind(uint16_t port);
     bool CanAccept();

@@ -3,8 +3,8 @@
 
 struct BinaryStream {
 public:
-    BinaryStream();
-    ~BinaryStream();
+    BinaryStream() = default;
+    ~BinaryStream() = default;
 
     void Push(const std::vector<std::byte> & data);
     std::vector<std::byte> Pop(const size_t amount_bytes);
@@ -28,12 +28,14 @@ public:
     
     template <typename T>
     friend BinaryStream &operator<< (BinaryStream &buffer, const T &data) {
-
+        buffer.Write(data);
+        return buffer;
     }
 
     template <typename T>
     friend BinaryStream &operator>> (BinaryStream &buffer, const T &data) {
-
+        buffer.Read(data);
+        return buffer;
     }
     
 
