@@ -72,7 +72,7 @@ TCPSocketBase::~TCPSocketBase() {
     }
 }
 
-TCPSocketBase::TCPSocketBase(int socket) : m_socket(socket) {
+TCPSocketBase::TCPSocketBase(int && socket) : m_socket(socket) {
     FD_ZERO(&m_set);
 }
 

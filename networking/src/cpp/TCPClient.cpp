@@ -50,7 +50,7 @@ void TCPClient<ClientLogic>::Receive() {
 
 template<typename ClientLogic>
 bool TCPClient<ClientLogic>::HasPackets() {
-    
+    ///TODO
 }
 
 template<typename ClientLogic>

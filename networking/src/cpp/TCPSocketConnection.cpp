@@ -3,7 +3,7 @@
 
 TCPSocketConnection::TCPSocketConnection() : m_connected(false) {}
 
-TCPSocketConnection::TCPSocketConnection(int socket, bool connected) : TCPSocketBase(socket), m_connected(connected) {}
+TCPSocketConnection::TCPSocketConnection(int && socket, bool connected) : TCPSocketBase(std::move(socket)), m_connected(connected) {}
 
 void TCPSocketConnection::Send(const void *data, size_t data_length) {
     if (send(m_socket, static_cast<const char *>(data), data_length, MSG_DONTWAIT) < 0) {
@@ -48,8 +48,8 @@ bool TCPSocketClient::Connect(const SocketAddress &address) {
 
 
 
-TCPSocketConnectedClient::TCPSocketConnectedClient(int socket, const sockaddr_in & client_info) :
-                                                                                                    TCPSocketConnection(socket, true),
+TCPSocketConnectedClient::TCPSocketConnectedClient(int && socket, const sockaddr_in & client_info) :
+                                                                                                    TCPSocketConnection(std::move(socket), true),
                                                                                                     m_socket_address(client_info) {}
 
 
@@ -76,5 +76,12 @@ bool TCPSocketServer::CanAccept() {
 }
 
 TCPSocketConnectedClient TCPSocketServer::Accept() {
-
+    int client_socket;
+	sockaddr_in client_info;
+	socklen_t client_addr_size = sizeof(client_info);
+    client_socket = accept(m_socket, (struct sockaddr*)&client_info, &client_addr_size);
+	if (client_socket == -1) {
+		throw SocketError(errno, "Socket accept() error");
+	}
+    return TCPSocketConnectedClient(std::move(client_socket), client_info);
 }

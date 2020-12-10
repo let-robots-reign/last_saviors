@@ -36,7 +36,7 @@ public:
     ~TCPSocketBase();
 
 protected:
-    TCPSocketBase(int socket);
+    TCPSocketBase(int && socket);
 
 public:
     bool HasData();
