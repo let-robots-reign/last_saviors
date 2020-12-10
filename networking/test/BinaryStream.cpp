@@ -37,15 +37,13 @@ TEST(BinaryStream, vecbyte_pushpop) {
     EXPECT_EQ(buffer.data().size(), 0);
 }
 
-
-/*TEST(BinaryStream, int_operators) {
+TEST(BinaryStream, int_operators) {
     BinaryStream buffer;
     const int a = 1337;
     int b = 0;
     buffer << a;
-    b << buffer;
+    buffer >> b;
     EXPECT_EQ(a, 1337);
     EXPECT_EQ(a, b);
     EXPECT_EQ(buffer.data().size(), 0);
-}*/
-
+}

@@ -12,7 +12,7 @@ public:
     
     // for primitives, structs with no pointers, etc
     template <typename T>
-    void Write(const T &data) {
+    void Write(const T & data) {
         const size_t size = sizeof(T);
         std::array<std::byte, size> binary;
         const std::byte *begin = reinterpret_cast<const std::byte *>(std::addressof(data));
@@ -23,17 +23,12 @@ public:
 
     // for primitives, structs with no pointers, etc
     template <typename T>
-    void Read(T &data) {
+    void Read(T & data) {
         const size_t size = sizeof(T);
         const std::vector<std::byte> binary = Pop(size);
         std::byte *begin = reinterpret_cast<std::byte *>(std::addressof(data));
         std::copy(binary.begin(), binary.end(), begin);
     }
-
-    /*
-        game-specific template specializations are in BinaryStream.Game.cpp
-    */
-
     
     
     template <typename T>
@@ -43,7 +38,7 @@ public:
     }
 
     template <typename T>
-    friend BinaryStream & operator>> (BinaryStream & buffer, const T & data) {
+    friend BinaryStream & operator>> (BinaryStream & buffer, T & data) {
         buffer.Read(data);
         return buffer;
     }
