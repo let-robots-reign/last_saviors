@@ -1,8 +1,8 @@
-#include "../TCPSocketBase.h"
+#include "TCPSocketBase.h"
 #include <cstring>
 #include <string>
 #include <sstream>
-#include "../NetworkErrors.h"
+#include "NetworkErrors.h"
 
 namespace {
     sockaddr_in sockaddr_in_from_uints(const uint32_t address, const uint16_t port) {

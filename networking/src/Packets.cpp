@@ -1,4 +1,4 @@
-#include "../Packets.h"
+#include "Packets.h"
 
 ChatMessagePacket& ChatMessagePacket::operator=(ChatMessagePacket&&) {
 

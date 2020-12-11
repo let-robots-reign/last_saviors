@@ -1,4 +1,4 @@
-#include "../BinaryStream.h"
+#include "BinaryStream.h"
 
 void BinaryStream::Push(const std::vector<std::byte> & data) {
     m_data.insert(m_data.end(), data.begin(), data.end());

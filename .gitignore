@@ -35,9 +35,13 @@
 /networking/.vscode
 /networking/build
 
-#cmake & build
+# networking garbage
+networking/networking_library/build
+networking/networking_library/lib
+networking/networking_library/test/build
+
 networking/build
-networking/bin
 networking/lib
+networking/bin
 networking/test/build
 

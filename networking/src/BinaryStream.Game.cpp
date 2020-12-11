@@ -1,5 +1,5 @@
-#include "../BinaryStream.h"
-#include "../Serializable.h"
+#include "BinaryStream.h"
+#include "Serializable.h"
 
 template<>
 void BinaryStream::Write<Serializable>(const Serializable & serializable) {

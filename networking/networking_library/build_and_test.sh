@@ -1,10 +1,8 @@
 #!/bin/bash
 
-echo "BUILDING GAME NETWORKING LIBRARY"
+echo "BUILDING NETWORKING LIBRARY"
 cd build || mkdir build && cd build
 
 cmake .. || { echo 'CMAKE FAILED' ; exit 1; }
 make || { echo 'MAKE failed' ; exit 1; }
-#../bin/networking || { echo 'PROGRAM failed' ; exit 1; }
-
 

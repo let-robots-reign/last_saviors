@@ -1,6 +1,6 @@
-#include "../GameClientLogic.h"
+#include "GameClientLogic.h"
 #include <iostream>
-#include "../BinaryStream.h"
+#include "BinaryStream.h"
 
 GameClientLogic::GameClientLogic(TCPClient<GameClientLogic> & client) : Client(client) {}
 

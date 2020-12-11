@@ -1,4 +1,4 @@
-#include "../NetworkErrors.h"
+#include "NetworkErrors.h"
 
 
 SocketError::SocketError(const int errno_, const char *what) : m_errno(errno_), std::runtime_error(what) {}

@@ -1,5 +1,5 @@
-#include "../TCPSocketConnection.h"
-#include "../NetworkErrors.h"
+#include "TCPSocketConnection.h"
+#include "NetworkErrors.h"
 
 TCPSocketConnection::TCPSocketConnection() : m_connected(false) {}
 

@@ -1,5 +1,5 @@
 #pragma once
-#include "../TCPServer.h"
+#include "TCPServer.h"
 
 
 template<typename TServerLogic, typename TClient>

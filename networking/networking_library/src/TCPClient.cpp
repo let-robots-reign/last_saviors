@@ -1,4 +1,4 @@
-#include "../TCPClient.h"
+#include "TCPClient.h"
 
 template<typename TClientLogic>
 TCPClient<TClientLogic>::TCPClient() : m_logic(*this) {}

@@ -1,4 +1,4 @@
-#include "../GameServerLogic.h"
+#include "GameServerLogic.h"
 #include <iostream>
 
 template<typename TClient>
