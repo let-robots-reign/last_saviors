@@ -1,5 +1,7 @@
 #include "ClientStruct.h"
 
+ClientStruct::ClientStruct(TCPSocketConnectedClient socket) : m_socket(socket) {}
+
 void ClientStruct::Send(const std::vector<std::byte> & data) {
     m_socket.Send(data);
 }

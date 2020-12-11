@@ -5,7 +5,7 @@
 
 struct ClientStruct {
 public:
-    ClientStruct(TCPSocketConnectedClient socket) : m_socket(socket) {}
+    ClientStruct(TCPSocketConnectedClient socket);
 
     void Send(const std::vector<std::byte> & data);
 
