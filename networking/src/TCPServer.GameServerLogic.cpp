@@ -1,6 +1,7 @@
 #include "TCPServer.cpp"
+#include "ClientStruct.h"
 #include "GameServerLogic.cpp"
 
-template class GameServerLogic<ServerClient>;
-template class TCPServer<GameServerLogic<ServerClient>, ServerClient>;
+template class GameServerLogic<ClientStruct>;
+template class TCPServer<GameServerLogic<ClientStruct>, ClientStruct>;
 

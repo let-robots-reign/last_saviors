@@ -25,6 +25,7 @@ void TCPServer<TServerLogic, TClient>::Bind(const uint16_t port) {
 template<typename TServerLogic, typename TClient>
 void TCPServer<TServerLogic, TClient>::Start() {
     m_running = true;
+    m_logic.OnStart();
     Loop();
 }
 
@@ -33,7 +34,7 @@ void TCPServer<TServerLogic, TClient>::Loop() {
     while (Running()) {
         AcceptClients();
         ReceiveAndProcess();
-        OnTick();
+        m_logic.OnTick();
     }
 }
 
@@ -41,7 +42,7 @@ template<typename TServerLogic, typename TClient>
 void TCPServer<TServerLogic, TClient>::AcceptClients() {
     while (m_socket.CanAccept()) {
         m_clients.push_back(TClient(m_socket.Accept()));
-        OnConnect(m_clients.size() - 1);
+        m_logic.OnConnect(m_clients.size() - 1);
     }
 }
 
@@ -59,31 +60,6 @@ void TCPServer<TServerLogic, TClient>::Stop() {
 template<typename TServerLogic, typename TClient>
 bool TCPServer<TServerLogic, TClient>::Running() {
     return m_running;
-}
-
-template<typename TServerLogic, typename TClient>
-void TCPServer<TServerLogic, TClient>::OnStart() {
-    m_logic.OnStart();
-}
-
-template<typename TServerLogic, typename TClient>
-void TCPServer<TServerLogic, TClient>::OnConnect(const size_t i) {
-    m_logic.OnConnect(i);
-}
-
-template<typename TServerLogic, typename TClient>
-void TCPServer<TServerLogic, TClient>::OnDisconnect(const size_t i) {
-    m_logic.OnDisconnect(i);
-}
-
-template<typename TServerLogic, typename TClient>
-void TCPServer<TServerLogic, TClient>::OnProcess(const size_t i) {
-    m_logic.OnProcess(i);
-}
-
-template<typename TServerLogic, typename TClient>
-void TCPServer<TServerLogic, TClient>::OnTick() {
-    m_logic.OnTick();
 }
 
 template<typename TServerLogic, typename TClient>
@@ -107,7 +83,7 @@ void TCPServer<TServerLogic, TClient>::ProcessAll() {
 
 template<typename TServerLogic, typename TClient>
 void TCPServer<TServerLogic, TClient>::Process(const size_t i) {
-    OnProcess(i);
+    m_logic.OnProcess(i);
 }
 
 template<typename TServerLogic, typename TClient>

@@ -1,26 +1,8 @@
 #pragma once
 #include "TCPSocketConnection.h"
-#include "BinaryStream.h"
 
 
-struct ServerClient {
-    ServerClient(TCPSocketConnectedClient socket) : m_socket(socket) {}
-
-    void Send(const std::vector<std::byte> & data) {
-        m_socket.Send(data);
-    }
-
-    void Receive() {
-        if (m_socket.HasData()) m_buffer.Push(m_socket.Receive());
-    }
-    
-    TCPSocketConnectedClient m_socket;
-    BinaryStream m_buffer;
-
-};
-
-
-template<typename TServerLogic, typename TClient = ServerClient>
+template<typename TServerLogic, typename TClient>
 class TCPServer {
 public:
     TCPServer();
@@ -31,21 +13,13 @@ public:
 
 public:                                         //for ServerLogic
 
-    void Send(const size_t i, const std::vector<std::byte> & data);
-
-    void SendEveryone(const std::vector<std::byte> & data);
-
     void Stop();
     bool Running();
 
-    TClient & GetClient(const size_t id);
+    void Send(const size_t i, const std::vector<std::byte> & data);
+    void SendEveryone(const std::vector<std::byte> & data);
 
-    // ServerLogic's methods
-    void OnStart();
-    void OnConnect(const size_t i);
-    void OnDisconnect(const size_t i);
-    void OnProcess(const size_t i);
-    void OnTick();
+    TClient & GetClient(const size_t i);
 
 
 private:
@@ -70,4 +44,3 @@ private:
     bool m_running;
 
 };
-

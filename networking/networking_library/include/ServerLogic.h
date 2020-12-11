@@ -3,7 +3,7 @@
 
 template<typename TClient>
 struct ServerLogic {
-    friend class TCPServer<ServerLogic<TClient>>;
+    friend class TCPServer<ServerLogic<TClient>, TClient>;
 
 public:
     ServerLogic() = default;

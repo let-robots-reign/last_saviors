@@ -4,13 +4,13 @@
 
 template<typename TClient>
 struct GameServerLogic : public ServerLogic<TClient> {
-    friend class TCPServer<GameServerLogic<TClient>>;
+    friend class TCPServer<GameServerLogic<TClient>, TClient>;
 private:
     TCPServer<GameServerLogic<TClient>, TClient> & Server;
 
 private:
 
-    GameServerLogic(TCPServer<GameServerLogic<TClient>> & server);
+    GameServerLogic(TCPServer<GameServerLogic<TClient>, TClient> & server);
 
     void Send(const size_t i, const std::vector<std::byte> & data);
 

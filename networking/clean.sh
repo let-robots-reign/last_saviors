@@ -1,6 +1,8 @@
 #!/bin/bash
 
-./networking_library/clean.sh
+cd ./networking_library
+./clean.sh
+cd ..
 
 exec 2>/dev/null
 

@@ -1,4 +1,5 @@
 #include "TCPServer.h"
+#include "ClientStruct.h"
 #include "GameServerLogic.h"
 #include <cstdio>
 
@@ -6,9 +7,9 @@
 
 int main() {
     printf("Hello, World!\n");
-    const uint16_t PORT = 1337;
-    TCPServer<GameServerLogic<ServerClient>> Server;
-    Server.Bind(PORT);
+    const uint16_t port = 1337;
+    TCPServer<GameServerLogic<ClientStruct>, ClientStruct> Server;
+    Server.Bind(port);
     Server.Start();
     return 0;
 }

@@ -1,8 +1,9 @@
 #include "GameServerLogic.h"
+#include "BinaryStream.h"
 #include <iostream>
 
 template<typename TClient>
-GameServerLogic<TClient>::GameServerLogic(TCPServer<GameServerLogic<TClient>> & server) : Server(server) {}
+GameServerLogic<TClient>::GameServerLogic(TCPServer<GameServerLogic<TClient>, TClient> & server) : Server(server) {}
 
 template<typename TClient>
 void GameServerLogic<TClient>::Send(const size_t i, const std::vector<std::byte> & data) {

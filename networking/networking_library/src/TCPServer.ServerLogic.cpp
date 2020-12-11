@@ -1,6 +1,7 @@
 #include "TCPServer.cpp"
 #include "ServerLogic.h"
+#include "ClientStruct.h"
 
-template class ServerLogic<ServerClient>;
-template class TCPServer<ServerLogic<ServerClient>, ServerClient>;
+template class ServerLogic<ClientStruct>;
+template class TCPServer<ServerLogic<ClientStruct>, ClientStruct>;
 
