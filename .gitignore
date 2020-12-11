@@ -31,10 +31,6 @@
 *.out
 *.app
 
-#vscode
-/networking/.vscode
-/networking/build
-
 # networking garbage
 networking/networking_library/build
 networking/networking_library/lib
