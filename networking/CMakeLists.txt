@@ -4,17 +4,13 @@ project(game_networking)
 set(CMAKE_CXX_STANDARD 17)
 #set(CMAKE_CXX_FLAGS "-Wall -Werror -Wpedantic")
 
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/../lib)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/../bin)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/lib)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
 
-
-include_directories(networking_library/src)
-FILE(GLOB HEADERS include/*.h)
-FILE(GLOB SOURCES src/*.cpp)
 
 # networking library
 include_directories(networking_library/include)
-include_directories(include)
+include_directories(networking_library/src)
 add_library(networking SHARED IMPORTED)
 set_target_properties(networking PROPERTIES
   IMPORTED_LOCATION "${CMAKE_SOURCE_DIR}/networking_library/lib/libnetworking.so"
@@ -22,6 +18,9 @@ set_target_properties(networking PROPERTIES
 )
 
 # game networking library
+include_directories(include)
+FILE(GLOB HEADERS include/*.h)
+FILE(GLOB SOURCES src/*.cpp)
 add_library(${PROJECT_NAME} SHARED ${HEADERS} ${SOURCES})
 target_link_libraries(${PROJECT_NAME} LINK_PUBLIC networking)
 
