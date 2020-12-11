@@ -6,17 +6,16 @@
 struct ServerClient {
     ServerClient(TCPSocketConnectedClient socket) : m_socket(socket) {}
 
-    TCPSocketConnectedClient m_socket;
-    BinaryStream m_buffer;
-
     void Send(const std::vector<std::byte> & data) {
         m_socket.Send(data);
     }
 
     void Receive() {
-        if (m_socket.HasData())
-            m_buffer.Push(m_socket.Receive());
+        if (m_socket.HasData()) m_buffer.Push(m_socket.Receive());
     }
+    
+    TCPSocketConnectedClient m_socket;
+    BinaryStream m_buffer;
 
 };
 
@@ -50,7 +49,7 @@ public:                                         //for ServerLogic
 
 
 private:
-    void Loop();
+    void Loop();								//mb delegate it to TServerLogic
     void ReceiveAndProcess(); 
 
     void ReceiveAll();                          //to m_buffer
@@ -71,3 +70,4 @@ private:
     bool m_running;
 
 };
+
