@@ -21,7 +21,7 @@ bool TCPClient<TClientLogic>::Connect(const uint32_t ip, const uint16_t port) {
     const SocketAddress address(ip, port);
     m_socket.Connect(address);
     
-    OnConnect();
+    m_logic.OnConnect();
     return true;
 }
 
@@ -40,7 +40,7 @@ template<typename TClientLogic>
 void TCPClient<TClientLogic>::Disconnect() {
     m_socket.Disconnect();
 
-    OnDisconnect();
+    m_logic.OnDisconnect();
 }
 
 template<typename TClientLogic>
@@ -61,20 +61,5 @@ bool TCPClient<TClientLogic>::HasPackets() {
 
 template<typename TClientLogic>
 void TCPClient<TClientLogic>::Process() {
-    OnProcess();
-}
-
-template<typename TClientLogic>
-void TCPClient<TClientLogic>::OnConnect() {
-    m_logic.OnConnect();
-}
-
-template<typename TClientLogic>
-void TCPClient<TClientLogic>::OnDisconnect() {
-    m_logic.OnDisconnect();
-}
-
-template<typename TClientLogic>
-void TCPClient<TClientLogic>::OnProcess() {
     m_logic.OnProcess();
 }

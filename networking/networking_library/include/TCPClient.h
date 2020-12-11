@@ -26,10 +26,6 @@ private:
 	bool HasPackets();										// m_buffer has packets?
     void Process();                                         // from m_buffer
 
-    void OnConnect();
-    void OnDisconnect();
-    void OnProcess();
-
 
 private:
     TClientLogic m_logic;

@@ -1,4 +1,3 @@
-#pragma once
 #include "ClientStruct.h"
 
 void ClientStruct::Send(const std::vector<std::byte> & data) {
