@@ -1,5 +1,7 @@
 #!/bin/bash
 
+./networking_library/build_and_test.sh
+
 echo "BUILDING GAME NETWORKING LIBRARY"
 cd build || mkdir build && cd build
 
