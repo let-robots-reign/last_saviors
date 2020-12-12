@@ -3,7 +3,7 @@
 #include "Packet.h"
 
 
-// TODO: GameServerLogic is always about GameClientSturc, right?
+// TODO: GameServerLogic is always about GameClientStruct, right?
 // so we are supposed to write a template specialization
 template<typename TClient>
 struct GameServerLogic : public ServerLogic<TClient> {

@@ -10,7 +10,7 @@ public:
 
 private:
     
-    ServerLogic(TCPServer<ServerLogic, TClient> & server) {}
+    ServerLogic(TCPServer<ServerLogic<TClient>, TClient> & server) {}
 
     void Send(const size_t i, const std::vector<std::byte> & data) {}
 

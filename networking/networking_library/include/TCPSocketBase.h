@@ -23,7 +23,7 @@ public:
     sockaddr_in GetSockaddr() const;
 
 private:
-    const uint32_t m_ip;
+    const uint32_t m_ip;    ///TODO IPAdress struct
     const uint16_t m_port;
     sockaddr_in m_sockaddr;
 
