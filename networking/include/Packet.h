@@ -29,3 +29,19 @@ protected:
     const std::vector<std::byte> m_data;
 
 };
+
+///TODO: refactor Packets
+///TODO: add PacketDispatcher with std::map<PacketType, lambda that takes Packet, returns void, containes logic>
+// something like this
+// struct Packet {
+//     const std::vector<std::byte> data;
+//     PacketType Type();
+
+//     template<typename PacketChild>
+//     PacketChild FromPacket();
+// };
+
+// struct PacketChild {
+//     const std::string message;
+//     Packet ToPacket() const;
+// };

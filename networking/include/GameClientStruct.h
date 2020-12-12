@@ -7,3 +7,4 @@ public:
     // some game client specific stuff here
     // player class object, user id from db, etc
 };
+
