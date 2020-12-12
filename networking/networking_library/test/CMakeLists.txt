@@ -13,7 +13,7 @@ include_directories(${GMOCK_INCLUDE_DIRS})
 
 
 # networking library
-include_directories(../include)
+include_directories(${CMAKE_SOURCE_DIR}/../include)
 add_library(networking SHARED IMPORTED)
 set_target_properties(networking PROPERTIES
   IMPORTED_LOCATION "${CMAKE_SOURCE_DIR}/../lib/libnetworking.so"

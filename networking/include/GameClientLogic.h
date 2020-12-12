@@ -20,7 +20,9 @@ private:
 
     void OnProcess();
 
-    void ProcessPacket(std::shared_ptr<Packet> packet);
+
+    bool HasPackets();
+
+    void ProcessPacket(const Packet & packet);
 
 };
-

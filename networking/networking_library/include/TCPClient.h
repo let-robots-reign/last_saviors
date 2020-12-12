@@ -23,7 +23,6 @@ public:
     
 private:
 	void Receive();                                         // to m_buffer
-	bool HasPackets();										// m_buffer has packets?
     void Process();                                         // from m_buffer
 
 

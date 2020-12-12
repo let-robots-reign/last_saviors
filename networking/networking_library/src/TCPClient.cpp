@@ -55,11 +55,6 @@ void TCPClient<TClientLogic>::Receive() {
 }
 
 template<typename TClientLogic>
-bool TCPClient<TClientLogic>::HasPackets() {
-    ///TODO
-}
-
-template<typename TClientLogic>
 void TCPClient<TClientLogic>::Process() {
     m_logic.OnProcess();
 }

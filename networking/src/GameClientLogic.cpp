@@ -28,7 +28,12 @@ void GameClientLogic::OnProcess() {
     //call ProcessPacket
 }
 
-void GameClientLogic::ProcessPacket(std::shared_ptr<Packet> packet) {
+
+bool GameClientLogic::HasPackets() {
+    ///TODO:
+}
+
+void GameClientLogic::ProcessPacket(const Packet & packet) {
     std::cout << "Client is processing a packet!\n";
     //process packet
 }

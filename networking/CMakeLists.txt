@@ -9,12 +9,13 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
 
 
 # networking library
-include_directories(networking_library/include)
-include_directories(networking_library/src)
+set(NETWORKING_LIBRARY_DIRECTORY "${CMAKE_SOURCE_DIR}/networking_library")
+include_directories(${NETWORKING_LIBRARY_DIRECTORY}/include)
+include_directories(${NETWORKING_LIBRARY_DIRECTORY}/src)
 add_library(networking SHARED IMPORTED)
 set_target_properties(networking PROPERTIES
-  IMPORTED_LOCATION "${CMAKE_SOURCE_DIR}/networking_library/lib/libnetworking.so"
-  INTERFACE_INCLUDE_DIRECTORIES "${CMAKE_SOURCE_DIR}/networking_library/include"
+  IMPORTED_LOCATION "${NETWORKING_LIBRARY_DIRECTORY}/lib/libnetworking.so"
+  INTERFACE_INCLUDE_DIRECTORIES "${NETWORKING_LIBRARY_DIRECTORY}/include"
 )
 
 # game networking library
