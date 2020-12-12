@@ -2,6 +2,9 @@
 #include "ServerLogic.h"
 #include "Packet.h"
 
+
+// TODO: GameServerLogic is always about GameClientSturc, right?
+// so we are supposed to write a template specialization
 template<typename TClient>
 struct GameServerLogic : public ServerLogic<TClient> {
     friend class TCPServer<GameServerLogic<TClient>, TClient>;
