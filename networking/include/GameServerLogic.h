@@ -1,6 +1,6 @@
 #pragma once
 #include "ServerLogic.h"
-#include "Packet.h"
+#include "PacketBase.h"
 
 
 // TODO: GameServerLogic is always about GameClientStruct, right?
@@ -28,6 +28,7 @@ private:
     void OnProcess(const size_t i);
 
 
-    void ProcessPacket(const size_t i, std::shared_ptr<Packet> packet);
+    void ProcessPacket(const size_t i, Packet & packet);
 
 };
+

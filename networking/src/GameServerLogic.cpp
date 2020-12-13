@@ -1,17 +1,17 @@
 #include "GameServerLogic.h"
 #include "BinaryStream.h"
 #include <iostream>
+#include <thread>
 
 template<typename TClient>
 GameServerLogic<TClient>::GameServerLogic(TCPServer<GameServerLogic<TClient>, TClient> & server) : Server(server) {}
 
 template<typename TClient>
 void GameServerLogic<TClient>::Send(const size_t i, const std::vector<std::byte> & data) {
-    uint64_t size = data.size();
     BinaryStream stream;
-    stream.Write(size);
+    stream.Insert(data.size());
+    stream.Push(data);
     Server.GetClient(i).Send(stream.data());
-    Server.GetClient(i).Send(data);
 }
 
 template<typename TClient>
@@ -22,10 +22,10 @@ void GameServerLogic<TClient>::OnStart() {
 
 template<typename TClient>
 void GameServerLogic<TClient>::OnTick() {
-    //to stop the example program
-    Server.Stop();
     //game logic here
     //sleep(...); //to have constant amount of ticks per second
+    std::cout << "Tick() finished\n";
+    std::this_thread::sleep_for(std::chrono::milliseconds(500));
 }
 
 template<typename TClient>
@@ -48,6 +48,6 @@ void GameServerLogic<TClient>::OnProcess(const size_t i) {
 }
 
 template<typename TClient>
-void GameServerLogic<TClient>::ProcessPacket(const size_t i, std::shared_ptr<Packet> packet) {
+void GameServerLogic<TClient>::ProcessPacket(const size_t i, Packet & packet) {
     //process packet
 }

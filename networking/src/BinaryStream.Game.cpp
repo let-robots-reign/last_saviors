@@ -1,8 +1,21 @@
-#include "BinaryStream.h"
-#include "Serializable.h"
+#include "BinaryStream.Game.h"
+#include <algorithm>
+
 
 template<>
-void BinaryStream::Write<Serializable>(const Serializable & serializable) {
-    std::vector<std::byte> binary(serializable.ToBinary());
-    Push(binary);
+void BinaryStream::Insert<std::string>(const std::string & string) {
+    const uint16_t size = string.size();
+    Insert(size);
+    std::vector<std::byte> vec(size);
+    std::transform(string.begin(), string.end(), vec.begin(), [] (char c) { return std::byte(c); });
+    Push(vec);
+}
+
+template<>
+void BinaryStream::Extract<std::string>(std::string & string) {
+    uint16_t size = 0;
+    Extract(size);
+    string.resize(size);
+    const std::vector<std::byte> vec = Pop(size);
+    std::transform(vec.begin(), vec.end(), string.begin(), [] (std::byte b) { return char(b); });
 }

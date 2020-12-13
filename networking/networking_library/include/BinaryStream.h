@@ -4,15 +4,16 @@
 
 struct BinaryStream {
 public:
-    BinaryStream() = default;
-    ~BinaryStream() = default;
 
     void Push(const std::vector<std::byte> & data);
-    std::vector<std::byte> Pop(const size_t amount_bytes);
+    std::vector<std::byte> Pop(const size_t amount);
+    void Erase(const size_t amount);
     
-    // for primitives, structs with no pointers, etc
+    ///TODO: rewrite using std::span (C++20) if possible
+
+    // inserts a primitive/struct
     template <typename T>
-    void Write(const T & data) {
+    void Insert(const T & data) {
         const size_t size = sizeof(T);
         std::array<std::byte, size> binary;
         const std::byte *begin = reinterpret_cast<const std::byte *>(std::addressof(data));
@@ -21,25 +22,36 @@ public:
         Push(std::vector<std::byte>(binary.begin(), binary.end()));   //xd
     }
 
-    // for primitives, structs with no pointers, etc
+    // extracts a primitive/struct
     template <typename T>
-    void Read(T & data) {
+    void Extract(T & data) {
         const size_t size = sizeof(T);
         const std::vector<std::byte> binary = Pop(size);
         std::byte *begin = reinterpret_cast<std::byte *>(std::addressof(data));
         std::copy(binary.begin(), binary.end(), begin);
     }
+
+    // reads a primitive/struct (same as Extract but it copies instead of cutting)
+    template <typename T>
+    void Read(T & data) const {
+        const size_t size = sizeof(T);
+        const std::vector<std::byte> binary(m_data.begin(), m_data.begin() + size);
+        std::byte *begin = reinterpret_cast<std::byte *>(std::addressof(data));
+        std::copy(binary.begin(), binary.end(), begin);
+    }
     
     
+    // same as Insert
     template <typename T>
     friend BinaryStream & operator<< (BinaryStream & buffer, const T & data) {
-        buffer.Write(data);
+        buffer.Insert(data);
         return buffer;
     }
 
+    // same as Extract
     template <typename T>
     friend BinaryStream & operator>> (BinaryStream & buffer, T & data) {
-        buffer.Read(data);
+        buffer.Extract(data);
         return buffer;
     }
     

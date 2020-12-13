@@ -12,8 +12,8 @@ bool TCPClient<TClientLogic>::Connect(std::string_view address) {
 }
 
 template<typename TClientLogic>
-bool TCPClient<TClientLogic>::Connect(SocketAddress address) {
-    return Connect(address);
+bool TCPClient<TClientLogic>::Connect(const SocketAddress & address) {
+    return m_socket.Connect(address);
 }
 
 template<typename TClientLogic>

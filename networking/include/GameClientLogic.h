@@ -1,6 +1,6 @@
 #pragma once
 #include "ClientLogic.h"
-#include "Packet.h"
+#include "PacketBase.h"
 
 
 struct GameClientLogic : public ClientLogic {
@@ -23,6 +23,7 @@ private:
 
     bool HasPackets();
 
-    void ProcessPacket(const Packet & packet);
+    void ProcessPacket(Packet & packet);
 
 };
+

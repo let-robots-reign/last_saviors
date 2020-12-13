@@ -4,14 +4,28 @@
 
 using namespace testing;
 
-TEST(BinaryStream, int_rw) {
+TEST(BinaryStream, int_insert_extract) {
     BinaryStream buffer;
     int a = 1337;
     int b = 0;
-    buffer.Write(a);
-    buffer.Read(b);
+    buffer.Insert(a);
+    buffer.Extract(b);
     EXPECT_EQ(a, 1337);
     EXPECT_EQ(a, b);
+    EXPECT_EQ(buffer.data().size(), 0);
+}
+
+
+TEST(BinaryStream, different_insert_extract) {
+    BinaryStream buffer;
+    int a = 1337;
+    char b = 'c';
+    buffer.Insert(a);
+    buffer.Insert(b);
+    buffer.Extract(a);
+    buffer.Extract(b);
+    EXPECT_EQ(a, 1337);
+    EXPECT_EQ(b, 'c');
     EXPECT_EQ(buffer.data().size(), 0);
 }
 

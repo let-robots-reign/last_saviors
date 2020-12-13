@@ -10,7 +10,7 @@ public:
     ~TCPClient();
 
     bool Connect(std::string_view address);
-    bool Connect(SocketAddress address);
+    bool Connect(const SocketAddress & address);
     bool Connect(const uint32_t ip, const uint16_t port);
 
     void Send(const std::vector<std::byte> & data);
@@ -33,3 +33,4 @@ private:
     BinaryStream m_buffer;
 
 };
+
