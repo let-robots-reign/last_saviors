@@ -8,7 +8,6 @@ ChatMessagePacket::ChatMessagePacket(Packet & packet) {
     packet.stream.Erase(PacketType::PacketTypeStruct::size());
     packet.stream.Extract(name);
     packet.stream.Extract(message);
-    std::cout << name << " " << message << std::endl;
 }
 
 Packet ChatMessagePacket::ToPacket() const {
