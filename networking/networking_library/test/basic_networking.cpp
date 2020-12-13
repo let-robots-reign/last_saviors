@@ -4,11 +4,14 @@
 
 using namespace testing;
 
+#include <iostream>
 
-TEST(basic_networking, Address) {
-    const std::string localhost1337("127.0.0.1:1337");    
-    EXPECT_EQ(localhost1337, Address::Create(localhost1337)->ToString());
+TEST(basic_networking, IPAddress) {
+    const std::string ip("127.0.0.1");
+    IPAddress address = *IPAddress::Create(ip);
+    EXPECT_EQ(ip, address.ToString());
 }
+
 
 // infinite loop or something...
 

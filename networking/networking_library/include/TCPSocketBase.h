@@ -7,29 +7,28 @@
 #include <errno.h>
 #include <fcntl.h>
 #include <unistd.h>
-///TODO: move theis ^ to .cpp
+///TODO: move this ^ to .cpp
 
 #include <memory>
 #include <string_view>
 
 // IPv4 for now
 struct IPAddress {
-    explicit IPAddress(const uint32_t ipv4);
-
+    explicit IPAddress(const in_addr addr);
     static std::shared_ptr<IPAddress> Create(const std::string & ipv4);
 
     std::string ToString() const;
 
-    uint32_t ipv4;
+    const in_addr addr;
+private:
+    friend struct Address;
 };
 
 struct Address {
 public:
     Address(const IPAddress ip, const uint16_t port);
-    Address(const uint32_t ipv4, const uint16_t port);
+    Address(const in_addr ipv4, const uint16_t port);
     Address(const sockaddr_in & addr);
-
-    static std::shared_ptr<Address> Create(std::string_view address);
 
     std::string ToString() const;
 
