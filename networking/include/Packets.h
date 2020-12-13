@@ -1,10 +1,10 @@
 #pragma once
-#include "BinaryStream.Game.h"
 #include "PacketBase.h"
+#include "BinaryStream.Game.h"
 #include <string>
 
 namespace PacketType {
-    const PacketTypeStruct ChatMessage = 1;  // unique
+    const PacketType ChatMessage = 1;  // unique
 }
 
 struct ChatMessagePacket {

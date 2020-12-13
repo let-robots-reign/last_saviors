@@ -5,7 +5,7 @@
 ChatMessagePacket::ChatMessagePacket(const std::string name, const std::string message) : name(std::move(name)), message(std::move(message)) {}
 
 ChatMessagePacket::ChatMessagePacket(Packet & packet) {
-    packet.stream.Erase(PacketType::PacketTypeStruct::size());
+    packet.stream.Erase(PacketType::PacketType::size());
     packet.stream.Extract(name);
     packet.stream.Extract(message);
 }
