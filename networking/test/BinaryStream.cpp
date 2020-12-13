@@ -2,7 +2,7 @@
 #include "BinaryStream.Game.h"
 #include <string>
 
-TEST(BinaryStreamGame, string) {
+TEST(BinaryStream, string) {
     const std::string string0("Sample Text");
     std::string string1("");
 
