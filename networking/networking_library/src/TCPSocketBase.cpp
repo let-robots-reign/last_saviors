@@ -14,10 +14,7 @@ std::shared_ptr<IPAddress> IPAddress::Create(const std::string & ipv4) {
 }
 
 std::string IPAddress::ToString() const {
-    char *ip_addr = inet_ntoa(addr);
-    std::string result(ip_addr);
-    //free(ip_addr);    // I don't get it
-    return result;
+    return std::string(inet_ntoa(addr));
 }
 
 
