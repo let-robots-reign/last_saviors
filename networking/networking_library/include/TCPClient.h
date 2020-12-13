@@ -7,11 +7,8 @@ template<typename TClientLogic>
 class TCPClient {
 public:
     TCPClient();
-    ~TCPClient();
 
-    bool Connect(std::string_view address);
-    bool Connect(const SocketAddress & address);
-    bool Connect(const uint32_t ip, const uint16_t port);
+    bool Connect(const Address & address);
 
     void Send(const std::vector<std::byte> & data);
 

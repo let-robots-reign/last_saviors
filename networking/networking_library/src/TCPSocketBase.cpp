@@ -4,41 +4,34 @@
 #include <sstream>
 #include "NetworkErrors.h"
 
-namespace {
-    sockaddr_in sockaddr_in_from_uints(const uint32_t address, const uint16_t port) {
-        sockaddr_in addr;
-        addr.sin_family = AF_INET;
-        addr.sin_addr.s_addr = htonl(address);
-        addr.sin_port = htons(port);
-        return addr;
-    }
+
+IPAddress::IPAddress(const uint32_t ipv4) : ipv4(ipv4) {}
+
+std::shared_ptr<IPAddress> IPAddress::Create(const std::string & ipv4) {
+    in_addr addr;
+    inet_aton(ipv4.c_str(), &addr);
+    return std::make_shared<IPAddress>(addr.s_addr);
 }
 
-SocketAddress::SocketAddress(const uint32_t address, const uint16_t port) :
-                                                                            m_ip(address),
-                                                                            m_port(port),
-                                                                            m_sockaddr(sockaddr_in_from_uints(address, port))
-                                                                        {}
-
-SocketAddress::SocketAddress(const sockaddr_in & address) :
-                                                                            m_ip(ntohl(address.sin_addr.s_addr)),
-                                                                            m_port(ntohs(address.sin_port)),
-                                                                            m_sockaddr(address)
-                                                                        {}
-
-std::string SocketAddress::ToString() const {
-    char ip[16];
-    snprintf(ip, sizeof(ip),"%u.%u.%u.%u",
-                (m_ip & 0xff000000) >> 24,
-                (m_ip & 0x00ff0000) >> 16,
-                (m_ip & 0x0000ff00) >>  8,
-                (m_ip & 0x000000ff) >>  0
-            );
-    return std::string(ip) + ":" + std::to_string(m_port);
+std::string IPAddress::ToString() const {
+    // stackoverflow
+    char ipAddr[16];
+    snprintf(ipAddr,sizeof ipAddr,"%u.%u.%u.%u" ,(ipv4 & 0xff000000) >> 24 
+                                                ,(ipv4 & 0x00ff0000) >> 16
+                                                ,(ipv4 & 0x0000ff00) >> 8
+                                                ,(ipv4 & 0x000000ff));
+    return std::string(ipAddr);
 }
 
-///TODO: Error handling
-std::shared_ptr<SocketAddress> SocketAddress::Create(std::string_view address) {
+
+
+Address::Address(const IPAddress ip, const uint16_t port) : Address(ip.ipv4, port) {}
+
+Address::Address(const uint32_t ipv4, const uint16_t port) : ip(ipv4), port(port) {}
+
+Address::Address(const sockaddr_in & addr) : port(addr.sin_port), ip(addr.sin_addr.s_addr) {}
+
+std::shared_ptr<Address> Address::Create(std::string_view address) {
     uint32_t ip;
     uint16_t port;
     const size_t pos = address.find(":");
@@ -50,12 +43,21 @@ std::shared_ptr<SocketAddress> SocketAddress::Create(std::string_view address) {
     iss.clear();
     iss.str(s_port); iss >> port;
 
-    return std::make_shared<SocketAddress>(SocketAddress(ip, port));
+    return std::make_shared<Address>(ip, port);
 }
 
-sockaddr_in SocketAddress::GetSockaddr() const {
-    return m_sockaddr;
+std::string Address::ToString() const {
+    return ip.ToString() + ":" + std::to_string(port);
 }
+
+sockaddr_in Address::as_sockaddr_in() const {
+    sockaddr_in addr;
+    addr.sin_family = AF_INET;
+    addr.sin_addr.s_addr = htonl(ip.ipv4);
+    addr.sin_port = htons(port);
+    return addr;
+}
+
 
 
 TCPSocketBase::TCPSocketBase() : m_socket(-1) {
@@ -79,7 +81,7 @@ TCPSocketBase::TCPSocketBase(int && socket) : m_socket(socket) {
 bool TCPSocketBase::HasData() {
     static constexpr timeval tv = {0, 0};
 	FD_SET(m_socket, &m_set);
-    int ret = select(0, &m_set, 0, 0, const_cast<timeval*>(&tv));
+    int ret = select(0, &m_set, 0, 0, const_cast<timeval *>(&tv));
     if (ret == -1) {
         throw SocketError(errno, "Socket select() failed");
     }

@@ -2,17 +2,13 @@
 #include "TCPSocketBase.h"
 #include <vector>
 
-class TCPSocketConnection : public TCPSocketBase {
+struct TCPSocketConnection : public TCPSocketBase {
 public:
     TCPSocketConnection();
 
+    void Send(const std::vector<std::byte> & data);
+
     void Send(const void *data, size_t data_length);
-
-    template <typename Container>
-    void Send(const Container &container) {
-        Send(container.data(), container.size());
-    }   //requires Container to have: data(), size()
-
 
     void Receive(void * buffer, size_t buffer_length, int & received);
     std::vector<std::byte> Receive();
@@ -31,30 +27,28 @@ protected:
 };
 
 
-class TCPSocketClient : public TCPSocketConnection {
+struct TCPSocketClient : public TCPSocketConnection {
 public:
-    bool Connect(const SocketAddress &address);
+    bool Connect(const Address &address);
 	
 };
 
 
-class TCPSocketConnectedClient : public TCPSocketConnection {
+struct TCPSocketConnectedClient : public TCPSocketConnection {
 public:
 
 private:
-    SocketAddress m_socket_address;
+    Address m_address;
 
     TCPSocketConnectedClient(int && socket, const sockaddr_in & client_info);
 
-    friend class TCPSocketServer;
+    friend struct TCPSocketServer;
 
 };
 
 
-class TCPSocketServer : public TCPSocketBase {
+struct TCPSocketServer : public TCPSocketBase {
 public:
-    TCPSocketServer() = default;
-    ~TCPSocketServer() = default;
 
     void Bind(uint16_t port);
     bool CanAccept();

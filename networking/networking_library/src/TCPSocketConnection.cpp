@@ -5,6 +5,10 @@ TCPSocketConnection::TCPSocketConnection() : m_connected(false) {}
 
 TCPSocketConnection::TCPSocketConnection(int && socket, bool connected) : TCPSocketBase(std::move(socket)), m_connected(connected) {}
 
+void TCPSocketConnection::Send(const std::vector<std::byte> & data) {
+    Send(data.data(), data.size());
+}
+
 void TCPSocketConnection::Send(const void *data, size_t data_length) {
     if (send(m_socket, static_cast<const char *>(data), data_length, MSG_DONTWAIT) < 0) {
         throw SocketError(errno, "Socket send() failed");
@@ -53,13 +57,13 @@ bool TCPSocketConnection::Connected() const {
 
 
 
-bool TCPSocketClient::Connect(const SocketAddress &address) {
+bool TCPSocketClient::Connect(const Address & address) {
     if (m_socket == -1) {
         throw SocketError(0, "Socket was not initialized");
         return false;
     }
 
-    sockaddr_in sockaddr = address.GetSockaddr();
+    sockaddr_in sockaddr = address.as_sockaddr_in();
     if (connect(m_socket, (struct sockaddr*)&sockaddr, sizeof(sockaddr)) < 0) {
         throw SocketError(errno, "Socket connect() failed");
         return false;
@@ -73,7 +77,7 @@ bool TCPSocketClient::Connect(const SocketAddress &address) {
 
 TCPSocketConnectedClient::TCPSocketConnectedClient(int && socket, const sockaddr_in & client_info) :
                                                                                                     TCPSocketConnection(std::move(socket), true),
-                                                                                                    m_socket_address(client_info) {}
+                                                                                                    m_address(client_info) {}
 
 
 void TCPSocketServer::Bind(uint16_t port) {

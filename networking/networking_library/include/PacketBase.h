@@ -30,6 +30,7 @@ struct ChatMessagePacket {
     Packet ToPacket() const;
 };
 
+// enum alternative, since we can not know what packets are going to be used
 namespace PacketType {
     const PacketType ChatMessage = 1337;  // unique
 }

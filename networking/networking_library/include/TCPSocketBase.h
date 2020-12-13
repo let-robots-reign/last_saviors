@@ -2,35 +2,46 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <sys/types.h>
+#include <arpa/inet.h>
 #include <netdb.h>
 #include <errno.h>
 #include <fcntl.h>
 #include <unistd.h>
+///TODO: move theis ^ to .cpp
 
 #include <memory>
 #include <string_view>
 
+// IPv4 for now
+struct IPAddress {
+    explicit IPAddress(const uint32_t ipv4);
 
-struct SocketAddress {
-public:
-    SocketAddress(const uint32_t address, const uint16_t port);
-    SocketAddress(const sockaddr_in & address);
-    
+    static std::shared_ptr<IPAddress> Create(const std::string & ipv4);
+
     std::string ToString() const;
 
-    static std::shared_ptr<SocketAddress> Create(std::string_view address);
+    uint32_t ipv4;
+};
 
-    sockaddr_in GetSockaddr() const;
+struct Address {
+public:
+    Address(const IPAddress ip, const uint16_t port);
+    Address(const uint32_t ipv4, const uint16_t port);
+    Address(const sockaddr_in & addr);
 
-private:
-    const uint32_t m_ip;    ///TODO IPAdress struct
-    const uint16_t m_port;
-    sockaddr_in m_sockaddr;
+    static std::shared_ptr<Address> Create(std::string_view address);
+
+    std::string ToString() const;
+
+    sockaddr_in as_sockaddr_in() const;
+
+    IPAddress ip;
+    uint16_t port;
 
 };
 
 
-class TCPSocketBase {
+struct TCPSocketBase {
 public:
     TCPSocketBase();
     ~TCPSocketBase();

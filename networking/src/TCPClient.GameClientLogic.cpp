@@ -3,3 +3,4 @@
 
 template class TCPClient<GameClientLogic>;
 
+// unfortunately, I have to #include .cpp files...

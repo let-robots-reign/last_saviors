@@ -4,25 +4,11 @@ template<typename TClientLogic>
 TCPClient<TClientLogic>::TCPClient() : m_logic(*this) {}
 
 template<typename TClientLogic>
-TCPClient<TClientLogic>::~TCPClient() {}
+bool TCPClient<TClientLogic>::Connect(const Address & address) {
+    bool result = m_socket.Connect(address);
 
-template<typename TClientLogic>
-bool TCPClient<TClientLogic>::Connect(std::string_view address) {
-    return Connect(*SocketAddress::Create(address));
-}
-
-template<typename TClientLogic>
-bool TCPClient<TClientLogic>::Connect(const SocketAddress & address) {
-    return m_socket.Connect(address);
-}
-
-template<typename TClientLogic>
-bool TCPClient<TClientLogic>::Connect(const uint32_t ip, const uint16_t port) {
-    const SocketAddress address(ip, port);
-    m_socket.Connect(address);
-    
     m_logic.OnConnect();
-    return true;
+    return result;
 }
 
 template<typename TClientLogic>
