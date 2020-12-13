@@ -8,4 +8,4 @@ template<>
 void BinaryStream::Insert<std::string>(const std::string & string);
 
 template<>
-void BinaryStream::Extract<std::string>(std::string & string);
+void BinaryStream::Extract<std::string>(std::string & string, const size_t offset);

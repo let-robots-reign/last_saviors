@@ -29,11 +29,9 @@ public:
 
     // extracts a primitive/struct
     template <typename T>
-    void Extract(T & data) {
-        const size_t size = sizeof(T);
-        const std::vector<std::byte> binary = Pop(size);
-        std::byte *begin = reinterpret_cast<std::byte *>(std::addressof(data));
-        std::copy(binary.begin(), binary.end(), begin);
+    void Extract(T & data, const size_t offset = 0) {
+        Read(data, offset);
+        Erase(offset, sizeof(T));
     }
 
     // reads a primitive/struct (same as Extract but it copies instead of cutting)

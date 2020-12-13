@@ -12,10 +12,11 @@ void BinaryStream::Insert<std::string>(const std::string & string) {
 }
 
 template<>
-void BinaryStream::Extract<std::string>(std::string & string) {
+void BinaryStream::Extract<std::string>(std::string & string, const size_t offset) {
     uint16_t size = 0;
-    Extract(size);
+    Extract(size, offset);
     string.resize(size);
-    const std::vector<std::byte> vec = Pop(size);
+    const std::vector<std::byte> vec = Get(offset, size);
+    Erase(offset, size);
     std::transform(vec.begin(), vec.end(), string.begin(), [] (std::byte b) { return char(b); });
 }
