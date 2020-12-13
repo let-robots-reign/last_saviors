@@ -5,12 +5,10 @@
 using namespace testing;
 
 
-// TEST(basic_networking, SocketAddress) {
-//     const std::string localhost1337("127.0.0.1:1337");
-//     SocketAddress address = *(SocketAddress::Create(localhost1337));
-    
-//     EXPECT_EQ(localhost1337, address.ToString());
-// }
+TEST(basic_networking, Address) {
+    const std::string localhost1337("127.0.0.1:1337");    
+    EXPECT_EQ(localhost1337, Address::Create(localhost1337)->ToString());
+}
 
 // infinite loop or something...
 

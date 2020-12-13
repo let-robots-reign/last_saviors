@@ -14,13 +14,12 @@ std::shared_ptr<IPAddress> IPAddress::Create(const std::string & ipv4) {
 }
 
 std::string IPAddress::ToString() const {
-    // stackoverflow
-    char ipAddr[16];
-    snprintf(ipAddr,sizeof ipAddr,"%u.%u.%u.%u" ,(ipv4 & 0xff000000) >> 24 
-                                                ,(ipv4 & 0x00ff0000) >> 16
-                                                ,(ipv4 & 0x0000ff00) >> 8
-                                                ,(ipv4 & 0x000000ff));
-    return std::string(ipAddr);
+    in_addr addr;
+    addr.s_addr = ipv4;
+    char *ip_addr = inet_ntoa(addr);
+    std::string result(ip_addr);
+    free(ip_addr);
+    return result;
 }
 
 
