@@ -5,25 +5,17 @@ void BinaryStream::Push(const std::vector<std::byte> & data) {
 }
 
 std::vector<std::byte> BinaryStream::Pop(const size_t amount) {
-    std::vector<std::byte> popped = Get(0, amount);
-    Erase(0, amount);
+    std::vector<std::byte> popped = Get(amount);
+    Erase(amount);
     return popped;
 }
 
-std::vector<std::byte> BinaryStream::Get(const size_t offset, const size_t amount) const {
+std::vector<std::byte> BinaryStream::Get(const size_t amount, const size_t offset) const {
     return std::vector<std::byte>(m_data.begin() + offset, m_data.begin() + offset + amount);
 }
 
-std::vector<std::byte> BinaryStream::Get(const size_t amount) const {
-    return Get(0, amount);
-}
-
-void BinaryStream::Erase(const size_t offset, const size_t amount) {
+void BinaryStream::Erase(const size_t amount, const size_t offset) {
     m_data.erase(m_data.begin() + offset, m_data.begin() + offset + amount);
-}
-
-void BinaryStream::Erase(const size_t amount) {
-    Erase(0, amount);
 }
 
 

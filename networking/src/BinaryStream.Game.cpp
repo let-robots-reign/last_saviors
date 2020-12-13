@@ -16,7 +16,7 @@ void BinaryStream::Extract<std::string>(std::string & string, const size_t offse
     uint16_t size = 0;
     Extract(size, offset);
     string.resize(size);
-    const std::vector<std::byte> vec = Get(offset, size);
-    Erase(offset, size);
+    const std::vector<std::byte> vec = Get(size, offset);
+    Erase(size, offset);
     std::transform(vec.begin(), vec.end(), string.begin(), [] (std::byte b) { return char(b); });
 }

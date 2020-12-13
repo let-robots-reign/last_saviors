@@ -8,11 +8,9 @@ public:
     void Push(const std::vector<std::byte> & data);
     std::vector<std::byte> Pop(const size_t amount);
 
-    std::vector<std::byte> Get(const size_t offset, const size_t amount) const;
-    std::vector<std::byte> Get(const size_t amount) const;
+    std::vector<std::byte> Get(const size_t amount, const size_t offset = 0) const;
 
-    void Erase(const size_t offset, const size_t amount);
-    void Erase(const size_t amount);
+    void Erase(const size_t amount, const size_t offset = 0);
     
     ///TODO: rewrite using std::span (C++20) if possible
 
@@ -31,14 +29,14 @@ public:
     template <typename T>
     void Extract(T & data, const size_t offset = 0) {
         Read(data, offset);
-        Erase(offset, sizeof(T));
+        Erase(sizeof(T), offset);
     }
 
     // reads a primitive/struct (same as Extract but it copies instead of cutting)
     template <typename T>
     void Read(T & data, const size_t offset = 0) const {
         const size_t size = sizeof(T);
-        const std::vector<std::byte> binary = Get(offset, size);
+        const std::vector<std::byte> binary = Get(size, offset);
         std::byte *begin = reinterpret_cast<std::byte *>(std::addressof(data));
         std::copy(binary.begin(), binary.end(), begin);
     }
