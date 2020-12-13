@@ -15,6 +15,7 @@ namespace PacketType {
 struct Packet {
     BinaryStream stream;
     PacketType::PacketType Type() const;
+    const std::vector<std::byte> & data() const;
 };
 //yes, it contains a BinaryStream, which is basically a std::vector<std::byte> with useful serialization methods
 

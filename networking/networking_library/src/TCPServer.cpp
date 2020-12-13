@@ -18,8 +18,8 @@ void TCPServer<TServerLogic, TClient>::SendEveryone(const std::vector<std::byte>
 }
 
 template<typename TServerLogic, typename TClient>
-void TCPServer<TServerLogic, TClient>::Bind(const uint16_t port) {
-    m_socket.Bind(port);
+void TCPServer<TServerLogic, TClient>::Listen(const uint16_t port) {
+    m_socket.Listen(port);
 }
 
 template<typename TServerLogic, typename TClient>

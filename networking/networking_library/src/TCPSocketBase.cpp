@@ -33,15 +33,15 @@ std::string Address::ToString() const {
 sockaddr_in Address::as_sockaddr_in() const {
     sockaddr_in addr;
     addr.sin_family = AF_INET;
-    addr.sin_addr.s_addr = htonl(ip.addr.s_addr);
+    //addr.sin_addr.s_addr = htonl(ip.addr.s_addr); //doesn't work for some reason
+    addr.sin_addr.s_addr = ip.addr.s_addr;
     addr.sin_port = htons(port);
     return addr;
 }
 
 
 
-TCPSocketBase::TCPSocketBase() : m_socket(-1) {
-    m_socket = socket(AF_INET, SOCK_STREAM, 0);
+TCPSocketBase::TCPSocketBase() : m_socket(socket(AF_INET, SOCK_STREAM, 0)) {
     if (m_socket == -1) {
         //error
     }

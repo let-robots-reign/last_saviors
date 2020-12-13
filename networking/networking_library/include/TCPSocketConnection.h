@@ -48,12 +48,9 @@ private:
 
 
 struct TCPSocketServer : public TCPSocketBase {
-public:
 
-    void Bind(uint16_t port);
+    void Listen(uint16_t port);
     bool CanAccept();
     TCPSocketConnectedClient Accept();
-
-private:
 
 };

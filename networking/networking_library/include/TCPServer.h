@@ -8,7 +8,7 @@ public:
     TCPServer();
     ~TCPServer() = default;
 
-    void Bind(const uint16_t port);
+    void Listen(const uint16_t port);
     void Start();    
 
 public:                                         //for ServerLogic

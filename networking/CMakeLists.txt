@@ -30,6 +30,9 @@ target_link_libraries(${PROJECT_NAME} LINK_PUBLIC networking)
 add_executable(Server example/ServerMain.cpp)
 add_executable(Client example/ClientMain.cpp)
 
+
+target_link_libraries(Server LINK_PUBLIC networking)
+target_link_libraries(Client LINK_PUBLIC networking)
 target_link_libraries(Server LINK_PUBLIC ${PROJECT_NAME})
 target_link_libraries(Client LINK_PUBLIC ${PROJECT_NAME})
 

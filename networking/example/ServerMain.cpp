@@ -9,7 +9,7 @@ int main() {
     printf("Hello, World!\n");
     const uint16_t port = 1337;
     TCPServer<GameServerLogic<GameClientStruct>, GameClientStruct> Server;
-    Server.Bind(port);
+    Server.Listen(port);
     Server.Start();
     return 0;
 }
