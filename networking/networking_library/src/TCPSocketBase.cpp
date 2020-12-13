@@ -41,7 +41,7 @@ sockaddr_in Address::as_sockaddr_in() const {
 
 
 
-TCPSocketBase::TCPSocketBase() : m_socket(socket(AF_INET, SOCK_STREAM, 0)) {
+TCPSocketBase::TCPSocketBase(bool nonblocking) : m_socket(socket(AF_INET, nonblocking ? (SOCK_STREAM | SOCK_NONBLOCK) : SOCK_STREAM, 0)) {
     if (m_socket == -1) {
         //error
     }

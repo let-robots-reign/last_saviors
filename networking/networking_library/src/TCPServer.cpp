@@ -1,7 +1,6 @@
 #pragma once
 #include "TCPServer.h"
 
-
 template<typename TServerLogic, typename TClient>
 TCPServer<TServerLogic, TClient>::TCPServer() : m_logic(*this), m_running(false) {}
 
@@ -40,8 +39,9 @@ void TCPServer<TServerLogic, TClient>::Loop() {
 
 template<typename TServerLogic, typename TClient>
 void TCPServer<TServerLogic, TClient>::AcceptClients() {
-    while (m_socket.CanAccept()) {
-        m_clients.push_back(TClient(m_socket.Accept()));
+    TCPSocketConnectedClient connected(std::move(m_socket.Accept()));
+    if (connected.alive) {
+        m_clients.push_back(TClient(connected));
         m_logic.OnConnect(m_clients.size() - 1);
     }
 }

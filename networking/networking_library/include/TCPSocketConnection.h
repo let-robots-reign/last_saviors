@@ -35,20 +35,18 @@ public:
 
 
 struct TCPSocketConnectedClient : public TCPSocketConnection {
-public:
+    
+    const Address address;
+    const bool alive;   // dirty hack
 
 private:
-    Address m_address;
-
-    TCPSocketConnectedClient(int && socket, const sockaddr_in & client_info);
-
+    TCPSocketConnectedClient(int && socket, const sockaddr_in & client_info, bool alive = true);
     friend struct TCPSocketServer;
-
 };
 
 
 struct TCPSocketServer : public TCPSocketBase {
-
+    TCPSocketServer();
     void Listen(uint16_t port);
     bool CanAccept();
     TCPSocketConnectedClient Accept();

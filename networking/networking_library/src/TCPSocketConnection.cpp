@@ -77,11 +77,13 @@ bool TCPSocketClient::Connect(const Address & address) {
 
 
 
-TCPSocketConnectedClient::TCPSocketConnectedClient(int && socket, const sockaddr_in & client_info) :
+TCPSocketConnectedClient::TCPSocketConnectedClient(int && socket, const sockaddr_in & client_info, bool alive) :
                                                                                                     TCPSocketConnection(std::move(socket), true),
-                                                                                                    m_address(client_info)
+                                                                                                    address(client_info),
+                                                                                                    alive(alive)
                                                                                                     {}
 
+TCPSocketServer::TCPSocketServer() : TCPSocketBase(true) {}
 
 void TCPSocketServer::Listen(uint16_t port) {
     const size_t backlog = 256;
@@ -107,8 +109,6 @@ TCPSocketConnectedClient TCPSocketServer::Accept() {
 	sockaddr_in client_info;
 	socklen_t client_addr_size = sizeof(client_info);
     client_socket = accept(m_socket, (struct sockaddr*)&client_info, &client_addr_size);
-	if (client_socket == -1) {
-		throw SocketError(errno, "Socket accept() error");
-	}
-    return TCPSocketConnectedClient(std::move(client_socket), client_info);
+    bool alive = (client_socket != -1);
+    return TCPSocketConnectedClient(std::move(client_socket), client_info, alive);
 }
