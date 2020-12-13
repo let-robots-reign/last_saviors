@@ -22,6 +22,7 @@ set_target_properties(networking PROPERTIES
 include_directories(include)
 FILE(GLOB HEADERS include/*.h)
 FILE(GLOB SOURCES src/*.cpp)
+
 add_library(${PROJECT_NAME} SHARED ${HEADERS} ${SOURCES})
 target_link_libraries(${PROJECT_NAME} LINK_PUBLIC networking)
 

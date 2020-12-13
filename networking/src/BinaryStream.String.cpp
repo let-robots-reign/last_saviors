@@ -1,4 +1,4 @@
-#include "BinaryStream.Game.h"
+#include "BinaryStream/String.h"
 #include <algorithm>
 
 template<>
