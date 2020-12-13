@@ -12,6 +12,6 @@ struct ChatMessagePacket {
     std::string message;
 
     ChatMessagePacket(const std::string name, const std::string message);
-    ChatMessagePacket(Packet & packet);
+    ChatMessagePacket(const Packet & packet);
     Packet ToPacket() const;
 };

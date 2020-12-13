@@ -7,8 +7,7 @@ TEST(Packets, ChatMessagePacket) {
 
     ChatMessagePacket chatpacket(name, message);
 
-    Packet packet = chatpacket.ToPacket();
-    chatpacket = ChatMessagePacket(packet);
+    chatpacket = ChatMessagePacket(chatpacket.ToPacket());
 
     EXPECT_EQ(chatpacket.name, name);
     EXPECT_EQ(chatpacket.message, message);

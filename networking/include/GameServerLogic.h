@@ -28,7 +28,7 @@ private:
     void OnProcess(const size_t i);
 
 
-    void ProcessPacket(const size_t i, Packet & packet);
+    void ProcessPacket(const size_t i, const Packet & packet);
 
 };
 

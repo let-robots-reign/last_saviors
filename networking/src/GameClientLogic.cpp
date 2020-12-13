@@ -32,7 +32,7 @@ bool GameClientLogic::HasPackets() {
     ///TODO:
 }
 
-void GameClientLogic::ProcessPacket(Packet & packet) {
+void GameClientLogic::ProcessPacket(const Packet & packet) {
     std::cout << "Client is processing a packet!\n";
     //process packet
 }

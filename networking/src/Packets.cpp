@@ -4,10 +4,12 @@
 
 ChatMessagePacket::ChatMessagePacket(const std::string name, const std::string message) : name(std::move(name)), message(std::move(message)) {}
 
-ChatMessagePacket::ChatMessagePacket(Packet & packet) {
-    packet.stream.Erase(PacketType::PacketType::size());
-    packet.stream.Extract(name);
-    packet.stream.Extract(message);
+ChatMessagePacket::ChatMessagePacket(const Packet & packet) {
+    size_t offset = 0;
+    PacketType::PacketType Type;
+    offset += packet.stream.Read(Type, offset);
+    offset += packet.stream.Read(name, offset);
+    offset += packet.stream.Read(message, offset);
 }
 
 Packet ChatMessagePacket::ToPacket() const {

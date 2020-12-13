@@ -7,14 +7,13 @@ public:
 
     void Push(const std::vector<std::byte> & data);
     std::vector<std::byte> Pop(const size_t amount);
-
     std::vector<std::byte> Get(const size_t amount, const size_t offset = 0) const;
-
     void Erase(const size_t amount, const size_t offset = 0);
+
+    
     
     ///TODO: rewrite using std::span (C++20) if possible
 
-    // inserts a primitive/struct
     template <typename T>
     void Insert(const T & data) {
         const size_t size = sizeof(T);
@@ -25,20 +24,25 @@ public:
         Push(std::vector<std::byte>(binary.begin(), binary.end()));   //xd
     }
 
-    // extracts a primitive/struct
     template <typename T>
     void Extract(T & data, const size_t offset = 0) {
         Read(data, offset);
-        Erase(sizeof(T), offset);
+        Remove<T>(offset);
     }
 
-    // reads a primitive/struct (same as Extract but it copies instead of cutting)
     template <typename T>
-    void Read(T & data, const size_t offset = 0) const {
+    size_t Read(T & data, const size_t offset = 0) const {
         const size_t size = sizeof(T);
         const std::vector<std::byte> binary = Get(size, offset);
         std::byte *begin = reinterpret_cast<std::byte *>(std::addressof(data));
         std::copy(binary.begin(), binary.end(), begin);
+        return sizeof(T);
+    }
+
+    template <typename T>
+    size_t Remove(const size_t offset = 0) {
+        Erase(sizeof(T), offset);
+        return sizeof(T);
     }
     
     
@@ -63,3 +67,6 @@ private:
     std::vector<std::byte> m_data;
 
 };
+
+// to use with game-specific types just make three specializations: Insert, Read, Remove
+// remember to include file with those specializations, not only BinaryStream.h

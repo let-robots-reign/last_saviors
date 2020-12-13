@@ -10,5 +10,6 @@ TEST(BinaryStreamGame, string) {
     stream.Insert(string0);
     stream.Extract(string1);
 
+    EXPECT_EQ(stream.data().size(), 0);
     EXPECT_EQ(string0, string1);
 }

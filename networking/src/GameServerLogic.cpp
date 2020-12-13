@@ -48,6 +48,6 @@ void GameServerLogic<TClient>::OnProcess(const size_t i) {
 }
 
 template<typename TClient>
-void GameServerLogic<TClient>::ProcessPacket(const size_t i, Packet & packet) {
+void GameServerLogic<TClient>::ProcessPacket(const size_t i, const Packet & packet) {
     //process packet
 }

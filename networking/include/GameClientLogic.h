@@ -23,7 +23,7 @@ private:
 
     bool HasPackets();
 
-    void ProcessPacket(Packet & packet);
+    void ProcessPacket(const Packet & packet);
 
 };
 
