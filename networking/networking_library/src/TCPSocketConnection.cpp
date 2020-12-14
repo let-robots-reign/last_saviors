@@ -23,8 +23,8 @@ void TCPSocketConnection::Receive(void * buffer, size_t buffer_length, int & rec
 		throw SocketGracefulDisconnect(*this);
 	}
 	else if (received < 0) {
-		if (false) {    ///TODO:
-            throw SocketDisconnect(errno);
+        if (errno == EWOULDBLOCK) {
+            // no problem here
         }
 		else {
             throw SocketError(errno, "Socket recv() failed");
@@ -81,6 +81,12 @@ bool TCPSocketClient::Connect(const Address & address) {
 
 
 
+TCPSocketConnectedClient::TCPSocketConnectedClient(TCPSocketConnectedClient && client) :
+                                                                                                    TCPSocketConnection(std::move(client.m_socket), m_connected),
+                                                                                                    address(client.address),
+                                                                                                    alive(client.alive)
+                                                                                                    {}
+
 TCPSocketConnectedClient::TCPSocketConnectedClient(int && socket, const sockaddr_in & client_info, bool alive) :
                                                                                                     TCPSocketConnection(std::move(socket), true),
                                                                                                     address(client_info),
@@ -109,10 +115,9 @@ bool TCPSocketServer::CanAccept() {
 }
 
 TCPSocketConnectedClient TCPSocketServer::Accept() {
-    int client_socket;
 	sockaddr_in client_info;
 	socklen_t client_addr_size = sizeof(client_info);
-    client_socket = accept(m_socket, (struct sockaddr*)&client_info, &client_addr_size);
-    bool alive = (client_socket != -1);
+    int client_socket = accept(m_socket, (struct sockaddr*)&client_info, &client_addr_size);
+    const bool alive = (client_socket != -1);
     return TCPSocketConnectedClient(std::move(client_socket), client_info, alive);
 }

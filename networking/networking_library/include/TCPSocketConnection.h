@@ -35,7 +35,7 @@ public:
 
 
 struct TCPSocketConnectedClient : public TCPSocketConnection {
-    
+    TCPSocketConnectedClient(TCPSocketConnectedClient && client);
     const Address address;
     const bool alive;   // dirty hack
 

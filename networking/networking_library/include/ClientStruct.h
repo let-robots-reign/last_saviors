@@ -5,14 +5,14 @@
 
 struct ClientStruct {
 public:
-    ClientStruct(TCPSocketConnectedClient socket);
+    ClientStruct(std::unique_ptr<TCPSocketConnectedClient> socket);
 
     void Send(const std::vector<std::byte> & data);
 
     void Receive();
     
 public:
-    TCPSocketConnectedClient m_socket;
+    std::unique_ptr<TCPSocketConnectedClient> m_socket;
     BinaryStream m_buffer;
 
 };

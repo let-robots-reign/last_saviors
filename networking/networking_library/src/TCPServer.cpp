@@ -1,5 +1,7 @@
 #pragma once
 #include "TCPServer.h"
+#include "NetworkErrors.h"
+
 
 template<typename TServerLogic, typename TClient>
 TCPServer<TServerLogic, TClient>::TCPServer() : m_logic(*this), m_running(false) {}
@@ -14,6 +16,11 @@ void TCPServer<TServerLogic, TClient>::SendEveryone(const std::vector<std::byte>
     for (size_t i = 0; i < m_clients.size(); ++i) {
         Send(i, data);
     }
+}
+
+template<typename TServerLogic, typename TClient>
+void TCPServer<TServerLogic, TClient>::Kick(const size_t i) {
+    m_clients.erase(m_clients.begin() + i);
 }
 
 template<typename TServerLogic, typename TClient>
@@ -39,9 +46,9 @@ void TCPServer<TServerLogic, TClient>::Loop() {
 
 template<typename TServerLogic, typename TClient>
 void TCPServer<TServerLogic, TClient>::AcceptClients() {
-    TCPSocketConnectedClient connected(std::move(m_socket.Accept()));
-    if (connected.alive) {
-        m_clients.push_back(TClient(connected));
+    std::unique_ptr<TCPSocketConnectedClient> connected = std::make_unique<TCPSocketConnectedClient>(m_socket.Accept());
+    if (connected->alive) {
+        m_clients.push_back(TClient(std::move(connected)));
         m_logic.OnConnect(m_clients.size() - 1);
     }
 }
@@ -64,7 +71,21 @@ bool TCPServer<TServerLogic, TClient>::Running() {
 
 template<typename TServerLogic, typename TClient>
 void TCPServer<TServerLogic, TClient>::Receive(const size_t i) {
-    m_clients.at(i).Receive();
+    try {
+        m_clients.at(i).Receive();
+    }
+    catch (const SocketGracefulDisconnect & gdisconnect) {
+        Kick(i);
+        m_logic.OnDisconnect(i);
+    }
+    catch (const SocketDisconnect & disconnect) {
+        Kick(i);
+        m_logic.OnDisconnect(i);
+    }
+    // catch (const SocketError & error) {
+    //     Kick(i);    // temp?
+    //     m_logic.OnDisconnect(i);
+    // }
 }
 
 template<typename TServerLogic, typename TClient>

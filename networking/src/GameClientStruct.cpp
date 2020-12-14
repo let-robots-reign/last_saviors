@@ -1,3 +1,3 @@
 #include "GameClientStruct.h"
 
-GameClientStruct::GameClientStruct(TCPSocketConnectedClient socket) : ClientStruct(socket) {}
+GameClientStruct::GameClientStruct(std::unique_ptr<TCPSocketConnectedClient> socket) : ClientStruct(std::move(socket)) {}

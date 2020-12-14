@@ -42,7 +42,7 @@ public:
 
 struct TCPSocketBase {
 public:
-    TCPSocketBase(bool nonblocking = false);
+    explicit TCPSocketBase(bool nonblocking = false);
     ~TCPSocketBase();
 
 protected:

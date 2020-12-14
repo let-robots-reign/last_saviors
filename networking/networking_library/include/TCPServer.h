@@ -19,6 +19,8 @@ public:                                         //for ServerLogic
     void Send(const size_t i, const std::vector<std::byte> & data);
     void SendEveryone(const std::vector<std::byte> & data);
 
+    void Kick(const size_t i);
+
     TClient & GetClient(const size_t i);
 
 
