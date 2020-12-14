@@ -48,6 +48,7 @@ std::vector<std::byte> TCPSocketConnection::Receive(const size_t size) {
     std::vector<std::byte> data(size);
     int received = 0;
     Receive((void *)data.data(), size, received);
+    if (received < 0) received = 0;
     data.resize(received);
     return data;
 }

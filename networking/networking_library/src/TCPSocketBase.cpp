@@ -50,11 +50,12 @@ TCPSocketBase::TCPSocketBase(bool nonblocking) : m_socket(socket(AF_INET, nonblo
 
 TCPSocketBase::~TCPSocketBase() {
     if (m_socket != -1) {
-        //close(m_socket);  // temp
+        close(m_socket);  // temp
     }
 }
 
 TCPSocketBase::TCPSocketBase(int && socket) : m_socket(socket) {
+    socket = -1;
     FD_ZERO(&m_set);
 }
 

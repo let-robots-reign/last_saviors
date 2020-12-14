@@ -48,7 +48,6 @@ void GameServerLogic<TClient>::OnProcess(const size_t i) {
 
     // temp
     std::vector<std::byte> vec(Server.GetClient(i).m_buffer.data());
-    std::cout << "vec.size() = " << vec.size() << std::endl;
     if (vec.size() != 0) {
         BinaryStream stream;
         stream.Push(vec);
