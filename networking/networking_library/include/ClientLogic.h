@@ -11,6 +11,8 @@ private:
     
     ClientLogic(TCPClient<ClientLogic> & client) {}
 
+    void Send(const Packet & packet) {}
+
     void Send(const std::vector<std::byte> & data) {}
 
     void OnConnect() {}

@@ -1,5 +1,7 @@
 #include "BinaryStream.h"
 
+BinaryStream::BinaryStream(const std::vector<std::byte> & data) : m_data(data) {}
+
 void BinaryStream::Push(const std::vector<std::byte> & data) {
     m_data.insert(m_data.end(), data.begin(), data.end());
 }
@@ -11,6 +13,8 @@ std::vector<std::byte> BinaryStream::Pop(const size_t amount) {
 }
 
 std::vector<std::byte> BinaryStream::Get(const size_t amount, const size_t offset) const {
+    if (m_data.size() < offset + amount)
+        return std::vector<std::byte>();
     return std::vector<std::byte>(m_data.begin() + offset, m_data.begin() + offset + amount);
 }
 

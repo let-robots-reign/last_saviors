@@ -12,8 +12,13 @@ bool TCPClient<TClientLogic>::Connect(const Address & address) {
 }
 
 template<typename TClientLogic>
+void TCPClient<TClientLogic>::Send(const Packet & packet) {
+    m_logic.Send(packet);
+}
+
+template<typename TClientLogic>
 void TCPClient<TClientLogic>::Send(const std::vector<std::byte> & data) {
-    m_logic.Send(data);
+    m_socket.Send(data);
 }
 
 template<typename TClientLogic>

@@ -8,7 +8,7 @@ TCPServer<TServerLogic, TClient>::TCPServer() : m_logic(*this), m_running(false)
 
 template<typename TServerLogic, typename TClient>
 void TCPServer<TServerLogic, TClient>::Send(const size_t i, const std::vector<std::byte> & data) {
-    m_logic.Send(i, data);
+    m_clients.at(i).Send(data);
 }
 
 template<typename TServerLogic, typename TClient>

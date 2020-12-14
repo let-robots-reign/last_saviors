@@ -1,15 +1,11 @@
 #include "GameClientLogic.h"
+#include "BinaryStream.Game.h"
+#include "Packets.h"
 #include <iostream>
-#include "BinaryStream.h"
+
 
 GameClientLogic::GameClientLogic(TCPClient<GameClientLogic> & client) : Client(client) {}
 
-void GameClientLogic::Send(const std::vector<std::byte> & data) {
-    BinaryStream stream;
-    stream.Insert((uint64_t)data.size());
-    stream.Push(data);
-    Client.GetSocket().Send(stream.data());
-}
 
 void GameClientLogic::OnConnect() {
     std::cout << "Client has connected!\n";
@@ -28,8 +24,10 @@ void GameClientLogic::OnProcess() {
 }
 
 
-bool GameClientLogic::HasPackets() {
-    ///TODO:
+void GameClientLogic::Send(const Packet & packet) {
+    BinaryStream stream;
+    stream.Insert(packet);
+    Client.Send(stream.data());
 }
 
 void GameClientLogic::ProcessPacket(const Packet & packet) {

@@ -14,6 +14,8 @@ namespace PacketType {
 }
 
 struct Packet {
+    Packet() = default;
+    Packet(const std::vector<std::byte> & data);
     BinaryStream stream;
     PacketType::PacketType Type() const;
     const std::vector<std::byte> & data() const;

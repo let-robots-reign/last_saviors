@@ -1,6 +1,7 @@
 #pragma once
 #include "TCPSocketConnection.h"
 #include "BinaryStream.h"
+#include "PacketBase.h"
 #include <string_view>
 
 template<typename TClientLogic>
@@ -10,6 +11,7 @@ public:
 
     bool Connect(const Address & address);
 
+    void Send(const Packet & packet);
     void Send(const std::vector<std::byte> & data);
 
     void ReceiveAndProcess();

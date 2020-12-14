@@ -1,18 +1,12 @@
 #include "GameServerLogic.h"
-#include "BinaryStream.h"
+#include "BinaryStream.Game.h"
+#include "Packets.h"
 #include <iostream>
 #include <thread>
 
-template<typename TClient>
-GameServerLogic<TClient>::GameServerLogic(TCPServer<GameServerLogic<TClient>, TClient> & server) : Server(server) {}
 
 template<typename TClient>
-void GameServerLogic<TClient>::Send(const size_t i, const std::vector<std::byte> & data) {
-    BinaryStream stream;
-    stream.Insert((uint64_t)data.size());
-    stream.Push(data);
-    Server.GetClient(i).Send(stream.data());
-}
+GameServerLogic<TClient>::GameServerLogic(TCPServer<GameServerLogic<TClient>, TClient> & server) : Server(server) {}
 
 template<typename TClient>
 void GameServerLogic<TClient>::OnStart() {
@@ -43,22 +37,24 @@ void GameServerLogic<TClient>::OnDisconnect(const size_t i) {
 template<typename TClient>
 void GameServerLogic<TClient>::OnProcess(const size_t i) {
     std::cout << "Processing a client!\n";
-    //get packets
-    //call ProcessPacket
 
-    // temp - also super dirty - just an example
-    std::vector<std::byte> vec(Server.GetClient(i).m_buffer.data());
-    if (vec.size() != 0) {
-        vec.erase(vec.begin(), vec.begin() + sizeof(uint64_t));    // size of size of packet
-        BinaryStream stream;
-        stream.Push(vec);
-        ProcessPacket(i, Packet{stream});
-    }
+    Packet packet;
+    const size_t read = Server.GetClient(i).m_buffer.Extract(packet);
+    if (read == 0) return;
+    ProcessPacket(i, packet);
+}
+
+template<typename TClient>
+void GameServerLogic<TClient>::Send(const size_t i, const Packet & packet) {
+    BinaryStream stream;
+    stream.Insert(packet);
+    Server.Send(i, stream.data());
 }
 
 template<typename TClient>
 void GameServerLogic<TClient>::ProcessPacket(const size_t i, const Packet & packet) {
-    // process packet
+    std::cout << "Processing a packet!\n";
+
     const PacketType::PacketType type = packet.Type();
 
     // temp

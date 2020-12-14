@@ -6,6 +6,8 @@ PacketType::PacketType Packet::Type() const {
     return type;
 }
 
+Packet::Packet(const std::vector<std::byte> & data) : stream(data) {}
+
 const std::vector<std::byte> & Packet::data() const {
     return stream.data();
 }
