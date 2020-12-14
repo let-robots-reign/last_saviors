@@ -45,9 +45,28 @@ void GameServerLogic<TClient>::OnProcess(const size_t i) {
     std::cout << "Processing a client!\n";
     //get packets
     //call ProcessPacket
+
+    // temp
+    std::vector<std::byte> vec(Server.GetClient(i).m_buffer.data());
+    std::cout << "vec.size() = " << vec.size() << std::endl;
+    if (vec.size() != 0) {
+        BinaryStream stream;
+        stream.Push(vec);
+        ProcessPacket(i, Packet{stream});
+    }
 }
 
 template<typename TClient>
 void GameServerLogic<TClient>::ProcessPacket(const size_t i, const Packet & packet) {
-    //process packet
+    // process packet
+    const PacketType::PacketType type = packet.Type();
+
+    // temp
+    if (type == PacketType::ChatMessage) {
+        ChatMessagePacket chatmessage(packet);
+        std::cout << chatmessage.name << ": " << chatmessage.message << std::endl;
+    }
+    else {
+        std::cout << "Something else" << std::endl;
+    }
 }

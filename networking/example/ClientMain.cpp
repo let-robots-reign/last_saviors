@@ -3,6 +3,7 @@
 #include "Packets.h"
 #include <cstdio>
 #include <string>
+#include <thread>
 
 // example program
 
@@ -14,6 +15,8 @@ int main() {
 
     ChatMessagePacket packet("Client", "Sample Text");
     Client.Send(packet.ToPacket().data());
+
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
     Client.Disconnect();
     

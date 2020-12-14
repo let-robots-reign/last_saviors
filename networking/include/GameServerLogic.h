@@ -1,6 +1,6 @@
 #pragma once
 #include "ServerLogic.h"
-#include "PacketBase.h"
+#include "Packets.h"
 
 
 // TODO: GameServerLogic is always about GameClientStruct, right?

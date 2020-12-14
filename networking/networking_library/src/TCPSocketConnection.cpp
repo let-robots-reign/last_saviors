@@ -23,10 +23,12 @@ void TCPSocketConnection::Receive(void * buffer, size_t buffer_length, int & rec
 		throw SocketGracefulDisconnect(*this);
 	}
 	else if (received < 0) {
-		if (false) ///TODO:
-			throw SocketDisconnect(errno);
-		else
-			throw SocketError(errno, "Socket recv() failed");
+		if (false) {    ///TODO:
+            throw SocketDisconnect(errno);
+        }
+		else {
+            throw SocketError(errno, "Socket recv() failed");
+        }
 	}
 }
 

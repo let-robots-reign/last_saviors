@@ -7,6 +7,7 @@ namespace PacketType {
         uint16_t Type;
         PacketType() : Type(0) {}
         PacketType(const uint16_t type) : Type(type) {}
+        friend bool operator== (const PacketType & left, const PacketType & right) { return left() == right(); }
         uint16_t operator()() const { return Type; }
         static constexpr size_t size() { return (size_t)sizeof(Type); }
     };
