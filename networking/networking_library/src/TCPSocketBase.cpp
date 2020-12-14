@@ -50,7 +50,7 @@ TCPSocketBase::TCPSocketBase(bool nonblocking) : m_socket(socket(AF_INET, nonblo
 
 TCPSocketBase::~TCPSocketBase() {
     if (m_socket != -1) {
-        close(m_socket);
+        //close(m_socket);  // temp
     }
 }
 

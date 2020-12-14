@@ -81,17 +81,13 @@ bool TCPSocketClient::Connect(const Address & address) {
 
 
 
-TCPSocketConnectedClient::TCPSocketConnectedClient(TCPSocketConnectedClient && client) :
-                                                                                                    TCPSocketConnection(std::move(client.m_socket), m_connected),
-                                                                                                    address(client.address),
-                                                                                                    alive(client.alive)
-                                                                                                    {}
+TCPSocketConnectedClient::TCPSocketConnectedClient(TCPSocketConnectedClient && client) : TCPSocketConnectedClient(std::move(client.m_socket), client.address, client.alive) {}
 
 TCPSocketConnectedClient::TCPSocketConnectedClient(int && socket, const sockaddr_in & client_info, bool alive) :
-                                                                                                    TCPSocketConnection(std::move(socket), true),
-                                                                                                    address(client_info),
-                                                                                                    alive(alive)
-                                                                                                    {}
+        TCPSocketConnection(std::move(socket), true),
+        address(client_info),
+        alive(alive)
+    {}
 
 TCPSocketServer::TCPSocketServer() : TCPSocketBase(true) {}
 
