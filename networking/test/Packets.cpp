@@ -1,6 +1,7 @@
 #include "gtest/gtest.h"
 #include "Packets.h"
 
+
 TEST(Packets, ChatMessagePacket) {
     const std::string name("grillow1337");
     const std::string message("Sample Text");

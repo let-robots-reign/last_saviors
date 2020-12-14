@@ -14,7 +14,7 @@ ChatMessagePacket::ChatMessagePacket(const Packet & packet) {
 
 Packet ChatMessagePacket::ToPacket() const {
     Packet packet;
-    packet.stream.Insert(PacketType::ChatMessage());
+    packet.stream.Insert(PacketType::ChatMessage);
     packet.stream.Insert(name);
     packet.stream.Insert(message);
     return packet;
