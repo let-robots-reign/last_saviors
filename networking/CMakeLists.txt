@@ -3,7 +3,8 @@ project(game_networking)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_FLAGS -g)	# temp
-#set(CMAKE_CXX_FLAGS "-Wall -Werror -Wpedantic")
+#set(CMAKE_CXX_FLAGS "-Wall -Werror -Wpedantic") # same problem as in networking_library
+set(CMAKE_CXX_FLAGS "-Wall -Werror")
 
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
