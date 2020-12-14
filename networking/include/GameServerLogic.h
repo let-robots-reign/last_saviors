@@ -27,6 +27,7 @@ private:
 
 
     void Send(const size_t i, const Packet & packet);
+    void Send(const Packet & packet);
 
     void ProcessPacket(const size_t i, const Packet & packet);
 

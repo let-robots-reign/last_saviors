@@ -4,6 +4,7 @@
 #include "PacketBase.h"
 #include <string_view>
 
+
 template<typename TClientLogic>
 class TCPClient {
 public:
@@ -19,9 +20,10 @@ public:
     void Disconnect();
     
     bool Connected();
-
-    TCPSocketClient & GetSocket();
     
+public:                                                     // for ClientLogic
+    BinaryStream & GetBuffer();
+
 private:
 	void Receive();                                         // to m_buffer
     void Process();                                         // from m_buffer

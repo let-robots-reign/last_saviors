@@ -16,7 +16,9 @@ int main() {
     Client.Send(ChatMessagePacket("grillow1337", "First Message").ToPacket());
     Client.Send(ChatMessagePacket("grillow1337", "Second Message").ToPacket());
 
-    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    std::this_thread::sleep_for(std::chrono::milliseconds(10000));   // sending and receiving has delays
+
+    Client.ReceiveAndProcess();
 
     Client.Disconnect();
     

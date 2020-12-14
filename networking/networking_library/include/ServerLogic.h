@@ -1,5 +1,6 @@
 #pragma once
 #include "TCPServer.h"
+#include "PacketBase.h"
 
 template<typename TClient>
 struct ServerLogic {
@@ -11,6 +12,8 @@ public:
 private:
     
     ServerLogic(TCPServer<ServerLogic<TClient>, TClient> & server) {}
+
+    void Send(const size_t i, const Packet & packet) {}
 
     void Send(const size_t i, const std::vector<std::byte> & data) {}
 

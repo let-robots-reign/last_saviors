@@ -1,5 +1,6 @@
 #pragma once
 #include "TCPSocketConnection.h"
+#include "PacketBase.h"
 
 
 template<typename TServerLogic, typename TClient>
@@ -16,12 +17,15 @@ public:                                         //for ServerLogic
     void Stop();
     bool Running();
 
+    void Send(const size_t i, const Packet & packet);
+    void SendEveryone(const Packet & packet);
     void Send(const size_t i, const std::vector<std::byte> & data);
     void SendEveryone(const std::vector<std::byte> & data);
 
     void Kick(const size_t i);
 
     TClient & GetClient(const size_t i);
+    size_t ClientsSize() const;
 
 
 private:

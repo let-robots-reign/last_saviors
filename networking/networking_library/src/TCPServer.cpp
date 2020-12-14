@@ -7,6 +7,18 @@ template<typename TServerLogic, typename TClient>
 TCPServer<TServerLogic, TClient>::TCPServer() : m_logic(*this), m_running(false) {}
 
 template<typename TServerLogic, typename TClient>
+void TCPServer<TServerLogic, TClient>::Send(const size_t i, const Packet & packet) {
+    m_logic.Send(i, packet);
+}
+
+template<typename TServerLogic, typename TClient>
+void TCPServer<TServerLogic, TClient>::SendEveryone(const Packet & packet) {
+    for (size_t i = 0; i < m_clients.size(); ++i) {
+        Send(i, packet);
+    }
+}
+
+template<typename TServerLogic, typename TClient>
 void TCPServer<TServerLogic, TClient>::Send(const size_t i, const std::vector<std::byte> & data) {
     m_clients.at(i).Send(data);
 }
@@ -47,9 +59,12 @@ void TCPServer<TServerLogic, TClient>::Loop() {
 template<typename TServerLogic, typename TClient>
 void TCPServer<TServerLogic, TClient>::AcceptClients() {
     std::unique_ptr<TCPSocketConnectedClient> connected = std::make_unique<TCPSocketConnectedClient>(m_socket.Accept());
-    if (connected->alive) {
+    bool alive = connected->alive;
+    while (alive) {
         m_clients.push_back(TClient(std::move(connected)));
         m_logic.OnConnect(m_clients.size() - 1);
+        connected = std::make_unique<TCPSocketConnectedClient>(m_socket.Accept());
+        alive = connected->alive;
     }
 }
 
@@ -110,4 +125,9 @@ void TCPServer<TServerLogic, TClient>::Process(const size_t i) {
 template<typename TServerLogic, typename TClient>
 TClient & TCPServer<TServerLogic, TClient>::GetClient(const size_t i) {
     return m_clients.at(i);
+}
+
+template<typename TServerLogic, typename TClient>
+size_t TCPServer<TServerLogic, TClient>::ClientsSize() const {
+    return m_clients.size();
 }

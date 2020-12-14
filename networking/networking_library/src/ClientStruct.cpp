@@ -7,6 +7,5 @@ void ClientStruct::Send(const std::vector<std::byte> & data) {
 }
 
 void ClientStruct::Receive() {
-    //if (m_socket.HasData()) m_buffer.Push(m_socket.Receive());
     m_buffer.Push(m_socket->Receive());
 }

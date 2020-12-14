@@ -4,6 +4,7 @@
 #include <iostream>
 #include <thread>
 
+// warning: example logic
 
 template<typename TClient>
 GameServerLogic<TClient>::GameServerLogic(TCPServer<GameServerLogic<TClient>, TClient> & server) : Server(server) {}
@@ -19,7 +20,7 @@ void GameServerLogic<TClient>::OnTick() {
     //game logic here
     //sleep(...); //to have constant amount of ticks per second
     //std::cout << "Tick() finished\n";
-    std::this_thread::sleep_for(std::chrono::milliseconds(500));
+    std::this_thread::sleep_for(std::chrono::milliseconds(5000));
 }
 
 template<typename TClient>
@@ -36,12 +37,14 @@ void GameServerLogic<TClient>::OnDisconnect(const size_t i) {
 
 template<typename TClient>
 void GameServerLogic<TClient>::OnProcess(const size_t i) {
-    std::cout << "Processing a client!\n";
+    //std::cout << "Processing a client!\n";
 
     Packet packet;
-    const size_t read = Server.GetClient(i).m_buffer.Extract(packet);
-    if (read == 0) return;
-    ProcessPacket(i, packet);
+    size_t read = Server.GetClient(i).m_buffer.Extract(packet);
+    while (read != 0) {
+        ProcessPacket(i, packet);
+        read = Server.GetClient(i).m_buffer.Extract(packet);
+    }
 }
 
 template<typename TClient>
@@ -53,7 +56,7 @@ void GameServerLogic<TClient>::Send(const size_t i, const Packet & packet) {
 
 template<typename TClient>
 void GameServerLogic<TClient>::ProcessPacket(const size_t i, const Packet & packet) {
-    std::cout << "Processing a packet!\n";
+    //std::cout << "Processing a packet!\n";
 
     const PacketType::PacketType type = packet.Type();
 
@@ -61,8 +64,9 @@ void GameServerLogic<TClient>::ProcessPacket(const size_t i, const Packet & pack
     if (type == PacketType::ChatMessage) {
         ChatMessagePacket chatmessage(packet);
         std::cout << chatmessage.name << ": " << chatmessage.message << std::endl;
+        Server.SendEveryone(packet);
     }
     else {
-        std::cout << "Something else: " << type() << " instead of " << PacketType::ChatMessage() << std::endl;
+        std::cout << "Unknown packet type: " << type() << std::endl;
     }
 }
