@@ -23,7 +23,7 @@ void TCPSocketConnection::Receive(void * buffer, size_t buffer_length, int & rec
 		throw SocketGracefulDisconnect(*this);
 	}
 	else if (received < 0) {
-		if (false) ///TODO
+		if (false) ///TODO:
 			throw SocketDisconnect(errno);
 		else
 			throw SocketError(errno, "Socket recv() failed");
@@ -31,13 +31,15 @@ void TCPSocketConnection::Receive(void * buffer, size_t buffer_length, int & rec
 }
 
 std::vector<std::byte> TCPSocketConnection::Receive() {
+    // const size_t size = 1024;
+    // std::vector<std::byte> ans;
+    // while (HasData()) {
+    //     std::vector<std::byte> received = Receive(size);
+    //     ans.insert(ans.end(), received.begin(), received.end());
+    // }
+    // return ans;
     const size_t size = 1024;
-    std::vector<std::byte> ans;
-    while (HasData()) {
-        std::vector<std::byte> received = Receive(size);
-        ans.insert(ans.end(), received.begin(), received.end());
-    }
-    return ans;
+    return Receive(size);
 }
 
 std::vector<std::byte> TCPSocketConnection::Receive(const size_t size) {

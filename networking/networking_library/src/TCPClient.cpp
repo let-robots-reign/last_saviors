@@ -35,6 +35,11 @@ bool TCPClient<TClientLogic>::Connected() {
 }
 
 template<typename TClientLogic>
+TCPSocketClient & TCPClient<TClientLogic>::GetSocket() {
+    return m_socket;
+}
+
+template<typename TClientLogic>
 void TCPClient<TClientLogic>::Receive() {
     if (m_socket.HasData())
         m_buffer.Push(m_socket.Receive());

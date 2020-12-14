@@ -6,9 +6,9 @@ GameClientLogic::GameClientLogic(TCPClient<GameClientLogic> & client) : Client(c
 
 void GameClientLogic::Send(const std::vector<std::byte> & data) {
     BinaryStream stream;
-    stream.Insert(data.size());
+    stream.Insert((uint64_t)data.size());
     stream.Push(data);
-    Client.Send(stream.data());
+    Client.GetSocket().Send(stream.data());
 }
 
 void GameClientLogic::OnConnect() {

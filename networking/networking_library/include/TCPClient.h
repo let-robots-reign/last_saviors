@@ -17,6 +17,8 @@ public:
     void Disconnect();
     
     bool Connected();
+
+    TCPSocketClient & GetSocket();
     
 private:
 	void Receive();                                         // to m_buffer
@@ -30,4 +32,3 @@ private:
     BinaryStream m_buffer;
 
 };
-

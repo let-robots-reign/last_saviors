@@ -9,7 +9,7 @@ GameServerLogic<TClient>::GameServerLogic(TCPServer<GameServerLogic<TClient>, TC
 template<typename TClient>
 void GameServerLogic<TClient>::Send(const size_t i, const std::vector<std::byte> & data) {
     BinaryStream stream;
-    stream.Insert(data.size());
+    stream.Insert((uint64_t)data.size());
     stream.Push(data);
     Server.GetClient(i).Send(stream.data());
 }
