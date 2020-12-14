@@ -66,6 +66,6 @@ void GameServerLogic<TClient>::ProcessPacket(const size_t i, const Packet & pack
         std::cout << chatmessage.name << ": " << chatmessage.message << std::endl;
     }
     else {
-        std::cout << "Something else" << std::endl;
+        std::cout << "Something else: " << type() << std::endl;
     }
 }
