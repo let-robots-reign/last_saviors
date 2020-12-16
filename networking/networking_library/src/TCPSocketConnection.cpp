@@ -17,8 +17,8 @@ void TCPSocketConnection::Send(const void *data, size_t data_length) {
     }
 }
 
-void TCPSocketConnection::Receive(void * buffer, size_t buffer_length, int & received) {
-    received = recv(m_socket, (char*)buffer, buffer_length, MSG_DONTWAIT);
+ssize_t TCPSocketConnection::Receive(void * buffer, size_t buffer_length) {
+    const int received = recv(m_socket, (char*)buffer, buffer_length, MSG_DONTWAIT);
 	if (received == 0) {
 		throw SocketGracefulDisconnect(*this);
 	}
@@ -30,6 +30,7 @@ void TCPSocketConnection::Receive(void * buffer, size_t buffer_length, int & rec
             throw SocketError(errno, "Socket recv() failed");
         }
 	}
+    return received;
 }
 
 std::vector<std::byte> TCPSocketConnection::Receive() {
@@ -40,14 +41,14 @@ std::vector<std::byte> TCPSocketConnection::Receive() {
     //     ans.insert(ans.end(), received.begin(), received.end());
     // }
     // return ans;
+    /// TODO: fix this temp solution
     const size_t size = 1024;
     return Receive(size);
 }
 
 std::vector<std::byte> TCPSocketConnection::Receive(const size_t size) {
     std::vector<std::byte> data(size);
-    int received = 0;
-    Receive((void *)data.data(), size, received);
+    ssize_t received = Receive((void *)data.data(), size);
     if (received < 0) received = 0;
     data.resize(received);
     return data;

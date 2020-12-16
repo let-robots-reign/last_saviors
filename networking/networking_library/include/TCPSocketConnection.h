@@ -10,7 +10,7 @@ public:
 
     void Send(const void *data, size_t data_length);
 
-    void Receive(void * buffer, size_t buffer_length, int & received);
+    ssize_t Receive(void * buffer, size_t buffer_length);
     std::vector<std::byte> Receive();
     std::vector<std::byte> Receive(const size_t size);
 

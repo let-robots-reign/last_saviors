@@ -1,0 +1,6 @@
+libs to use:
+zlib/lz4 to compress data
+
+multithreading:
+[server-side] processing clients' buffers (I don't think this is really necessary)
+
