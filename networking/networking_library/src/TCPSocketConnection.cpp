@@ -12,18 +12,28 @@ void TCPSocketConnection::Send(const std::vector<std::byte> & data) {
 }
 
 void TCPSocketConnection::Send(const void *data, const size_t data_length) {
+    if (!Connected()) return;   /// TODO: new exception?
     if (send(m_socket, static_cast<const char *>(data), data_length, MSG_DONTWAIT) < 0) {
         throw SocketError(errno, "Socket send() failed");
     }
 }
 
 std::vector<std::byte> TCPSocketConnection::Receive() {
+    if (!Connected()) return {};
     const size_t size = 1024;   // super effective constant
     std::vector<std::byte> received;
 
     std::vector<std::byte> received_i;
     do {
-        received_i = Receive(size);
+        try {
+            received_i = Receive(size);
+        }
+        catch (const SocketDisconnect & disconnect) {
+            // We don't want to lose data if there is any
+            m_connected = false;
+            if (received.size() == 0) throw;
+            received_i.resize(0);
+        }
         received.insert(received.end(), received_i.begin(), received_i.end());
     } while (received_i.size() != 0);
     received.resize(received.size());
@@ -31,6 +41,7 @@ std::vector<std::byte> TCPSocketConnection::Receive() {
 }
 
 std::vector<std::byte> TCPSocketConnection::Receive(const size_t size) {
+    if (!Connected()) return {};
     std::vector<std::byte> data(size);
     ssize_t received = Receive(static_cast<void *>(data.data()), size);
     if (received < 0) received = 0;
@@ -39,6 +50,7 @@ std::vector<std::byte> TCPSocketConnection::Receive(const size_t size) {
 }
 
 ssize_t TCPSocketConnection::Receive(void *buffer, const size_t buffer_length) {
+    if (!Connected()) throw SocketDisconnect(0);
     const ssize_t received = recv(m_socket, static_cast<char *>(buffer), buffer_length, MSG_DONTWAIT);
 	if (received == 0) {
 		throw SocketGracefulDisconnect(*this);

@@ -10,6 +10,8 @@ public:
     void Send(const std::vector<std::byte> & data);
 
     void Receive();
+
+    bool Connected() const;
     
 public:
     std::unique_ptr<TCPSocketConnectedClient> m_socket;

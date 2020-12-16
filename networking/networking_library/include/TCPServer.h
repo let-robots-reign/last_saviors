@@ -30,7 +30,6 @@ public:                                         //for ServerLogic
 
 private:
     void Loop();								//mb delegate it to TServerLogic
-    void ReceiveAndProcess(); 
 
     void ReceiveAll();                          //to m_buffer
     void Receive(const size_t i);               //to m_buffer
@@ -39,6 +38,8 @@ private:
     void Process(const size_t i);               //from m_buffer
 
     void AcceptClients();
+
+    void KickDisconnected();
 
 
 private:

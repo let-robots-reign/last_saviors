@@ -13,9 +13,8 @@ void TCPServer<TServerLogic, TClient>::Send(const size_t i, const Packet & packe
 
 template<typename TServerLogic, typename TClient>
 void TCPServer<TServerLogic, TClient>::SendEveryone(const Packet & packet) {
-    for (size_t i = 0; i < m_clients.size(); ++i) {
+    for (size_t i = 0; i < m_clients.size(); ++i)
         Send(i, packet);
-    }
 }
 
 template<typename TServerLogic, typename TClient>
@@ -25,13 +24,13 @@ void TCPServer<TServerLogic, TClient>::Send(const size_t i, const std::vector<st
 
 template<typename TServerLogic, typename TClient>
 void TCPServer<TServerLogic, TClient>::SendEveryone(const std::vector<std::byte> & data) {
-    for (size_t i = 0; i < m_clients.size(); ++i) {
+    for (size_t i = 0; i < m_clients.size(); ++i)
         Send(i, data);
-    }
 }
 
 template<typename TServerLogic, typename TClient>
 void TCPServer<TServerLogic, TClient>::Kick(const size_t i) {
+    m_logic.OnDisconnect(i);
     m_clients.erase(m_clients.begin() + i);
 }
 
@@ -51,7 +50,9 @@ template<typename TServerLogic, typename TClient>
 void TCPServer<TServerLogic, TClient>::Loop() {
     while (Running()) {
         AcceptClients();
-        ReceiveAndProcess();
+        ReceiveAll();
+        ProcessAll();
+        KickDisconnected();
         m_logic.OnTick();
     }
 }
@@ -69,12 +70,6 @@ void TCPServer<TServerLogic, TClient>::AcceptClients() {
 }
 
 template<typename TServerLogic, typename TClient>
-void TCPServer<TServerLogic, TClient>::ReceiveAndProcess() {
-    ReceiveAll();
-    ProcessAll();
-}
-
-template<typename TServerLogic, typename TClient>
 void TCPServer<TServerLogic, TClient>::Stop() {
     m_running = false;
 }
@@ -85,32 +80,20 @@ bool TCPServer<TServerLogic, TClient>::Running() {
 }
 
 template<typename TServerLogic, typename TClient>
-void TCPServer<TServerLogic, TClient>::Receive(const size_t i) {
-    try {
-        m_clients.at(i).Receive();
-    }
-    catch (const SocketGracefulDisconnect & graceful_disconnect) {
-        Kick(i);
-        m_logic.OnDisconnect(i);
-    }
-    catch (const SocketDisconnect & disconnect) {
-        Kick(i);
-        m_logic.OnDisconnect(i);
-    }
+void TCPServer<TServerLogic, TClient>::ReceiveAll() {
+    for (size_t i = 0; i < m_clients.size(); ++i)
+        Receive(i);
 }
 
 template<typename TServerLogic, typename TClient>
-void TCPServer<TServerLogic, TClient>::ReceiveAll() {
-    for (size_t i = 0; i < m_clients.size(); ++i) {
-        Receive(i);
-    }
+void TCPServer<TServerLogic, TClient>::Receive(const size_t i) {
+    m_clients.at(i).Receive();
 }
 
 template<typename TServerLogic, typename TClient>
 void TCPServer<TServerLogic, TClient>::ProcessAll() {
-    for (size_t i = 0; i < m_clients.size(); ++i) {
+    for (size_t i = 0; i < m_clients.size(); ++i)
         Process(i);
-    }
 }
 
 template<typename TServerLogic, typename TClient>
@@ -126,4 +109,11 @@ TClient & TCPServer<TServerLogic, TClient>::GetClient(const size_t i) {
 template<typename TServerLogic, typename TClient>
 size_t TCPServer<TServerLogic, TClient>::ClientsSize() const {
     return m_clients.size();
+}
+
+template<typename TServerLogic, typename TClient>
+void TCPServer<TServerLogic, TClient>::KickDisconnected() {
+    for (size_t i = 0; i < m_clients.size(); ++i)
+        if (!m_clients.at(i).Connected())
+            Kick(i--);
 }

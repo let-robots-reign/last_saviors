@@ -9,3 +9,7 @@ void ClientStruct::Send(const std::vector<std::byte> & data) {
 void ClientStruct::Receive() {
     m_buffer.Push(m_socket->Receive());
 }
+
+bool ClientStruct::Connected() const {
+    return m_socket->Connected();
+}
