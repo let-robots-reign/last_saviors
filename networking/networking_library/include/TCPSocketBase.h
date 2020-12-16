@@ -50,6 +50,5 @@ protected:
 
 protected:
     int m_socket;
-    fd_set m_set;
 
 };
