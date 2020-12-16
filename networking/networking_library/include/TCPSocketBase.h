@@ -48,9 +48,6 @@ public:
 protected:
     TCPSocketBase(int && socket);
 
-public:
-    bool HasData();
-
 protected:
     int m_socket;
     fd_set m_set;

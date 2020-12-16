@@ -110,10 +110,6 @@ void TCPSocketServer::Listen(uint16_t port) {
 	}
 }
 
-bool TCPSocketServer::CanAccept() {
-    return HasData();
-}
-
 TCPSocketConnectedClient TCPSocketServer::Accept() {
 	sockaddr_in client_info;
 	socklen_t client_addr_size = sizeof(client_info);

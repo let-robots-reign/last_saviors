@@ -58,15 +58,3 @@ TCPSocketBase::TCPSocketBase(int && socket) : m_socket(socket) {
     socket = -1;
     FD_ZERO(&m_set);
 }
-
-bool TCPSocketBase::HasData() {
-    static constexpr timeval tv = {0, 0};
-	FD_SET(m_socket, &m_set);
-    int ret = select(0, &m_set, 0, 0, const_cast<timeval *>(&tv));
-    if (ret == -1) {
-        throw SocketError(errno, "Socket select() failed");
-    }
-    else {
-        return ret;
-    }
-}
