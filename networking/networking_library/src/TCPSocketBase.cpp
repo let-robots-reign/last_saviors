@@ -1,8 +1,9 @@
 #include "TCPSocketBase.h"
-#include <cstring>
-#include <string>
-#include <sstream>
 #include "NetworkErrors.h"
+#include <sys/socket.h>
+#include <arpa/inet.h>
+#include <unistd.h>
+#include <cstring>
 
 
 IPAddress::IPAddress(const in_addr addr) : addr(addr) {}
@@ -33,7 +34,6 @@ std::string Address::ToString() const {
 sockaddr_in Address::as_sockaddr_in() const {
     sockaddr_in addr;
     addr.sin_family = AF_INET;
-    //addr.sin_addr.s_addr = htonl(ip.addr.s_addr); //doesn't work for some reason
     addr.sin_addr.s_addr = ip.addr.s_addr;
     addr.sin_port = htons(port);
     return addr;
@@ -42,18 +42,17 @@ sockaddr_in Address::as_sockaddr_in() const {
 
 
 TCPSocketBase::TCPSocketBase(bool nonblocking) : m_socket(socket(AF_INET, nonblocking ? (SOCK_STREAM | SOCK_NONBLOCK) : SOCK_STREAM, 0)) {
-    if (m_socket == -1) {
-        //error
-        /// TODO: handle
+    if (m_socket == INVALID_SOCKET) {
+        /// TODO: handle error
     }
 }
 
 TCPSocketBase::~TCPSocketBase() {
     if (m_socket != -1) {
-        close(m_socket);  // temp
+        close(m_socket);
     }
 }
 
 TCPSocketBase::TCPSocketBase(int && socket) : m_socket(socket) {
-    socket = -1;
+    socket = INVALID_SOCKET;
 }

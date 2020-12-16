@@ -1,16 +1,10 @@
 #pragma once
-#include <sys/socket.h>
 #include <netinet/in.h>
-#include <sys/types.h>
-#include <arpa/inet.h>
-#include <netdb.h>
-#include <errno.h>
-#include <fcntl.h>
-#include <unistd.h>
-///TODO: move this ^ to .cpp
-
+#include <string>
 #include <memory>
-#include <string_view>
+
+const int INVALID_SOCKET = -1;
+
 
 // IPv4 for now
 struct IPAddress {

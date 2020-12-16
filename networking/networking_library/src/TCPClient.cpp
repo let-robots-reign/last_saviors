@@ -1,14 +1,20 @@
 #include "TCPClient.h"
+#include "NetworkErrors.h"
 
 template<typename TClientLogic>
 TCPClient<TClientLogic>::TCPClient() : m_logic(*this) {}
 
 template<typename TClientLogic>
 bool TCPClient<TClientLogic>::Connect(const Address & address) {
-    bool result = m_socket.Connect(address);
+    try {
+        m_socket.Connect(address);
+    }
+    catch (const SocketError & error) {
+        return false;
+    }
 
     m_logic.OnConnect();
-    return result;
+    return true;
 }
 
 template<typename TClientLogic>

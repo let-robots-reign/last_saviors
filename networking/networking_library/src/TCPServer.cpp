@@ -89,7 +89,7 @@ void TCPServer<TServerLogic, TClient>::Receive(const size_t i) {
     try {
         m_clients.at(i).Receive();
     }
-    catch (const SocketGracefulDisconnect & gdisconnect) {
+    catch (const SocketGracefulDisconnect & graceful_disconnect) {
         Kick(i);
         m_logic.OnDisconnect(i);
     }
@@ -97,10 +97,6 @@ void TCPServer<TServerLogic, TClient>::Receive(const size_t i) {
         Kick(i);
         m_logic.OnDisconnect(i);
     }
-    // catch (const SocketError & error) {
-    //     Kick(i);    // temp?
-    //     m_logic.OnDisconnect(i);
-    // }
 }
 
 template<typename TServerLogic, typename TClient>

@@ -20,7 +20,7 @@ void GameServerLogic<TClient>::OnTick() {
     //game logic here
     //sleep(...); //to have constant amount of ticks per second
     //std::cout << "Tick() finished\n";
-    std::this_thread::sleep_for(std::chrono::milliseconds(5000));
+    std::this_thread::sleep_for(std::chrono::milliseconds(2000));
 }
 
 template<typename TClient>
