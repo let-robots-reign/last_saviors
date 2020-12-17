@@ -59,13 +59,14 @@ void TCPServer<TServerLogic, TClient>::Loop() {
 
 template<typename TServerLogic, typename TClient>
 void TCPServer<TServerLogic, TClient>::AcceptClients() {
-    std::unique_ptr<TCPSocketConnectedClient> connected = std::make_unique<TCPSocketConnectedClient>(m_socket.Accept());
-    bool alive = connected->alive;
-    while (alive) {
-        m_clients.push_back(TClient(std::move(connected)));
-        m_logic.OnConnect(m_clients.size() - 1);
-        connected = std::make_unique<TCPSocketConnectedClient>(m_socket.Accept());
-        alive = connected->alive;
+    bool keep_accepting = true;
+    while (keep_accepting) {
+        std::variant<std::monostate, TCPSocketConnectedClient> accepted = m_socket.Accept();
+        keep_accepting = std::holds_alternative<TCPSocketConnectedClient>(accepted);
+        if (keep_accepting) {
+            m_clients.push_back(TClient(std::make_unique<TCPSocketConnectedClient>(std::move(std::get<TCPSocketConnectedClient>(accepted)))));
+            m_logic.OnConnect(m_clients.size() - 1);
+        }
     }
 }
 

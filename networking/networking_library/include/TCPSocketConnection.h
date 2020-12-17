@@ -1,6 +1,7 @@
 #pragma once
 #include "TCPSocketBase.h"
 #include <vector>
+#include <variant>
 
 
 struct TCPSocketConnection : public TCPSocketBase {
@@ -38,10 +39,9 @@ public:
 struct TCPSocketConnectedClient : public TCPSocketConnection {
     TCPSocketConnectedClient(TCPSocketConnectedClient && client);
     const Address address;
-    const bool alive;   // dirty hack
 
 private:
-    TCPSocketConnectedClient(int && socket, const sockaddr_in & client_info, bool alive = true);
+    TCPSocketConnectedClient(int && socket, const sockaddr_in & client_info);
     friend struct TCPSocketServer;
 };
 
@@ -49,6 +49,6 @@ private:
 struct TCPSocketServer : public TCPSocketBase {
     TCPSocketServer();
     void Listen(uint16_t port);
-    TCPSocketConnectedClient Accept();
+    std::variant<std::monostate, TCPSocketConnectedClient> Accept();
 
 };

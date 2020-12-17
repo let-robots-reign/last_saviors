@@ -4,3 +4,7 @@ zlib/lz4 to compress data
 multithreading:
 [server-side] processing clients' buffers (I don't think this is really necessary)
 
+
+thoughts:
+ClientLogic вызывает Client.Connect(), чтобы самому обрабатывать исключения?
+

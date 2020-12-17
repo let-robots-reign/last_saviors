@@ -2,6 +2,7 @@
 #include "NetworkErrors.h"
 #include <cstring>
 
+///TODO: have a look at error handling once again
 
 TCPSocketConnection::TCPSocketConnection() : m_connected(false) {}
 
@@ -20,7 +21,7 @@ void TCPSocketConnection::Send(const void *data, const size_t data_length) {
 
 std::vector<std::byte> TCPSocketConnection::Receive() {
     if (!Connected()) return {};
-    const size_t size = 1024;   // super effective constant
+    const size_t size = 1024;
     std::vector<std::byte> received;
 
     std::vector<std::byte> received_i;
@@ -31,11 +32,11 @@ std::vector<std::byte> TCPSocketConnection::Receive() {
         catch (const SocketDisconnect & disconnect) {
             // We don't want to lose data if there is any
             m_connected = false;
-            if (received.size() == 0) throw;
             received_i.resize(0);
         }
         received.insert(received.end(), received_i.begin(), received_i.end());
     } while (received_i.size() != 0);
+
     received.resize(received.size());
     return received;
 }
@@ -91,13 +92,12 @@ void TCPSocketClient::Connect(const Address & address) {
 
 
 TCPSocketConnectedClient::TCPSocketConnectedClient(TCPSocketConnectedClient && client) :
-        TCPSocketConnectedClient(std::move(client.m_socket), client.address.as_sockaddr_in(), client.alive)
+        TCPSocketConnectedClient(std::move(client.m_socket), client.address.as_sockaddr_in())
     {}
 
-TCPSocketConnectedClient::TCPSocketConnectedClient(int && socket, const sockaddr_in & client_info, bool alive) :
+TCPSocketConnectedClient::TCPSocketConnectedClient(int && socket, const sockaddr_in & client_info) :
         TCPSocketConnection(std::move(socket), true),
-        address(client_info),
-        alive(alive)
+        address(client_info)
     {}
 
 TCPSocketServer::TCPSocketServer() : TCPSocketBase(true) {}
@@ -117,10 +117,11 @@ void TCPSocketServer::Listen(uint16_t port) {
 	}
 }
 
-TCPSocketConnectedClient TCPSocketServer::Accept() {
+std::variant<std::monostate, TCPSocketConnectedClient> TCPSocketServer::Accept() {
 	sockaddr_in client_info;
 	socklen_t client_addr_size = sizeof(client_info);
     int client_socket = accept(m_socket, (struct sockaddr*)&client_info, &client_addr_size);
-    const bool alive = (client_socket != INVALID_SOCKET);
-    return TCPSocketConnectedClient(std::move(client_socket), client_info, alive);
+
+    if (client_socket == INVALID_SOCKET) return std::variant<std::monostate, TCPSocketConnectedClient>{};
+    return std::variant<std::monostate, TCPSocketConnectedClient>( TCPSocketConnectedClient(std::move(client_socket), client_info) );
 }
