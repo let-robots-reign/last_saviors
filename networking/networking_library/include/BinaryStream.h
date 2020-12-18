@@ -1,6 +1,5 @@
 #pragma once
 #include <vector>
-#include <array>
 
 struct BinaryStream {
 public:
@@ -20,11 +19,11 @@ public:
     template <typename T>
     void Insert(const T & data) {
         const size_t size = sizeof(T);
-        std::array<std::byte, size> binary;
+        std::vector<std::byte> binary(size);
         const std::byte *begin = reinterpret_cast<const std::byte *>(std::addressof(data));
         const std::byte *end = begin + size;
         std::copy(begin, end, binary.begin());
-        Push(std::vector<std::byte>(binary.begin(), binary.end()));   //xd
+        Push(binary);
     }
 
     template <typename T>
@@ -37,7 +36,7 @@ public:
     template <typename T>
     size_t Read(T & data, const size_t offset = 0) const {
         const size_t size = sizeof(T);
-        if (m_data.size() < size) return 0;
+        if (m_data.size() < offset + size) return 0;
         const std::vector<std::byte> binary = Get(size, offset);
         std::byte *begin = reinterpret_cast<std::byte *>(std::addressof(data));
         std::copy(binary.begin(), binary.end(), begin);

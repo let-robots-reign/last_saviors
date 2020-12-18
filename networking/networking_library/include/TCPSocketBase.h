@@ -21,7 +21,7 @@ private:
 struct Address {
 public:
     Address(const IPAddress ip, const uint16_t port);
-    Address(const in_addr ipv4, const uint16_t port);
+    Address(const in_addr ip, const uint16_t port);
     Address(const sockaddr_in & addr);
 
     std::string ToString() const;

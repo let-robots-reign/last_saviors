@@ -2,7 +2,6 @@
 #include "TCPSocketConnection.h"
 #include "BinaryStream.h"
 #include "PacketBase.h"
-#include <string_view>
 
 
 template<typename TClientLogic>

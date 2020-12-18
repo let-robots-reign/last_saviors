@@ -14,11 +14,13 @@ std::vector<std::byte> BinaryStream::Pop(const size_t amount) {
 
 std::vector<std::byte> BinaryStream::Get(const size_t amount, const size_t offset) const {
     if (m_data.size() < offset + amount)
-        return std::vector<std::byte>();
+        return {};
     return std::vector<std::byte>(m_data.begin() + offset, m_data.begin() + offset + amount);
 }
 
 void BinaryStream::Erase(const size_t amount, const size_t offset) {
+    if (m_data.size() < offset + amount)
+        return;
     m_data.erase(m_data.begin() + offset, m_data.begin() + offset + amount);
 }
 
