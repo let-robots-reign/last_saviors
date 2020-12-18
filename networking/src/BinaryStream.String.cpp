@@ -22,10 +22,11 @@ size_t BinaryStream::Read<std::string>(std::string & string, const size_t offset
 }
 
 template<>
-size_t BinaryStream::Remove<std::string>(const size_t offset) {
+size_t BinaryStream::Erase<std::string>(const size_t offset) {
     uint16_t string_size = 0;
     Read(string_size, offset);
-    const size_t remove_size = sizeof(string_size) + string_size;
-    Erase(remove_size, offset);
-    return remove_size;
+    const size_t erase_size = sizeof(string_size) + string_size;
+    if (m_data.size() < offset + erase_size) return 0;
+    Erase(erase_size, offset);
+    return erase_size;
 }

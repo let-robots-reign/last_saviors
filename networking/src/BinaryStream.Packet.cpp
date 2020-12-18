@@ -20,12 +20,12 @@ size_t BinaryStream::Read<Packet>(Packet & packet, const size_t offset) const {
 }
 
 template<>
-size_t BinaryStream::Remove<Packet>(const size_t offset) {
+size_t BinaryStream::Erase<Packet>(const size_t offset) {
     uint64_t packet_size = 0;
     size_t read_offset = 0;
     read_offset += Read(packet_size, read_offset + offset);
-    const size_t remove_size = read_offset + packet_size;
-    if (m_data.size() < offset + remove_size) return 0;
-    Erase(remove_size, offset);
-    return remove_size;
+    const size_t erase_size = read_offset + packet_size;
+    if (m_data.size() < offset + erase_size) return 0;
+    Erase(erase_size, offset);
+    return erase_size;
 }

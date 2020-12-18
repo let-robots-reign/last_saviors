@@ -30,7 +30,7 @@ public:
     size_t Extract(T & data, const size_t offset = 0) {
         const size_t read = Read(data, offset);
         if (read == 0) return 0;
-        return Remove<T>(offset);
+        return Erase<T>(offset);
     }
 
     template <typename T>
@@ -44,7 +44,7 @@ public:
     }
 
     template <typename T>
-    size_t Remove(const size_t offset = 0) {
+    size_t Erase(const size_t offset = 0) {
         Erase(sizeof(T), offset);
         return sizeof(T);
     }
