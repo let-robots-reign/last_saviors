@@ -1,23 +1,55 @@
 #include "grid.h"
 
 #include <sstream>
+#include <fstream>
+#include <algorithm>
 
-Grid::Grid(size_t w, size_t h, std::string map) : width(w), height(h), initialized(false), mapGenerator(std::move(map)) {}
+Grid::Grid(size_t w, size_t h, std::string map) : width(w), height(h), initialized(false),
+                                                  mapGenerator(std::move(map)) {}
+
+/*
+ * Пояснения к тому, как строится поле:
+ * 1. Поле задается строкой из символов, каждый символ обозначает тип клетки
+ * 2. Соответствие между символом и типом клетки задается в grid_config
+ * 3. По grid_config строится charsToType
+ * 4. По строке mapGenerator строится поле, т. е. матрица клеток
+*/
 
 void Grid::buildGrid() {
-    initialized = true;
+    readConfigMapFromFile();
+
     std::istringstream iss(mapGenerator);
+    tilesContainer container;
     std::string line;
-    size_t line_index = 0;
     while (getline(iss, line, '\n')) {
-        for (size_t char_index = 0; char_index < line.size(); ++char_index) {
-            tiles[line_index][char_index].updateTile(convertSymbolToType(line[char_index]));
+        std::vector<Tile> tilesRow;
+        std::transform(line.begin(), line.end(), std::back_inserter(tilesRow),
+                       [this](char c) -> Tile { return Tile(getTypeFromMap(c)); });
+        container.push_back(tilesRow);
+    }
+    tiles = container;
+    initialized = true;
+}
+
+void Grid::readConfigMapFromFile() {
+    std::ifstream gridConfig("grid_config");
+    if (gridConfig.is_open()) {
+        std::string line;
+        while (getline(gridConfig, line)) {
+            line.erase(std::remove_if(line.begin(), line.end(), isspace), line.end());
+            if (line[0] == '#' || line.empty()) {
+                continue;
+            }
+            auto delimiterPosition = line.find(':');
+            std::string tileTypeStr = line.substr(0, delimiterPosition);
+            char tileTypeChar = line.substr(delimiterPosition + 1)[0];
+            charsToType[tileTypeChar] = stringsToTileTypes.at(tileTypeStr);
         }
     }
 }
 
-TileType Grid::convertSymbolToType(const char symbol) const {
-    return symbolsToTileTypes.at(symbol);
+TileType Grid::getTypeFromMap(char c) {
+    return charsToType.count(c) ? charsToType.at(c) : EmptyTile;
 }
 
 bool Grid::isInitialized() const {

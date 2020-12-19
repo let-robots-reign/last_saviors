@@ -24,20 +24,26 @@ public:
 private:
     size_t width;
     size_t height;
+    std::map<char, TileType> charsToType;
     std::string mapGenerator;
     bool initialized;
     tilesContainer tiles;
 
-    TileType convertSymbolToType(const char symbol) const;
-    std::map<char, TileType> symbolsToTileTypes = {
-            {'0', EmptyTile},
-            {'_', RoadTile},
-            {'b', BlockTile},
-            {'t', PlacedTowerTile},
-            {'s', PlacedShaftTile},
-            {'C', CitadelTile}
-    };
+    void readConfigMapFromFile();
 
+    static const std::map<std::string, TileType> stringsToTileTypes;
+
+    TileType getTypeFromMap(char c);
+
+};
+
+const std::map<std::string, TileType> Grid::stringsToTileTypes = {
+        {"Empty", EmptyTile},
+        {"Road", RoadTile},
+        {"Block", BlockTile},
+        {"PlacedTower", PlacedTowerTile},
+        {"PlacedShaft", PlacedShaftTile},
+        {"Citadel", CitadelTile}
 };
 
 #endif //CLIENT_GRID_H
