@@ -9,7 +9,9 @@ class Button : public Widget {
 public:
     Button(size_t w, size_t h, const Coordinate &coord, std::string s);
 
-    inline bool getState() const {
+    explicit Button(std::string s);
+
+    inline bool isPressed() const {
         return pressed;
     }
 

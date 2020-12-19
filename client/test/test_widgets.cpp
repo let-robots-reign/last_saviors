@@ -18,9 +18,9 @@ TEST(TestWidgets, testButton) {
     const Coordinate leftCorner(100, 100);
     const std::string buttonText = "Text on the button";
     Button button(100, 50, leftCorner, buttonText);
-    EXPECT_EQ(button.getState(), false);
+    EXPECT_FALSE(button.isPressed());
     button.press();
-    EXPECT_EQ(button.getState(), true);
+    EXPECT_TRUE(button.isPressed());
     button.press();
-    EXPECT_EQ(button.getState(), false);
+    EXPECT_FALSE(button.isPressed());
 }

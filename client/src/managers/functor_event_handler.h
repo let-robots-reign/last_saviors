@@ -2,6 +2,7 @@
 #define LAST_SAVIORS_FUNCTOR_EVENT_HANDLER_H
 
 #include "event_handler.h"
+#include "equality_checker.h"
 
 /*
  * код вида playButton.onButtonClick += FUNCTOR_HANDLER(clickHandler);
@@ -44,7 +45,7 @@ public:
     }
 
     inline bool operator==(const FunctorHolder<TFunctor> &rhs) const {
-        return (functor == rhs.functor);
+        return EqualityChecker<TFunctor>::equals(functor, rhs.functor);
     }
 
     inline bool operator!=(const FunctorHolder<TFunctor> &rhs) const {

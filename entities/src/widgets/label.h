@@ -8,6 +8,8 @@ class Label : public Widget {
 public:
     Label(size_t w, size_t h, const Coordinate &coord, std::string s);
 
+    explicit Label(std::string s);
+
     inline std::string getText() const {
         return text;
     }
