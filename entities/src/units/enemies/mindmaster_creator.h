@@ -3,19 +3,24 @@
 
 class MindmasterCreator : public EnemyCreator {
    private:
-    MindmasterModel model_;
-    static bool validityConfigurationCheck(unsigned int maxHealth, double speed,
-                                           unsigned int attackCooldown,
-                                           size_t coinsForDeath);
+    unsigned int max_health_;
+    double speed_;
+    unsigned int attack_cooldown_;
+    size_t coins_for_death_;
+
+    static bool validityConfigurationCheck(unsigned int max_health,
+                                           double speed,
+                                           unsigned int attack_cooldown,
+                                           size_t coins_for_death);
 
    public:
-    MindmasterCreator(unsigned int maxHealth, double speed,
-                      unsigned int attackCooldown,
-                      size_t coinsForDeath) noexcept(false);
+    MindmasterCreator(unsigned int max_health, double speed,
+                      unsigned int attack_cooldown,
+                      size_t coins_for_death) noexcept(false);
 
-    void changeConfiguration(unsigned int maxHealth, double speed,
-                             unsigned int attackCooldown,
-                             size_t coinsForDeath) noexcept(false);
-    std::shared_ptr<Enemy> createEnemy(time_t current_time,
+    void changeConfiguration(unsigned int max_health, double speed,
+                             unsigned int attack_cooldown,
+                             size_t coins_for_death) noexcept(false);
+    std::shared_ptr<Enemy> createEnemy(unsigned int current_time,
                                        Coordinate position) const override;
 };

@@ -1,32 +1,38 @@
-
 #include "mindmaster_creator.h"
-bool MindmasterCreator::validityConfigurationCheck(unsigned int maxHealth,
+
+bool MindmasterCreator::validityConfigurationCheck(unsigned int max_health,
                                                    double speed,
-                                                   unsigned int attackCooldown,
-                                                   size_t coinsForDeath) {
-    return maxHealth > 0 && speed > 0 && attackCooldown > 0 &&
-           coinsForDeath > 0;
+                                                   unsigned int attack_cooldown,
+                                                   size_t coins_for_death) {
+    return max_health > 0 && speed > 0 && attack_cooldown > 0 &&
+           coins_for_death > 0;
 }
-MindmasterCreator::MindmasterCreator(unsigned int maxHealth, double speed,
-                                     unsigned int attackCooldown,
-                                     size_t coinsForDeath) noexcept(false) {
+MindmasterCreator::MindmasterCreator(unsigned int max_health, double speed,
+                                     unsigned int attack_cooldown,
+                                     size_t coins_for_death) noexcept(false) {
     try {
-        changeConfiguration(maxHealth, speed, attackCooldown,
-                            coinsForDeath);
+        changeConfiguration(max_health, speed, attack_cooldown,
+                            coins_for_death);
     } catch (...) {
         throw;
     }
 }
 void MindmasterCreator::changeConfiguration(
-    unsigned int maxHealth, double speed, unsigned int attackCooldown,
-    size_t coinsForDeath) noexcept(false) {
-    if (!validityConfigurationCheck(maxHealth, speed, attackCooldown,
-                                    coinsForDeath)) {
+    unsigned int max_health, double speed, unsigned int attack_cooldown,
+    size_t coins_for_death) noexcept(false) {
+    if (!validityConfigurationCheck(max_health, speed, attack_cooldown,
+                                    coins_for_death)) {
         throw std::invalid_argument("Used non-positive values");
     }
-    model_ = {maxHealth, speed, attackCooldown, coinsForDeath};
+    max_health_ = max_health;
+    speed_ = speed;
+    attack_cooldown_ = attack_cooldown;
+    coins_for_death_ = coins_for_death;
 }
+
 std::shared_ptr<Enemy> MindmasterCreator::createEnemy(
-    time_t current_time, Coordinate position) const {
-    return std::make_shared<Mindmaster>(model_, current_time, position);
+    unsigned int current_time, Coordinate position) const {
+    return std::make_shared<Mindmaster>(current_time, max_health_, speed_,
+                                        attack_cooldown_, coins_for_death_,
+                                        position);
 }

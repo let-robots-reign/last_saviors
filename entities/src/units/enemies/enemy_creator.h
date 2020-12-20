@@ -8,7 +8,7 @@
 class EnemyCreator {
    public:
     virtual ~EnemyCreator() = default;
-    virtual std::shared_ptr<Enemy> createEnemy(time_t current_time,
+    virtual std::shared_ptr<Enemy> createEnemy(unsigned int current_time,
                                                Coordinate position) const = 0;
 };
 

@@ -2,21 +2,18 @@
 #define LAST_SAVIORS_MINDMASTER_H
 
 #include "enemy.h"
-#include "mindmaster_model.h"
 #include "algorithm"
 #include "tower.h"
 
 class Mindmaster : public Enemy {
-   private:
-    const MindmasterModel model_;
-
    public:
-    explicit Mindmaster(const MindmasterModel& model, time_t current_time,
-                        Coordinate position = Coordinate());
+    Mindmaster(unsigned int current_time, unsigned int max_health, double speed,
+          unsigned int attack_cooldown, size_t coins_for_death,
+          Coordinate position);
+
     bool canAttack(const Attackable &target) override;
-    void attack(Attackable &target, time_t current_time) override;
-    Attackable *findTarget(std::list<Attackable> &possible_targets) override;
-    bool isReadyForAttack(time_t current_time) override;
+    void attack(Attackable &target, unsigned int current_time) override;
+    Attackable *findTarget(std::vector<Attackable> &possible_targets) override;
 };
 
 #endif  // LAST_SAVIORS_MINDMASTER_H

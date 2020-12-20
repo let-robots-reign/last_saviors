@@ -1,13 +1,13 @@
 #include "mindmaster.h"
 
-void Mindmaster::attack(Attackable &target, time_t current_time) {
+void Mindmaster::attack(Attackable &target, unsigned int current_time) {
     if (isReadyForAttack(current_time) && canAttack(target)) {
         target.reduceHealth(target.getHealth() / 2);
         time_of_last_attack_ = current_time;
     }
 }
 
-Attackable *Mindmaster::findTarget(std::list<Attackable> &possible_targets) {
+Attackable *Mindmaster::findTarget(std::vector<Attackable> &possible_targets) {
     return &*std::max_element(
         possible_targets.begin(), possible_targets.end(),
         [&](const Attackable &target1, const Attackable &target2) {
@@ -17,14 +17,12 @@ Attackable *Mindmaster::findTarget(std::list<Attackable> &possible_targets) {
         });
 }
 
-bool Mindmaster::isReadyForAttack(time_t current_time) {
-    return current_time - time_of_last_attack_ >= model_.attackCooldown;
-}
-
-Mindmaster::Mindmaster(const MindmasterModel &model, time_t current_time,
-                       Coordinate position)
-    : Enemy(model.maxHealth, current_time, position), model_(model) {}
 
 bool Mindmaster::canAttack(const Attackable &target) {
     return dynamic_cast<const Tower *>(&target);
 }
+Mindmaster::Mindmaster(unsigned int current_time, unsigned int max_health,
+                       double speed, unsigned int attack_cooldown,
+                       size_t coins_for_death, Coordinate position)
+    : Enemy(current_time, max_health, speed, attack_cooldown, coins_for_death,
+            position) {}

@@ -3,24 +3,40 @@
 
 #include <ctime>
 #include <list>
+#include <vector>
 
 #include "attackable.h"
+#include "player.h"
+#include "enemy.h"
 
 class Tower : public Attackable {
    protected:
-    time_t time_of_last_attack_;
+    unsigned int time_of_last_attack_;
     int level_;
+    size_t max_level_;
+    std::vector<unsigned int> max_health_per_level_;
+    std::vector<unsigned int> attack_cooldown_per_level_;
+    std::vector<unsigned int> damage_per_level_;
+    std::vector<size_t> repair_cost_per_level_;
+    std::vector<size_t> upgrade_cost_per_level_;
+    std::vector<double> attack_radius_per_level_;
+
 
    public:
-    Tower(int health, time_t current_time, Coordinate position, int level);
-    virtual void attack(std::list<Attackable> &enemies) = 0;
-    virtual bool isReadyForAttack(time_t current_time) = 0;
-    virtual std::list<Attackable> findTargets(
-        std::list<Attackable> &enemies) = 0;
-    virtual void upgrade(unsigned int current_time) {
-        ++level_;
-        time_of_last_attack_ = current_time;
-    };
+    Tower(size_t max_level, std::vector<unsigned int> &max_health_per_level,
+          std::vector<unsigned int> &attack_cooldown_per_level,
+          std::vector<unsigned int> &damage_per_level,
+          std::vector<size_t> &repair_cost_per_level,
+          std::vector<size_t> &upgrade_cost_per_level,
+          std::vector<double> &attack_radius_per_level,
+          unsigned int current_time, Coordinate position, int level);
+    virtual void attack(std::vector<Attackable> &enemies) = 0;
+    virtual bool isReadyForAttack(unsigned int current_time);
+    virtual std::vector<Attackable> findTargets(
+        const std::vector<Attackable> &enemies) = 0;
+    virtual bool canAttack(Attackable& enemy);
+    void upgrade(Player &player, unsigned int current_time);
+    void repair(Player &player, unsigned int current_time);
 };
 
 #endif  // LAST_SAVIORS_TOWER_H

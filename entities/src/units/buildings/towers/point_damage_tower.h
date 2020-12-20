@@ -1,16 +1,22 @@
 #ifndef LAST_SAVIORS_POINT_DAMAGE_TOWER_H
 #define LAST_SAVIORS_POINT_DAMAGE_TOWER_H
 
-#include "point_damage_tower_model.h"
 #include "tower.h"
+#include <algorithm>
 
 class PointDamageTower : public Tower {
-   private:
-    PointDamageTowerModel model_;
-
    public:
-    PointDamageTower(const PointDamageTowerModel& model, time_t current_time,
-                     Coordinate position = Coordinate(), int level = 1);
+    PointDamageTower(size_t max_level,
+                     std::vector<unsigned int> &max_health_per_level,
+                     std::vector<unsigned int> &attack_cooldown_per_level,
+                     std::vector<unsigned int> &damage_per_level,
+                     std::vector<size_t> &repair_cost_per_level,
+                     std::vector<size_t> &upgrade_cost_per_level,
+                     std::vector<double> &attack_radius_per_level,
+                     unsigned int current_time, Coordinate position,
+                     int level);
+    void attack(std::vector<Attackable> &enemies) override;
+    std::vector<Attackable> findTargets(const std::vector<Attackable> &enemies) override;
 };
 
 #endif  // LAST_SAVIORS_POINT_DAMAGE_TOWER_H

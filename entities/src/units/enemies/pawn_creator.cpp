@@ -1,35 +1,42 @@
 #include "pawn_creator.h"
 
-std::shared_ptr<Enemy> PawnCreator::createEnemy(time_t current_time,
-                                                Coordinate position) const {
-    return std::make_shared<Pawn>(model_, current_time, position);
+bool PawnCreator::validityConfigurationCheck(unsigned int max_health,
+                                             unsigned int damage, double speed,
+                                             unsigned int attack_cooldown,
+                                             size_t coins_for_death) {
+    return max_health > 0 && damage > 0 && speed > 0 && attack_cooldown > 0 &&
+           coins_for_death > 0;
 }
 
-PawnCreator::PawnCreator(unsigned int maxHealth, unsigned int damage,
-                         double speed, unsigned int attackCooldown,
-                         size_t coinsForDeath) {
+
+void PawnCreator::changeConfiguration(unsigned int max_health,
+                                      unsigned int damage, double speed,
+                                      unsigned int attack_cooldown,
+                                      size_t coins_for_death) noexcept(false) {
+    if (!validityConfigurationCheck(max_health, speed, attack_cooldown,
+                                    coins_for_death)) {
+        throw std::invalid_argument("Used non-positive values");
+    }
+    max_health_ = max_health;
+    speed_ = speed;
+    attack_cooldown_ = attack_cooldown;
+    coins_for_death_ = coins_for_death;
+    damage_ = damage;
+}
+PawnCreator::PawnCreator(unsigned int max_health, unsigned int damage,
+                         double speed, unsigned int attack_cooldown,
+                         size_t coins_for_death) noexcept(false) {
     try {
-        changeConfiguration(maxHealth, damage, speed, attackCooldown,
-                            coinsForDeath);
+        changeConfiguration(max_health, damage, speed, attack_cooldown,
+                            coins_for_death);
     } catch (...) {
         throw;
     }
 }
 
-bool PawnCreator::validityConfigurationCheck(unsigned int maxHealth,
-                                             unsigned int damage, double speed,
-                                             unsigned int attackCooldown,
-                                             size_t coinsForDeath) {
-    return maxHealth > 0 && damage > 0 && speed > 0 && attackCooldown > 0 &&
-           coinsForDeath > 0;
-}
-void PawnCreator::changeConfiguration(unsigned int maxHealth,
-                                      unsigned int damage, double speed,
-                                      unsigned int attackCooldown,
-                                      size_t coinsForDeath) {
-    if (!validityConfigurationCheck(maxHealth, damage, speed, attackCooldown,
-                                    coinsForDeath)) {
-        throw std::invalid_argument("Used non-positive values");
-    }
-    model_ = {maxHealth, damage, speed, attackCooldown, coinsForDeath};
+std::shared_ptr<Enemy> PawnCreator::createEnemy(unsigned int current_time,
+                                                Coordinate position) const {
+    return std::make_shared<Pawn>(current_time, max_health_, speed_,
+                                  attack_cooldown_, coins_for_death_, damage_,
+                                  position);
 }

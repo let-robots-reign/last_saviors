@@ -10,7 +10,7 @@ class Attackable : public Unit {
 
    public:
     explicit Attackable(unsigned int health, Coordinate position) noexcept(false);
-    ~Attackable() = default;
+    virtual ~Attackable() = default;
     void reduceHealth(unsigned int value);
     unsigned int getHealth() const { return health_; };
     void setHealth(unsigned int value) noexcept(false);
