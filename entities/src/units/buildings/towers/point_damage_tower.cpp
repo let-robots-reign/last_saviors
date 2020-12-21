@@ -2,11 +2,9 @@
 
 
 void PointDamageTower::attack(std::vector<Attackable> &enemies) {
-    std::for_each(enemies.begin(), enemies.end(), [&](Attackable &enemy) {
-        if (canAttack(enemy)) {
-            enemy.reduceHealth(damage_per_level_[level_]);
-        }
-    });
+    if (!enemies.empty() && canAttack(enemies[0])) {
+        enemies[0].reduceHealth(damage_per_level_[level_]);
+    }
 }
 
 PointDamageTower::PointDamageTower(
@@ -20,3 +18,27 @@ PointDamageTower::PointDamageTower(
     : Tower(max_level, max_health_per_level, attack_cooldown_per_level,
             damage_per_level, repair_cost_per_level, upgrade_cost_per_level,
             attack_radius_per_level, current_time, position, level) {}
+
+std::vector<Attackable> PointDamageTower::findTargets(
+    const std::vector<Attackable> &enemies, Coordinate citadel_position) {
+    std::vector<Attackable> in_attack_radius;
+    std::copy_if(
+        enemies.begin(), enemies.end(), std::back_inserter(in_attack_radius),
+        [&](const Attackable &enemy) {
+            return this->distance(enemy) < attack_radius_per_level_[level_] &&
+                   canAttack(enemy);
+        });
+    std::vector<Attackable> result;
+    if (!in_attack_radius.empty()) {
+        result.push_back(*std::min_element(
+            in_attack_radius.begin(), in_attack_radius.end(),
+            [&citadel_position](const Attackable &first,
+                                const Attackable &second) {
+                return Coordinate::distance(first.getCoordinate(),
+                                            citadel_position) <
+                       Coordinate::distance(second.getCoordinate(),
+                                            citadel_position);
+            }));
+    }
+    return result;
+}

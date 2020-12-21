@@ -16,7 +16,7 @@ class PointDamageTower : public Tower {
                      unsigned int current_time, Coordinate position,
                      int level);
     void attack(std::vector<Attackable> &enemies) override;
-    std::vector<Attackable> findTargets(const std::vector<Attackable> &enemies) override;
+    std::vector<Attackable> findTargets(const std::vector<Attackable> &enemies, Coordinate citadel_position) override;
 };
 
 #endif  // LAST_SAVIORS_POINT_DAMAGE_TOWER_H

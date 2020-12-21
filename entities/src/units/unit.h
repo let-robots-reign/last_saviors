@@ -1,7 +1,7 @@
 #ifndef LAST_SAVIORS_UNIT_H
 #define LAST_SAVIORS_UNIT_H
 
-#include "cmath"
+
 #include "coordinate.h"
 
 class Unit {

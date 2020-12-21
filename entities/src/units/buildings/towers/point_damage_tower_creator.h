@@ -23,6 +23,7 @@ class PointDamageTowerCreator: public TowerCreator {
                             std::vector<size_t> &repair_cost_per_level,
                             std::vector<size_t> &upgrade_cost_per_level,
                             std::vector<double> &attack_radius_per_level);
+
     std::shared_ptr<Tower> createTower(unsigned int current_time,
                                        Coordinate position) const override;
 
