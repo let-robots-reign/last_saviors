@@ -2,6 +2,7 @@
 #include "BinaryStream.Game.h"
 #include "Packets.h"
 #include <iostream>
+///TODO: #include Alexey's "Applcation.h"
 
 // warning: example logic
 
@@ -41,10 +42,17 @@ void GameClientLogic::ProcessPacket(const Packet & packet) {
     
     const PacketType::PacketType type = packet.Type();
 
-    // temp
     if (type == PacketType::ChatMessage) {
-        ChatMessagePacket chatmessage(packet);
+        const ChatMessagePacket chatmessage(packet);
         std::cout << chatmessage.name << ": " << chatmessage.message << std::endl;
+    }
+    else if (type == PacketType::QuizResponsePacket) {
+        const QuizResponsePacket responsepacket(packet);
+        ///TODO: some Application stuff xd
+    }
+    else if (type == PacketType::QuizResultPacket) {
+        const QuizResultPacket resultpacket(packet);
+        ///TODO: some Application stuff xd
     }
     else {
         std::cout << "Unknown packet type: " << type() << std::endl;

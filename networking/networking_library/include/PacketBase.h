@@ -4,14 +4,17 @@
 
 namespace PacketType {
     struct PacketType {
-        uint16_t Type;
-        PacketType() : Type(0) {}
-        PacketType(const uint16_t type) : Type(type) {}
-        friend bool operator== (const PacketType & left, const PacketType & right) { return left() == right(); }
-        uint16_t operator()() const { return Type; }
+        const uint16_t Type;
+        constexpr PacketType() : Type(0) {}
+        constexpr PacketType(const uint16_t type) : Type(type) {}
+        constexpr friend bool operator== (const PacketType & left, const PacketType & right) { return left() == right(); }
+        constexpr uint16_t operator()() const { return Type; }
         static constexpr size_t size() { return (size_t)sizeof(Type); }
     };
 }
+
+///TODO: test this
+//enum class PacketType : uint16_t;
 
 struct Packet {
     Packet() = default;

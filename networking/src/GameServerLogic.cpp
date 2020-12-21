@@ -3,6 +3,7 @@
 #include "Packets.h"
 #include <iostream>
 #include <thread>
+///TODO: #include Ilya's DB
 
 // warning: example logic
 
@@ -61,11 +62,34 @@ void GameServerLogic<TClient>::ProcessPacket(const size_t i, const Packet & pack
 
     const PacketType::PacketType type = packet.Type();
 
-    // temp
     if (type == PacketType::ChatMessage) {
-        ChatMessagePacket chatmessage(packet);
+        const ChatMessagePacket chatmessage(packet);
         std::cout << chatmessage.name << ": " << chatmessage.message << std::endl;
         Server.SendEveryone(packet);
+    }
+    else if (type == PacketType::QuizRequestPacket) {
+        if (Server.GetClient(i).m_quizstate == GameClientStruct::QuizState::ANSWERING)
+            return; //break?
+
+        ///TODO: get quiz = random quiz from DB (and transform it to ClientQuiz)
+        const Quiz quiz = {};
+
+        Server.GetClient(i).m_quizstate = GameClientStruct::QuizState::ANSWERING;
+        Server.GetClient(i).m_quiz = quiz;
+
+        Server.Send(i, QuizResponsePacket(ClientQuiz(quiz)).ToPacket());
+    }
+    else if (type == PacketType::QuizAnswerPacket) {
+        if (Server.GetClient(i).m_quizstate == GameClientStruct::QuizState::NONE)
+            return; //break?
+
+        const QuizAnswerPacket answerpacket(packet);
+        const bool result = answerpacket.answer == Server.GetClient(i).m_quiz.correct;
+
+        Server.GetClient(i).m_quizstate = GameClientStruct::QuizState::NONE;
+        Server.GetClient(i).m_quiz = Quiz();    // not really necessary
+
+        Server.Send(i, QuizResultPacket(result).ToPacket());
     }
     else {
         std::cout << "Unknown packet type: " << type() << std::endl;
