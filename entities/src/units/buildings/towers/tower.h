@@ -33,8 +33,8 @@ class Tower : public Attackable {
     virtual void attack(std::vector<Attackable> &enemies) = 0;
     virtual bool isReadyForAttack(unsigned int current_time);
     virtual std::vector<Attackable> findTargets(
-        const std::vector<Attackable> &enemies) = 0;
-    virtual bool canAttack(Attackable& enemy);
+        const std::vector<Attackable> &enemies, Coordinate citadel_position) = 0;
+    virtual bool canAttack(const Attackable& enemy);
     void upgrade(Player &player, unsigned int current_time);
     void repair(Player &player, unsigned int current_time);
 };
