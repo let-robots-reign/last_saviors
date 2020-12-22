@@ -2,7 +2,7 @@
 
 void Mindmaster::attack(std::shared_ptr<Attackable> &target, unsigned int current_time) {
     if (isReadyForAttack(current_time) && canAttack(target)) {
-        target.reduceHealth(target.getHealth() / 2);
+        target->reduceHealth(target->getHealth() / 2);
         time_of_last_attack_ = current_time;
     }
 }

@@ -19,12 +19,13 @@ void Tower::repair(Player &player, unsigned int current_time) {
     }
 }
 
-Tower::Tower(size_t max_level, std::vector<unsigned int> &max_health_per_level,
-             std::vector<unsigned int> &attack_cooldown_per_level,
-             std::vector<unsigned int> &damage_per_level,
-             std::vector<size_t> &repair_cost_per_level,
-             std::vector<size_t> &upgrade_cost_per_level,
-             std::vector<double> &attack_radius_per_level,
+Tower::Tower(size_t max_level,
+             const std::vector<unsigned int> &max_health_per_level,
+             const std::vector<unsigned int> &attack_cooldown_per_level,
+             const std::vector<unsigned int> &damage_per_level,
+             const std::vector<size_t> &repair_cost_per_level,
+             const std::vector<size_t> &upgrade_cost_per_level,
+             const std::vector<double> &attack_radius_per_level,
              unsigned int current_time, Coordinate position, size_t level)
     : Attackable(max_health_per_level[level], position),
       time_of_last_attack_(current_time),
@@ -38,7 +39,8 @@ Tower::Tower(size_t max_level, std::vector<unsigned int> &max_health_per_level,
       attack_radius_per_level_(attack_radius_per_level) {}
 
 bool Tower::canAttack(const std::shared_ptr<Attackable> &enemy) {
-    return dynamic_cast<const Enemy *>(&enemy);
+    auto temp = std::dynamic_pointer_cast<const Enemy>(enemy);
+    return temp != nullptr;
 }
 bool Tower::isReadyForAttack(unsigned int current_time) {
     return current_time >=
