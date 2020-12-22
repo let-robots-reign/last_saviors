@@ -1,21 +1,23 @@
 #include "pawn.h"
 
-void Pawn::attack(Attackable &target, unsigned int current_time) {
+void Pawn::attack(std::shared_ptr<Attackable> &target, unsigned int current_time) {
     if (isReadyForAttack(current_time) && canAttack(target)) {
-        target.reduceHealth(damage_);
+        target->reduceHealth(damage_);
         time_of_last_attack_ = current_time;
     }
 }
 
 
-bool Pawn::canAttack(const Attackable &target) {
-    return typeid(target).hash_code() == typeid(Citadel).hash_code();
+bool Pawn::canAttack(const std::shared_ptr<Attackable> &target) {
+    std::shared_ptr<Citadel> temp  = std::dynamic_pointer_cast<Citadel>(target);
+    return temp != nullptr;
 }
 
-Attackable *Pawn::findTarget(std::vector<Attackable> &possible_targets) {
-    return &*std::find_if(
+std::shared_ptr<Attackable> Pawn::findTarget(
+    std::vector<std::shared_ptr<Attackable>> &possible_targets) {
+    return *std::find_if(
         possible_targets.begin(), possible_targets.end(),
-        [&](const Attackable &target) { return canAttack(target); });
+        [&](const std::shared_ptr<Attackable> &target) { return canAttack(target); });
 }
 Pawn::Pawn(unsigned int current_time, unsigned int max_health, double speed,
            unsigned int attack_cooldown, size_t coins_for_death,

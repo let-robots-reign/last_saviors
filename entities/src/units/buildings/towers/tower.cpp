@@ -37,7 +37,7 @@ Tower::Tower(size_t max_level, std::vector<unsigned int> &max_health_per_level,
       upgrade_cost_per_level_(upgrade_cost_per_level),
       attack_radius_per_level_(attack_radius_per_level) {}
 
-bool Tower::canAttack(const Attackable &enemy) {
+bool Tower::canAttack(const std::shared_ptr<Attackable> &enemy) {
     return dynamic_cast<const Enemy *>(&enemy);
 }
 bool Tower::isReadyForAttack(unsigned int current_time) {

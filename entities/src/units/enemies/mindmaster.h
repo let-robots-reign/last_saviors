@@ -11,9 +11,10 @@ class Mindmaster : public Enemy {
           unsigned int attack_cooldown, size_t coins_for_death,
           Coordinate position);
 
-    bool canAttack(const Attackable &target) override;
-    void attack(Attackable &target, unsigned int current_time) override;
-    Attackable *findTarget(std::vector<Attackable> &possible_targets) override;
+    bool canAttack(const std::shared_ptr<Attackable> &target) override;
+    void attack(std::shared_ptr<Attackable> &target, unsigned int current_time) override;
+    std::shared_ptr<Attackable> findTarget(
+        std::vector<std::shared_ptr<Attackable>> &possible_targets) override;
 };
 
 #endif  // LAST_SAVIORS_MINDMASTER_H
