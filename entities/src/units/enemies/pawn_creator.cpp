@@ -13,7 +13,7 @@ void PawnCreator::changeConfiguration(unsigned int max_health,
                                       unsigned int damage, double speed,
                                       unsigned int attack_cooldown,
                                       size_t coins_for_death) noexcept(false) {
-    if (!validityConfigurationCheck(max_health, speed, attack_cooldown,
+    if (!validityConfigurationCheck(max_health, damage, speed, attack_cooldown,
                                     coins_for_death)) {
         throw std::invalid_argument("Used non-positive values");
     }

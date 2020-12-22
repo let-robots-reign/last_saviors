@@ -25,7 +25,7 @@ Tower::Tower(size_t max_level, std::vector<unsigned int> &max_health_per_level,
              std::vector<size_t> &repair_cost_per_level,
              std::vector<size_t> &upgrade_cost_per_level,
              std::vector<double> &attack_radius_per_level,
-             unsigned int current_time, Coordinate position, int level)
+             unsigned int current_time, Coordinate position, size_t level)
     : Attackable(max_health_per_level[level], position),
       time_of_last_attack_(current_time),
       level_(level),

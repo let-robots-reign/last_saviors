@@ -14,7 +14,7 @@ PointDamageTower::PointDamageTower(
     std::vector<size_t> repair_cost_per_level,
     std::vector<size_t> upgrade_cost_per_level,
     std::vector<double> attack_radius_per_level, unsigned int current_time,
-    Coordinate position, int level)
+    Coordinate position, size_t level)
     : Tower(max_level, max_health_per_level, attack_cooldown_per_level,
             damage_per_level, repair_cost_per_level, upgrade_cost_per_level,
             attack_radius_per_level, current_time, position, level) {}

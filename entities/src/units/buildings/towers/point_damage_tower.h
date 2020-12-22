@@ -14,7 +14,7 @@ class PointDamageTower : public Tower {
                      std::vector<size_t> upgrade_cost_per_level,
                      std::vector<double> attack_radius_per_level,
                      unsigned int current_time, Coordinate position,
-                     int level);
+                     size_t level);
     void attack(std::vector<Attackable> &enemies) override;
     std::vector<Attackable> findTargets(const std::vector<Attackable> &enemies, Coordinate citadel_position) override;
 };

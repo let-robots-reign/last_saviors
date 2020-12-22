@@ -1,7 +1,7 @@
 #include "shaft.h"
 
 bool Shaft::canGetCoins(unsigned int current_time) const {
-    return time_of_last_usage_ + current_time[level_] <=
+    return time_of_last_usage_ + cooldown_per_level_[level_] <=
            current_time;
 }
 void Shaft::getCoins(Player& player, unsigned int current_time) {

@@ -10,7 +10,7 @@ AreaDamageTower::AreaDamageTower(
     std::vector<size_t> upgradeCostPerLevel,
     std::vector<double> attackRadiusPerLevel,
     std::vector<double> damageRadiusPerLevel, unsigned int currentTime,
-    int level, Coordinate position): Tower(maxLevel, maxHealthPerLevel, attackCooldownPerLevel, damagePerLevel,
+    size_t level, Coordinate position): Tower(maxLevel, maxHealthPerLevel, attackCooldownPerLevel, damagePerLevel,
                                            repairCostPerLevel, upgradeCostPerLevel, attackRadiusPerLevel,
                                            currentTime, position, level),
                                      damage_radius_per_level_(damageRadiusPerLevel) {}
