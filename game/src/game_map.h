@@ -1,18 +1,17 @@
 #ifndef GAMEMAP_HPP
 #define GAMEMAP_HPP
 
-#include "globals.hpp"
 #include "enums.h"
 #include "tile.h"
 #include <SFML/Graphics.hpp>
 
-class Game;
+class Application;
 
 class GameMap {
 public:
     GameMap() {}
 
-    explicit GameMap(size_t windowHeight);
+    explicit GameMap(size_t windowHeight, Loader &loader);
 
     bool isInField(const sf::Vector2i &pos) const;
 

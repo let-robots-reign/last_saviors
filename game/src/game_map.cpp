@@ -1,13 +1,13 @@
 #include "game_map.h"
 
-GameMap::GameMap(size_t windowHeight) : size(loader.getMapSize()), windowSize(windowHeight) {
+GameMap::GameMap(size_t windowHeight, Loader &loader) : size(loader.getMapSize()), windowSize(windowHeight) {
     tileWidth = windowSize / size;
     for (size_t i = 0; i < size; ++i) {
         field.emplace_back();
         for (size_t j = 0; j < size; ++j) {
-            field[i].push_back(Tile(tileWidth, i * tileWidth, j * tileWidth));
+            field[i].push_back(Tile(tileWidth, i * tileWidth, j * tileWidth, loader));
             if ((*loader.getCurrentMap())[i][j] == '#') {
-                getTileAt(i, j)->setTileType(ROAD);
+                getTileAt(i, j)->setTileType(ROAD, loader);
             }
         }
     }

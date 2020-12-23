@@ -2,13 +2,26 @@
 #define GAME_HPP
 
 #include "enums.h"
-#include "globals.hpp"
 #include "button.h"
 #include "game_map.h"
 
 #include <SFML/Graphics.hpp>
 
-class Game {
+class Application {
+public:
+    Application(Loader load);
+
+    void run();
+
+    std::vector<size_t> getSize() {
+        return std::vector<size_t>(sizeX, sizeY);
+    }
+
+private:
+    size_t sizeX, sizeY;
+
+    Loader loader;
+
     sf::RenderWindow window;
     std::vector<sf::Sprite *> drawables;
     sf::Sprite mouseCursor, lastClickedTower;
@@ -23,6 +36,10 @@ class Game {
 
     GameMap map;
 
+    std::pair<size_t, size_t> readSizesFromConfig() const;
+
+    // read tower prices
+
     void update();
 
     void handleMouseCursor();
@@ -32,13 +49,6 @@ class Game {
     void addDrawable(sf::Sprite *sprite);
 
     sf::Text createTextField(size_t posx, size_t posy, std::string strText, size_t textSize);
-
-public:
-    Game();
-
-    void run();
-
-    std::vector<size_t> getSize() { return std::vector<size_t>(sizeX, sizeY); }
 };
 
 #endif

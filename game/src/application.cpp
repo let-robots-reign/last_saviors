@@ -1,6 +1,8 @@
 #include "application.h"
 
-Game::Game() {
+Application::Application(Loader load) : loader(std::move(load)) {
+    std::tie(sizeX, sizeY) = readSizesFromConfig();
+
     loader.loadTextures();
     loader.loadMaps();
     loader.loadFont();
@@ -17,19 +19,19 @@ Game::Game() {
     running = false, waveRunning = false;
     coins = 200, lives = 20;
     lastClickedID = 0;
-    towerButtons = createTowerButtons();
-    startButton = Button(705, 540, 0);
-    pauseButton = Button(605, 540, 1);
+    towerButtons = createTowerButtons(loader);
+    startButton = Button(705, 540, 0, loader);
+    pauseButton = Button(605, 540, 1, loader);
     statusText = createTextField(605, 0, "", 22);
     towerDescription = createTextField(645, 100, towerDescString, 15);
 
-    for (auto &button : towerButtons) {
+    for (Button &button : towerButtons) {
         addDrawable(&button);
     }
     addDrawable(&startButton);
     addDrawable(&pauseButton);
 
-    map = GameMap(sizeY);
+    map = GameMap(sizeY, loader);
     for (size_t i = 0; i < loader.getMapSize(); ++i) {
         for (size_t j = 0; j < loader.getMapSize(); ++j) {
             addDrawable(map.getTileAt(i, j));
@@ -38,7 +40,7 @@ Game::Game() {
     // Spawner.setup();
 }
 
-void Game::run() {
+void Application::run() {
     while (window.isOpen()) {
         sf::Event event{};
         while (window.pollEvent(event)) {
@@ -61,7 +63,14 @@ void Game::run() {
     }
 }
 
-void Game::update() {
+std::pair<size_t, size_t> Application::readSizesFromConfig() const {
+    std::ifstream sizes("assets/sizes.txt");
+    size_t x = 0, y = 0;
+    sizes >> x >> y;
+    return {x, y};
+}
+
+void Application::update() {
     window.clear(sf::Color(90, 106, 41));
 
     for (sf::Sprite *sprite : drawables) {
@@ -80,7 +89,7 @@ void Game::update() {
     window.display();
 }
 
-void Game::handleMouseCursor() {
+void Application::handleMouseCursor() {
     sf::Vector2i mousePos = sf::Mouse::getPosition(window);
     if (map.isInField(mousePos)) {
         size_t *pos = map.getTileCoords(mousePos);
@@ -93,7 +102,7 @@ void Game::handleMouseCursor() {
     }
 }
 
-void Game::handleMouseClick() {
+void Application::handleMouseClick() {
     sf::Vector2i mousePos = sf::Mouse::getPosition(window);
     if (map.isInField(mousePos)) {
         if (lastClickedID > 1) {
@@ -119,11 +128,11 @@ void Game::handleMouseClick() {
     }
 }
 
-void Game::addDrawable(sf::Sprite *sprite) {
+void Application::addDrawable(sf::Sprite *sprite) {
     drawables.push_back(sprite);
 }
 
-sf::Text Game::createTextField(size_t posx, size_t posy, std::string strText, size_t textSize) {
+sf::Text Application::createTextField(size_t posx, size_t posy, std::string strText, size_t textSize) {
     sf::Text textField(strText, *(loader.getFont()));
     textField.setPosition(posx, posy);
     textField.setColor(sf::Color(188, 175, 105));
