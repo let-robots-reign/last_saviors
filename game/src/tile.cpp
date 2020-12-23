@@ -1,11 +1,11 @@
 #include "tile.h"
 
-Tile::Tile(size_t size, float posx, float posy, const Loader &loader) : sf::Sprite(), size(size) {
+Tile::Tile(size_t size, float posx, float posy) : sf::Sprite(), size(size) {
     setPosition(posx, posy);
-    setTileType(EMPTY, loader);
+    setTileType(EMPTY);
 }
 
-void Tile::setTileType(const TileType &type, const Loader &loader) {
+void Tile::setTileType(TileType type) {
     tileType = type;
-    setTexture(loader.getFieldTexture(tileType));
+    setTexture(*loader.getFieldTexture(tileType));
 }

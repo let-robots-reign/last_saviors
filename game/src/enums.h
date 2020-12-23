@@ -1,12 +1,5 @@
-#ifndef GAME_ENUMS_H
-#define GAME_ENUMS_H
-
-enum Directions {
-    RIGHT=0,
-    UP=1,
-    LEFT=2,
-    DOWN=3
-};
+#ifndef ENUMS_HPP
+#define ENUMS_HPP
 
 enum TileType {
     EMPTY = 0,
@@ -14,5 +7,11 @@ enum TileType {
     BASIC_TOWER = 2,
     CIRCLE_TOWER = 3
 };
+enum Directions {
+    RIGHT = 0,
+    UP = 1,
+    LEFT = 2,
+    DOWN = 3
+};
 
-#endif //GAME_ENUMS_H
+#endif

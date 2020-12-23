@@ -1,13 +1,13 @@
 #include "game_map.h"
 
-GameMap::GameMap(size_t windowHeight, const Loader &loader) : size(loader.getMapSize()), windowSize(windowHeight) {
-    tileWidth = windowHeight / size;
+GameMap::GameMap(size_t windowHeight) : size(loader.getMapSize()), windowSize(windowHeight) {
+    tileWidth = windowSize / size;
     for (size_t i = 0; i < size; ++i) {
         field.emplace_back();
         for (size_t j = 0; j < size; ++j) {
-            field[i].emplace_back(tileWidth, i * tileWidth, j * tileWidth, loader);
-            if (loader.getCurrentMap()[i][j] == Loader::ROAD_CHAR) {
-                getTileAt(i, j).setTileType(ROAD, loader);
+            field[i].push_back(Tile(tileWidth, i * tileWidth, j * tileWidth));
+            if ((*loader.getCurrentMap())[i][j] == '#') {
+                getTileAt(i, j)->setTileType(ROAD);
             }
         }
     }
@@ -20,9 +20,9 @@ bool GameMap::isInField(const sf::Vector2i &pos) const {
 }
 
 size_t *GameMap::getTileCoords(const sf::Vector2i &pos) const {
-    // TODO: return Coordinate class
-    static size_t tileCoords[2];
-    tileCoords[0] = pos.x / tileWidth;
-    tileCoords[1] = pos.y / tileWidth;
-    return tileCoords;
+    // TODO: return Coordinate
+    static size_t field[2];
+    field[0] = pos.x / tileWidth;
+    field[1] = pos.y / tileWidth;
+    return field;
 }

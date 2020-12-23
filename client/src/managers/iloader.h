@@ -28,9 +28,9 @@ public:
 
     virtual std::string loadTowerDescription() const = 0;
 
-    virtual std::vector<std::string> getCurrentMap() const = 0;
+    virtual std::vector<std::string> *getCurrentMap() = 0;
 
-    virtual std::vector<std::string> getWaves() const = 0;
+    virtual std::vector<std::string> *getWaves() = 0;
 
     virtual size_t getMapSize() const = 0;
 

@@ -1,23 +1,26 @@
-#ifndef LAST_SAVIORS_GAME_MAP_H
-#define LAST_SAVIORS_GAME_MAP_H
+#ifndef GAMEMAP_HPP
+#define GAMEMAP_HPP
 
+#include "globals.hpp"
 #include "enums.h"
 #include "tile.h"
 #include <SFML/Graphics.hpp>
 
+class Game;
+
 class GameMap {
 public:
-    GameMap() = default;
+    GameMap() {}
 
-    GameMap(size_t windowHeight, const Loader &loader);
-
-    Tile getTileAt(size_t i, size_t j) {
-        return field[i][j];
-    }
+    explicit GameMap(size_t windowHeight);
 
     bool isInField(const sf::Vector2i &pos) const;
 
     size_t *getTileCoords(const sf::Vector2i &pos) const;
+
+    inline Tile *getTileAt(size_t i, size_t j) {
+        return &field[i][j];
+    }
 
     inline size_t getSize() const {
         return size;
@@ -32,4 +35,4 @@ private:
     std::vector<std::vector<Tile>> field;
 };
 
-#endif //LAST_SAVIORS_GAME_MAP_H
+#endif

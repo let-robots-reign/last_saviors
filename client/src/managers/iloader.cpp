@@ -7,8 +7,6 @@ const size_t ILoader::MOUSE_INACTIVE_SELECT_ID = 2;
 const size_t ILoader::BUTTON_START_ID = 0;
 const size_t ILoader::BUTTON_PAUSE_ID = 1;
 
-#include <iostream>
-
 void ILoader::loadMaps() {
     std::ifstream mapFile("assets/map.txt");
     std::string line;
@@ -18,7 +16,6 @@ void ILoader::loadMaps() {
         }
     }
     mapSize = CURRENT_MAP.size();
-    std::cout << "Map size: " << mapSize << std::endl;
 }
 
 void ILoader::loadWaves() {
