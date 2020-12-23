@@ -5,10 +5,12 @@
 #include "button.h"
 #include "game_map.h"
 #include <SFML/Graphics.hpp>
+#include <utility>
 
-class Game {
+
+class Application {
 public:
-    Game();
+    explicit Application(Loader loader);
 
     void run();
 
@@ -21,7 +23,7 @@ private:
     const std::vector<size_t> towerPrices;
 
     sf::RenderWindow window;
-    bool fastForward = false;
+    Loader loader;
     std::vector<sf::Sprite *> drawables;
     sf::Sprite mouseCursor, lastClickedTower;
 
@@ -33,13 +35,16 @@ private:
     bool running, waveRunning;
     size_t lives, coins;
 
-    GameMap map;
+    GameMap map = GameMap(0, Loader());
+
     // std::vector<Enemy *> enemies;
     // enemies factory
     // std::vector<Tower *> towers;
     // std::vector<Bullet *> bullets;
 
-    void readConfigFile();
+    std::pair<size_t, size_t> readSizesFromConfig() const;
+
+//    std::vector<size_t> readTowerPricesFromConfig();
 
     void update();
 

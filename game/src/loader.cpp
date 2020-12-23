@@ -3,24 +3,24 @@
 #include <sstream>
 
 void Loader::loadTextures() {
-    fieldTextures[0].loadFromFile("data/images/grass.jpg");
-    fieldTextures[1].loadFromFile("data/images/path.jpg");
-    fieldTextures[2].loadFromFile("data/images/tower0.gif");
-    fieldTextures[3].loadFromFile("data/images/tower1.gif");
+    fieldTextures[0].loadFromFile("assets/images/grass.jpg");
+    fieldTextures[1].loadFromFile("assets/images/path.jpg");
+    fieldTextures[2].loadFromFile("assets/images/tower0.gif");
+    fieldTextures[3].loadFromFile("assets/images/tower1.gif");
 
-//    enemyTextures[0].loadFromFile("data/images/enemy1.gif");
-//    enemyTextures[1].loadFromFile("data/images/enemy2.gif");
+//    enemyTextures[0].loadFromFile("assets/images/enemy1.gif");
+//    enemyTextures[1].loadFromFile("assets/images/enemy2.gif");
 
-    buttonTextures[0].loadFromFile("data/images/buttonstart");
-    buttonTextures[1].loadFromFile("data/images/buttonpause");
+    buttonTextures[0].loadFromFile("assets/images/buttonstart");
+    buttonTextures[1].loadFromFile("assets/images/buttonpause");
 
-    mouseTextures[0].loadFromFile("data/images/mouse0");
-    mouseTextures[1].loadFromFile("data/images/mouse1");
-    mouseTextures[2].loadFromFile("data/images/mouse2");
+    mouseTextures[0].loadFromFile("assets/images/mouse0");
+    mouseTextures[1].loadFromFile("assets/images/mouse1");
+    mouseTextures[2].loadFromFile("assets/images/mouse2");
 }
 
 void Loader::loadFont() {
-    font.loadFromFile("data/Roboto.ttf");
+    font.loadFromFile("assets/Roboto.ttf");
 }
 
 std::string Loader::loadTowerDescription() const {
