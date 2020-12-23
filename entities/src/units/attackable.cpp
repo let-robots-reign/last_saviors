@@ -3,7 +3,7 @@
 
 void Attackable::reduceHealth(unsigned int value) {
     if (health_ <= value) {
-        atDeath();
+        is_alive = false;
     } else {
         health_ -= value;
     }
@@ -13,7 +13,7 @@ void Attackable::setHealth(unsigned int value) {
     health_ = value;
 }
 Attackable::Attackable(unsigned int health, Coordinate position)
-    : Unit(position) {
+    : Unit(position), is_alive(true) {
     try {
         setHealth(health);
     } catch (...) {

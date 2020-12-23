@@ -27,7 +27,7 @@ class Enemy : public Attackable {
         std::vector<std::shared_ptr<Attackable>>& possible_targets) = 0;
     bool isReadyForAttack(unsigned int current_time) const;
     virtual bool canAttack(const std::shared_ptr<Attackable>& target) = 0;
-    size_t getCoinsForDeath() { return coins_for_death_; }
+    size_t getCoinsForDeath() const { return coins_for_death_; }
 };
 
 #endif  // LAST_SAVIORS_ENEMY_H

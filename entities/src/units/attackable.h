@@ -7,6 +7,7 @@
 class Attackable : public Unit {
    private:
     unsigned int health_;
+    bool is_alive;
 
    public:
     explicit Attackable(unsigned int health, Coordinate position) noexcept(false);
@@ -14,7 +15,7 @@ class Attackable : public Unit {
     void reduceHealth(unsigned int value);
     unsigned int getHealth() const { return health_; };
     void setHealth(unsigned int value) noexcept(false);
-    virtual void atDeath(){}
+    bool isAlive() { return is_alive;}
 };
 
 

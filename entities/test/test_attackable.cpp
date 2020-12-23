@@ -1,23 +1,18 @@
 #include "gmock/gmock.h"
 #include "attackable.h"
 
-class MockAttackable: public Attackable{
-   public:
-    MockAttackable(int health, Coordinate position):Attackable(health, position){};
-    MOCK_METHOD0(atDeath, void());
-};
 
 const int kDefaultHealth = 100;
 const int kFatalDamage = 120;
 const int kNonLethalDamage = 80;
 TEST(TestAttackable, reduceHealthAndKeepAlive ){
-    MockAttackable attackable = MockAttackable(kDefaultHealth, Coordinate());
-    EXPECT_CALL(attackable, atDeath()).Times(0);
+    Attackable attackable = Attackable(kDefaultHealth, Coordinate());
     attackable.reduceHealth(kNonLethalDamage);
+    EXPECT_TRUE(attackable.isAlive());
 }
 
 TEST(TestAttackable, reduceHealthAndFinish ){
-    MockAttackable attackable = MockAttackable(kDefaultHealth, Coordinate());
-    EXPECT_CALL(attackable, atDeath()).Times(1);
+    Attackable attackable = Attackable(kDefaultHealth, Coordinate());
     attackable.reduceHealth(kFatalDamage);
+    EXPECT_FALSE(attackable.isAlive());
 }
