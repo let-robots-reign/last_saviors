@@ -26,7 +26,6 @@ public:
 
 private:
     static Application instance;
-    ILoader loader;
     Renderer renderer;
 };
 

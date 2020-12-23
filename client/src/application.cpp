@@ -5,8 +5,7 @@
 #include "functor_event_handler.h"
 
 
-Application::Application(const ILoader &loader, const Renderer &renderer)
-        : loader(loader), renderer(renderer) {}
+Application::Application(const ILoader &loader, const Renderer &renderer) : renderer(renderer) {}
 
 
 int Application::runMainMenu() {

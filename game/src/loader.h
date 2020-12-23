@@ -7,73 +7,67 @@
 
 class Loader : public ILoader {
 public:
-    Loader() = default;
+    Loader() : start(-1) {}
 
     void loadTextures() override;
 
-    void loadMaps() override;
+    void loadFont() override;
 
-    void loadWaves() override;
+    std::string loadTowerDescription() const override;
 
-    std::string loadTowerDescription() override {
-        return std::string();
+    inline std::vector<std::string> getCurrentMap() const override {
+        return CURRENT_MAP;
     }
 
-    inline std::vector<std::string> *getCurrentMap() override {
-        return &CURRENT_MAP;
+    inline std::vector<std::string> getWaves() const override {
+        return waves;
     }
 
-    inline std::vector<std::string> *getWaves() override {
-        return &waves;
-    }
-
-    inline size_t getMapSize() override {
+    inline size_t getMapSize() const override {
         return mapSize;
     }
 
-    inline size_t getStart() override {
+    inline size_t getStart() const override {
         return start;
     }
 
-    inline std::vector<Directions> *getPath() {
-        return &path;
+    inline std::vector<Directions> getPath() const {
+        return path;
     }
 
-    inline sf::Font *getFont() {
-        return &font;
+    inline sf::Font getFont() const {
+        return font;
     }
 
-    void calculatePath();
+    void calculatePath() override;
 
-    inline sf::Texture *getFieldTexture(FieldClass field) {
-        return &(fieldTextures[static_cast<size_t>(field)]);
+    inline sf::Texture getFieldTexture(FieldClass field) const {
+        return fieldTextures[static_cast<size_t>(field)];
     }
 
-    inline sf::Texture *getEnemyTexture(size_t enemyID) {
-        return &(enemyTextures[enemyID]);
+    inline sf::Texture getEnemyTexture(size_t enemyID) const {
+        return enemyTextures[enemyID];
     }
 
-    inline sf::Texture *getButtonTexture(size_t buttonID) {
-        return &(buttonTextures[buttonID]);
+    inline sf::Texture getButtonTexture(size_t buttonID) const {
+        return buttonTextures[buttonID];
     }
 
-    inline sf::Texture *getParticleTextures(size_t particleID) {
-        return &(particleTextures[particleID]);
+    inline sf::Texture getParticleTextures(size_t particleID) const {
+        return particleTextures[particleID];
     }
 
-    inline sf::Texture *getMouseTextures(size_t id) {
-        return &(mouseTextures[id]);
+    inline sf::Texture getMouseTextures(size_t id) const {
+        return mouseTextures[id];
     }
 
 private:
-    sf::Texture fieldTextures[6], enemyTextures[2], buttonTextures[2], particleTextures[2], mouseTextures[3];
-    std::vector<std::string> CURRENT_MAP;
-    std::vector<std::string> waves;
+    sf::Texture fieldTextures[4], enemyTextures[2], buttonTextures[2], particleTextures[2], mouseTextures[3];
     std::vector<Directions> path;
     sf::Font font;
-    size_t mapSize, start;
+    int start;
 
-    size_t findStart();
+    int findStart();
 };
 
 #endif //GAME_LOADER_H

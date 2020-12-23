@@ -3,28 +3,39 @@
 
 #include <vector>
 #include <string>
+#include <fstream>
 
 class ILoader {
 public:
     ILoader() = default;
 
+    virtual void loadMaps();
+
+    virtual void loadWaves();
+
     virtual void loadTextures() = 0;
 
-    virtual void loadMaps() = 0;
-
-    virtual void loadWaves() = 0;
+    virtual void loadFont() = 0;
 
     virtual void calculatePath() = 0;
 
-    virtual std::string loadTowerDescription() = 0;
+    virtual std::string loadTowerDescription() const = 0;
 
-    virtual std::vector<std::string> *getCurrentMap() = 0;
+    virtual std::vector<std::string> getCurrentMap() const = 0;
 
-    virtual std::vector<std::string> *getWaves() = 0;
+    virtual std::vector<std::string> getWaves() const = 0;
 
-    virtual size_t getMapSize() = 0;
+    virtual size_t getMapSize() const = 0;
 
-    virtual size_t getStart() = 0;
+    virtual size_t getStart() const = 0;
+
+protected:
+    static const char ROAD_CHAR;
+    static const char EMPTY_TILE_CHAR;
+
+    std::vector<std::string> CURRENT_MAP;
+    std::vector<std::string> waves;
+    size_t mapSize{};
 };
 
 #endif //CLIENT_LOADER_H
