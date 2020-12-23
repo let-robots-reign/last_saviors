@@ -1,14 +1,14 @@
 #include <iostream>
-#include "application.h"
+#include "iapplication.h"
 #include "label.h"
 #include "button.h"
 #include "functor_event_handler.h"
 
 
-Application::Application(const ILoader &loader, const Renderer &renderer) : renderer(renderer) {}
+IApplication::IApplication(const ILoader &loader, const Renderer &renderer) : renderer(renderer) {}
 
 
-int Application::runMainMenu() {
+int IApplication::runMainMenu() {
     std::vector<Widget *> mainMenuWidgets;
     auto *mainLabel = new Label(100, 50, Coordinate(500, 300), "Last Saviors");
     auto *playButton = new Button(100, 50, Coordinate(500, 400), "Start Game");
@@ -22,22 +22,22 @@ int Application::runMainMenu() {
     return 0;
 }
 
-int Application::runGameProcess() {
+int IApplication::runGameProcess() {
 
     return 0;
 }
 
-int Application::runTowersMenu() {
+int IApplication::runTowersMenu() {
 
     return 0;
 }
 
-int Application::runPuzzle() {
+int IApplication::runPuzzle() {
 
     return 0;
 }
 
-int Application::runGameOverMenu() {
+int IApplication::runGameOverMenu() {
 
     return 0;
 }

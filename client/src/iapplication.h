@@ -6,11 +6,11 @@
 #include "method_event_handler.h"
 
 
-class Application {
+class IApplication {
 public:
-    Application(const ILoader &loader, const Renderer &renderer);
+    IApplication(const ILoader &loader, const Renderer &renderer);
 
-    static inline const Application getInstance() {
+    static inline const IApplication getInstance() {
         return instance;
     }
 
@@ -25,7 +25,7 @@ public:
     int runGameOverMenu();
 
 private:
-    static Application instance;
+    static IApplication instance;
     Renderer renderer;
 };
 
