@@ -2,30 +2,32 @@
 #define LAST_SAVIORS_ENEMY_H
 
 #include <ctime>
+#include <memory>
+#include <vector>
 
-#include "attackable_building.h"
+#include "attackable.h"
 #include "player.h"
 #include "unit.h"
 
-class Enemy : public Unit {
-private:
-    int health_;
+class Enemy : public Attackable {
+   protected:
+    unsigned int time_of_last_attack_;
+    unsigned int max_health_;
+    double speed_;
+    unsigned int attack_cooldown_;
+    size_t coins_for_death_;
 
-protected:
-    time_t timeOfLastAttack_;
+   public:
+    Enemy(unsigned int current_time, unsigned int max_health, double speed,
+          unsigned int attack_cooldown, size_t coins_for_death,
+          Coordinate position);
 
-public:
-    explicit Enemy(int health, Coordinate position = Coordinate());
-
-    virtual void attack(AttackableBuilding *building) = 0;
-
-    virtual bool canAttack() = 0;
-
-    void reduceHealth(AttackableBuilding *building);
-
-    virtual void atDeath(Player *player) = 0;
-
-    inline int getHealth() const { return health_; };
+    virtual void attack(std::shared_ptr<Attackable>& target, unsigned int current_time) = 0;
+    virtual std::shared_ptr<Attackable> findTarget(
+        std::vector<std::shared_ptr<Attackable>>& possible_targets) = 0;
+    bool isReadyForAttack(unsigned int current_time) const;
+    virtual bool canAttack(const std::shared_ptr<Attackable>& target) = 0;
+    size_t getCoinsForDeath() const { return coins_for_death_; }
 };
 
 #endif  // LAST_SAVIORS_ENEMY_H

@@ -1,18 +1,26 @@
 #ifndef LAST_SAVIORS_PAWN_H
 #define LAST_SAVIORS_PAWN_H
 
+#include <algorithm>
+#include <memory>
+
+#include "citadel.h"
 #include "enemy.h"
-#include "model_factory.h"
 
 class Pawn : public Enemy {
    private:
-    const PawnModel *model_;
+    unsigned int damage_;
 
    public:
-    explicit Pawn(const PawnModel *model, Coordinate position = Coordinate());
-    void attack(AttackableBuilding *building) override;
-    bool canAttack() override;
-    void atDeath(Player *player) override;
+    Pawn(unsigned int current_time, unsigned int max_health, double speed,
+         unsigned int attack_cooldown, size_t coins_for_death,
+         unsigned int damage, Coordinate position = Coordinate());
+
+    Pawn(const Pawn &) = delete;
+    void attack(std::shared_ptr<Attackable> &target, unsigned int current_time) override;
+    std::shared_ptr<Attackable> findTarget(
+        std::vector<std::shared_ptr<Attackable>> &possible_targets) override;
+    bool canAttack(const std::shared_ptr<Attackable> &target) override;
 };
 
 #endif  // LAST_SAVIORS_PAWN_H

@@ -1,4 +1,5 @@
 #include "citadel.h"
 
-Citadel::Citadel(const CitadelModel *model, Coordinate position)
-    : AttackableBuilding(model->MAX_HEALTH, position), model_(model) {}
+
+Citadel::Citadel(unsigned int max_health, Coordinate position)
+    : Attackable(max_health, position) {}

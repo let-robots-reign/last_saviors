@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(game_units)
+project(entities)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_FLAGS "-Wall -Werror -Wpedantic")
@@ -19,12 +19,14 @@ ENDMACRO()
 include_directories(src)
 
 HEADER_DIRECTORIES(header_entities_dir_list)
-#message("${header_entities_dir_list}")
 include_directories(${header_entities_dir_list})
+
+add_subdirectory(test)
+
 
 file(GLOB_RECURSE CLIENT ${ROOT}/client/src/*.h ${ROOT}/client/src/*.cpp)
 file(GLOB_RECURSE SOURCES ${PROJECT_SOURCE_DIR}/src/*.h ${PROJECT_SOURCE_DIR}/src/*.cpp)
 
-add_library(game_units_lib ${CLIENT} ${SOURCES})
+add_library(entities_lib ${CLIENT} ${SOURCES})
 add_executable(${PROJECT_NAME} src/main.cpp)
-target_link_libraries(${PROJECT_NAME} game_units_lib)
+target_link_libraries(${PROJECT_NAME} entities_lib)
