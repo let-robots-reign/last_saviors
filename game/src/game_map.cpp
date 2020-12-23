@@ -3,9 +3,9 @@
 GameMap::GameMap(size_t windowHeight, const Loader &loader) : size(loader.getMapSize()), windowSize(windowHeight) {
     tileWidth = windowHeight / size;
     for (size_t i = 0; i < size; ++i) {
-        std::vector<Tile> tilesRow;
+        field.emplace_back();
         for (size_t j = 0; j < size; ++j) {
-            tilesRow.emplace_back(tileWidth, i * tileWidth, j * tileWidth, loader);
+            field[i].emplace_back(tileWidth, i * tileWidth, j * tileWidth, loader);
             if (loader.getCurrentMap()[i][j] == Loader::ROAD_CHAR) {
                 getTileAt(i, j).setTileType(ROAD, loader);
             }

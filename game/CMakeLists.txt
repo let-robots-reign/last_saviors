@@ -18,8 +18,12 @@ ENDMACRO()
 HEADER_DIRECTORIES(header_client_dir_list)
 include_directories(${header_client_dir_list})
 
+file(COPY ../assets DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+
 file(GLOB SOURCES src/*.cpp src/*.h)
-add_executable(game ${SOURCES})
+add_library(game_lib ${SOURCES})
+add_executable(game src/main.cpp)
+target_link_libraries(game game_lib)
 
 target_link_libraries(${PROJECT_NAME} sfml-graphics)
 target_link_libraries(${PROJECT_NAME} sfml-window)

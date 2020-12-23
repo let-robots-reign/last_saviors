@@ -7,7 +7,7 @@
 
 class Loader : public ILoader {
 public:
-    Loader() : start(-1) {}
+    Loader() : ILoader(), start(-1) {}
 
     void loadTextures() override;
 

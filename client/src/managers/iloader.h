@@ -39,7 +39,7 @@ public:
 protected:
     std::vector<std::string> CURRENT_MAP;
     std::vector<std::string> waves;
-    size_t mapSize{};
+    size_t mapSize = 1;
 };
 
 #endif //CLIENT_LOADER_H

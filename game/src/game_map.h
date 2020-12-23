@@ -7,6 +7,8 @@
 
 class GameMap {
 public:
+    GameMap() = default;
+
     GameMap(size_t windowHeight, const Loader &loader);
 
     Tile getTileAt(size_t i, size_t j) {

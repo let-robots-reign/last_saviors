@@ -35,7 +35,7 @@ private:
     bool running, waveRunning;
     size_t lives, coins;
 
-    GameMap map = GameMap(0, Loader());
+    GameMap map;
 
     // std::vector<Enemy *> enemies;
     // enemies factory
@@ -54,7 +54,7 @@ private:
 
     void addDrawable(sf::Sprite *sprite);
 
-    sf::Text createTextField(size_t posx, size_t posy, std::string text, size_t textLength);
+    sf::Text createTextField(size_t posx, size_t posy, const std::string& text, size_t textSize);
 };
 
 #endif //LAST_SAVIORS_APPLICATION_H
