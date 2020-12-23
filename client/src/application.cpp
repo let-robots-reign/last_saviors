@@ -5,7 +5,7 @@
 #include "functor_event_handler.h"
 
 
-Application::Application(const Loader &loader, const Renderer &renderer)
+Application::Application(const ILoader &loader, const Renderer &renderer)
         : loader(loader), renderer(renderer) {}
 
 

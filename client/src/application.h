@@ -1,14 +1,14 @@
 #ifndef CLIENT_APPLICATION_H
 #define CLIENT_APPLICATION_H
 
-#include "loader.h"
+#include "iloader.h"
 #include "renderer.h"
 #include "method_event_handler.h"
 
 
 class Application {
 public:
-    Application(const Loader &loader, const Renderer &renderer);
+    Application(const ILoader &loader, const Renderer &renderer);
 
     static inline const Application getInstance() {
         return instance;
@@ -26,7 +26,7 @@ public:
 
 private:
     static Application instance;
-    Loader loader;
+    ILoader loader;
     Renderer renderer;
 };
 
