@@ -2,7 +2,7 @@
 
 
 void Tower::upgrade(Player &player, unsigned int current_time) {
-    if (level_ < max_level_ &&
+    if (upgrade_cost_per_level_.size() > level_ && level_ < max_level_ &&
         player.getCoins() >= upgrade_cost_per_level_[level_]) {
         player.reduceCoins(upgrade_cost_per_level_[level_]);
         ++level_;
@@ -11,7 +11,8 @@ void Tower::upgrade(Player &player, unsigned int current_time) {
 }
 
 void Tower::repair(Player &player, unsigned int current_time) {
-    if (level_ < max_level_ &&
+    if (repair_cost_per_level_.size() > level_ &&
+        max_health_per_level_.size() > level_ &&
         player.getCoins() >= repair_cost_per_level_[level_]) {
         player.reduceCoins(repair_cost_per_level_[level_]);
         setHealth(max_health_per_level_[level_]);
@@ -43,6 +44,7 @@ bool Tower::canAttack(const std::shared_ptr<Attackable> &enemy) {
     return temp != nullptr;
 }
 bool Tower::isReadyForAttack(unsigned int current_time) {
-    return current_time >=
-           time_of_last_attack_ + attack_cooldown_per_level_[level_];
+    return attack_cooldown_per_level_.size() > level_ &&
+           current_time >=
+               time_of_last_attack_ + attack_cooldown_per_level_[level_];
 }

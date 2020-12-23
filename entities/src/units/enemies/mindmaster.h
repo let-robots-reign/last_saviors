@@ -9,7 +9,7 @@ class Mindmaster : public Enemy {
    public:
     Mindmaster(unsigned int current_time, unsigned int max_health, double speed,
           unsigned int attack_cooldown, size_t coins_for_death,
-          Coordinate position);
+          Coordinate position = Coordinate());
 
     bool canAttack(const std::shared_ptr<Attackable> &target) override;
     void attack(std::shared_ptr<Attackable> &target, unsigned int current_time) override;

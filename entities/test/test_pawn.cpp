@@ -28,7 +28,6 @@ class MockPawnWithCanAttack : public Pawn {
                kDamage) {}
     MOCK_METHOD(bool, canAttack, (const std::shared_ptr<Attackable> &target),
                 (override));
-
 };
 
 TEST(Pawn, attack) {
@@ -49,13 +48,15 @@ TEST(Pawn, attack) {
     EXPECT_EQ(attackable->getHealth(), kHealth - kDamage);
 }
 
-TEST(Pawn, findTarget){
+TEST(Pawn, findTarget) {
     Pawn pawn(kStartTime, kMaxHealth, kSpeed, kAttackCooldown, kCoinsForDeath,
               kDamage);
-    auto attackable = std::make_shared<Attackable>(100, Coordinate());
-    auto nearest_citadel = std::make_shared<Citadel>(100, Coordinate(0, 10));
-    auto citadel =  std::make_shared<Citadel>(100, Coordinate(0, 5));
-    std::vector<std::shared_ptr<Attackable>> targets{attackable, nearest_citadel, citadel};
+    auto first_attackable = std::make_shared<Attackable>(100, Coordinate());
+    auto second_attackable =
+        std::make_shared<Attackable>(100, Coordinate(1, 2));
+    auto citadel = std::make_shared<Citadel>(100, Coordinate(0, 5));
+    std::vector<std::shared_ptr<Attackable>> targets{first_attackable, citadel,
+                                                     second_attackable};
     auto final_target = pawn.findTarget(targets);
-    EXPECT_EQ(final_target, nearest_citadel);
+    EXPECT_EQ(final_target, citadel);
 }
