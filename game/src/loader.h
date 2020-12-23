@@ -41,7 +41,7 @@ public:
 
     void calculatePath() override;
 
-    inline sf::Texture getFieldTexture(FieldClass field) const {
+    inline sf::Texture getFieldTexture(TileType field) const {
         return fieldTextures[static_cast<size_t>(field)];
     }
 

@@ -8,9 +8,9 @@ enum Directions {
     DOWN=3
 };
 
-enum FieldClass {
+enum TileType {
     EMPTY = 0,
-    PATH = 1,
+    ROAD = 1,
     BASIC_TOWER = 2,
     CIRCLE_TOWER = 3
 };

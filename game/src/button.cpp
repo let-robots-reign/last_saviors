@@ -5,7 +5,7 @@ Button::Button(size_t posx, size_t posy, size_t textureId, const Loader &loader)
     initButton(posx, posy, loader.getButtonTexture(textureId));
 }
 
-Button::Button(size_t posx, size_t posy, FieldClass textureId, const Loader &loader)
+Button::Button(size_t posx, size_t posy, TileType textureId, const Loader &loader)
         : width(0), height(0), id(textureId) {
     initButton(posx, posy, loader.getFieldTexture(textureId));
 }

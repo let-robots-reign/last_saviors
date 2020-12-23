@@ -11,7 +11,7 @@ public:
 
     Button(size_t posx, size_t posy, size_t textureId, const Loader &loader);
 
-    Button(size_t posx, size_t posy, FieldClass textureId, const Loader &loader);
+    Button(size_t posx, size_t posy, TileType textureId, const Loader &loader);
 
     inline size_t getID() const {
         return id;

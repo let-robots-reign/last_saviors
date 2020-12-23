@@ -3,9 +3,9 @@
 
 #include <string>
 #include <vector>
-#include "tile.h"
+#include "itile.h"
 
-using tilesContainer = std::vector<std::vector<Tile>>;
+using tilesContainer = std::vector<std::vector<ITile>>;
 
 class Grid {
 public:
@@ -15,7 +15,7 @@ public:
 
     bool isInitialized() const;
 
-    const Tile &getTileAt(size_t x, size_t y) const;
+    const ITile &getTileAt(size_t x, size_t y) const;
 
     void updateTileAt(size_t x, size_t y, TileType newType);
 

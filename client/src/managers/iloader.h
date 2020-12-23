@@ -9,6 +9,9 @@ class ILoader {
 public:
     ILoader() = default;
 
+    static const char ROAD_CHAR;
+    static const char EMPTY_TILE_CHAR;
+
     virtual void loadMaps();
 
     virtual void loadWaves();
@@ -30,9 +33,6 @@ public:
     virtual size_t getStart() const = 0;
 
 protected:
-    static const char ROAD_CHAR;
-    static const char EMPTY_TILE_CHAR;
-
     std::vector<std::string> CURRENT_MAP;
     std::vector<std::string> waves;
     size_t mapSize{};

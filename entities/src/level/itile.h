@@ -12,9 +12,9 @@ enum TileType {
     CitadelTile
 };
 
-class Tile {
+class ITile {
 public:
-    explicit Tile(TileType type);
+    explicit ITile(TileType type);
 
     void updateTile(TileType newType);
 

@@ -22,9 +22,9 @@ void Grid::buildGrid() {
     tilesContainer container;
     std::string line;
     while (getline(iss, line, '\n')) {
-        std::vector<Tile> tilesRow;
+        std::vector<ITile> tilesRow;
         std::transform(line.begin(), line.end(), std::back_inserter(tilesRow),
-                       [this](char c) -> Tile { return Tile(getTypeFromMap(c)); });
+                       [this](char c) -> ITile { return ITile(getTypeFromMap(c)); });
         container.push_back(tilesRow);
     }
     tiles = container;
@@ -56,7 +56,7 @@ bool Grid::isInitialized() const {
     return initialized;
 }
 
-const Tile &Grid::getTileAt(size_t x, size_t y) const {
+const ITile &Grid::getTileAt(size_t x, size_t y) const {
     return tiles[x][y];
 }
 
