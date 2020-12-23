@@ -8,6 +8,8 @@ class Label : public Widget {
 public:
     Label(size_t w, size_t h, const Coordinate &coord, std::string s);
 
+    explicit Label(std::string s);
+
     inline std::string getText() const {
         return text;
     }
@@ -15,7 +17,6 @@ public:
     void updateText(const std::string &newText);
 private:
     std::string text;
-    // TODO: font, size, etc...
 };
 
 #endif //CLIENT_LABEL_H

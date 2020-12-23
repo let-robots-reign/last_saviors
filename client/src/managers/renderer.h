@@ -5,7 +5,6 @@
 
 #include "hud.h"
 #include "level.h"
-#include "game_state.h"
 
 enum RenderingResult {
     RENDERING_SUCCESS,
@@ -19,7 +18,7 @@ enum RenderingResult {
 
 class Renderer {
 public:
-    Renderer(Level plevel, HUD phud, GameState pstate);
+    Renderer(Level plevel, HUD phud);
 
     void renderMenu();
 
@@ -37,8 +36,6 @@ public:
 
     void updateEnemy();
 
-    void updateState(GameState newState);
-
     inline Level getLevel() {
         return level;
     }
@@ -47,14 +44,9 @@ public:
         return hud;
     }
 
-    inline GameState getState() {
-        return state;
-    }
-
 private:
     Level level;
     HUD hud;
-    GameState state;
 
     void renderGrid();
 

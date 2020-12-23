@@ -1,95 +1,119 @@
 #ifndef LAST_SAVIORS_EVENT_H
 #define LAST_SAVIORS_EVENT_H
 
-#include <variant>
-
-#include "citadel.h"
-#include "coordinate.h"
-#include "enemy.h"
-#include "puzzle.h"
-#include "tile.h"
-#include "units/buildings/towers/tower.h"
-#include "wave.h"
+#include <list>
+#include <algorithm>
+#include <shared_mutex>
+#include "event_handler.h"
 
 
-enum EventType {
-    MouseClicked,
-    StartSingleMatch,
-    StartMultiplayerMatch,
-    EverythingLoaded,
-    WaveStarted,
-    WaveFinished,
-    TilePressed,
-    TowerMenuOpened,
-    PuzzleOpened,
-    PuzzleAnswered,
-    TowerPlaced,
-    TowerAttacked,
-    TowerDestroyed,
-    TowerBroken,
-    TowerRepaired,
-    CitadelAttacked,
-    EnemyHitted,
-    EnemyKilled,
-    GameFinished,
-    EmptyEvent
-};
+template<typename ...TParams>
+class IEvent {
+protected:
+    using EventHandler = AbstractEventHandler<TParams...>;
 
-struct MouseClickInfo {
-    Coordinate mouse;
-};
+    IEvent() = default;
 
-struct TileInfo {
-    Tile selectedTile;
-};
+    virtual bool addHandler(EventHandler &eventHandler) = 0;
 
-struct TowerInfo {
-    Tower *tower;
-};
+    virtual bool removeHandler(EventHandler &eventHandler) = 0;
 
-struct PuzzleInfo {
-    Puzzle chosenPuzzle;
-};
-
-struct PuzzleAnswerInfo {
-    bool answerCorrectness;
-};
-
-struct EnemyInfo {
-    Enemy *enemy;
-};
-
-struct CitadelInfo {
-    Citadel citadel;
-};
-
-struct GameResultsInfo {
-    bool success;
-    Citadel citadel;
-    IWave waveInfo;
-};
-
-struct NoInfoEvent {
-
-};
-
-// TODO: remove std::variant
-using EventInfo = std::variant<MouseClickInfo, TileInfo, TowerInfo, PuzzleInfo, PuzzleAnswerInfo, EnemyInfo, CitadelInfo, GameResultsInfo, NoInfoEvent>;
-//using EventInfo = std::variant<NoInfoEvent>;
-
-class Event {
 public:
-    Event();
+    // подписка на событие
+    template<typename THandler>
+    inline bool operator+=(THandler &&handler) {
+        return addHandler(static_cast<EventHandler &>(handler));
+    }
 
-    Event(EventType ptype, EventInfo pinfo);
+    // отписка от события
+    template<typename THandler>
+    inline bool operator-=(THandler &&handler) {
+        return removeHandler(static_cast<EventHandler &>(handler));
+    }
+};
 
-    void setType(EventType type);
 
-    void setInfo(const EventInfo &info);
+template<typename ...TParams>
+class TEvent : public IEvent<TParams...> {
+    using EventHandler = typename IEvent<TParams...>::EventHandler;
+    using EventHandlerIt = typename std::list<EventHandler *>::const_iterator;
+public:
+    TEvent() : IEvent<TParams...>(), handlers(), currentIt(), isCurrentItRemoved(), handlerListMutex() {}
+
+    ~TEvent() {
+        for (EventHandler *handler : handlers) {
+            delete handler;
+        }
+        handlers.clear();
+    }
+
+    void operator()(TParams... params) {
+        handlerListMutex.lock_shared();
+
+        isCurrentItRemoved = false;
+        currentIt = handlers.begin();
+        while (currentIt != handlers.end()) {
+            handlerListMutex.unlock_shared();
+            (*currentIt)->call(params...);
+            handlerListMutex.lock_shared();
+
+            if (isCurrentItRemoved) {
+                isCurrentItRemoved = false;
+
+                EventHandlerIt itToRemove = currentIt;
+                deleteHandler(itToRemove);
+            }
+            ++currentIt;
+        }
+
+        handlerListMutex.unlock_shared();
+    }
+
+protected:
+
+    bool addHandler(EventHandler &eventHandler) override {
+        std::unique_lock<std::shared_mutex> handlerListMutexLock(handlerListMutex);
+
+        if (findEventHandler(eventHandler) == handlers.end()) {
+            handlers.push_back(&eventHandler);
+            return true;
+        }
+        return false;
+    }
+
+    bool removeHandler(EventHandler &eventHandler) override {
+        std::unique_lock<std::shared_mutex> handlerListMutexLock(handlerListMutex);
+
+        auto it = findEventHandler(eventHandler);
+        if (it != handlers.end()) {
+            if (it == currentIt) {
+                isCurrentItRemoved = true;
+            } else {
+                deleteHandler(it);
+            }
+            return true;
+        }
+        return false;
+    }
 
 private:
-    EventType type;
-    EventInfo info;
+    std::list<EventHandler *> handlers;
+
+    mutable EventHandlerIt currentIt;
+    mutable bool isCurrentItRemoved;  // для корректной обработки самоотписки от события
+    mutable std::shared_mutex handlerListMutex;
+
+    inline EventHandlerIt findEventHandler(const EventHandler &handler) const {
+        return std::find_if(handlers.cbegin(), handlers.cend(), [&handler](const EventHandler *rhs) {
+            return (*rhs == handler);
+        });
+    }
+
+    inline void deleteHandler(EventHandlerIt it) {
+        EventHandler *handlerToRemove = *it;
+        handlers.erase(it);
+        delete handlerToRemove;
+    }
 };
 
 #endif //LAST_SAVIORS_EVENT_H
