@@ -10,8 +10,8 @@ void Loader::loadTextures() {
     fieldTextures[4].loadFromFile("data/images/tower2.gif");
     fieldTextures[5].loadFromFile("data/images/tower3.gif");
 
-    enemyTextures[0].loadFromFile("data/images/enemy0.gif");
-    enemyTextures[1].loadFromFile("data/images/enemy1.gif");
+    enemyTextures[0].loadFromFile("data/images/enemy0.png");
+    enemyTextures[1].loadFromFile("data/images/enemy1.png");
 
     particleTextures[0].loadFromFile("data/images/particle0.gif");
     particleTextures[1].loadFromFile("data/images/particle1.gif");

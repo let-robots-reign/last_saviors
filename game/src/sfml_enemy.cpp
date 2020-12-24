@@ -33,8 +33,10 @@ bool SfmlEnemy::go(std::vector<Directions> &path) {
         return false;
     }
     if (freezed) {
-        if (freezeCounter >= steps * 2.5) freezed = false;
-        freezeCounter++;
+        if (freezeCounter >= steps * 2.5) {
+            freezed = false;
+        }
+        ++freezeCounter;
         return true;
     }
     switch (path[location]) {
@@ -51,10 +53,10 @@ bool SfmlEnemy::go(std::vector<Directions> &path) {
             move(speed, 0);
             break;
     }
-    counter++;
+    ++counter;
     if (counter >= steps) {
-        counter = counter % steps;
-        location++;
+        counter %= steps;
+        ++location;
     }
     return true;
 }

@@ -1,7 +1,7 @@
 #ifndef TOWER_HPP
 #define TOWER_HPP
 
-#include "globals.hpp"
+#include "globals.h"
 #include "enums.h"
 #include "tile.h"
 #include "particle.h"

@@ -1,6 +1,6 @@
 #include "sfml_enemy_spawner.h"
 
-EnemySpawner::EnemySpawner() : wave(0), step(0), spawnTimer(0) {}
+EnemySpawner::EnemySpawner() : wave(0), step(0), spawnTimer(0), sizeY(600) {}
 
 void EnemySpawner::setup() {
     size_t startx = loader.getStart();
@@ -36,7 +36,7 @@ void EnemySpawner::spawn(std::vector<SfmlEnemy> &enemies) {
     spawnTimer++;
 }
 
-void EnemySpawner::move(std::vector<SfmlEnemy> &enemies, size_t &coins, size_t &lives) {
+void EnemySpawner::move(std::vector<SfmlEnemy> &enemies, size_t &coins, int &lives) {
     auto i = enemies.begin();
     while (i != enemies.end()) {
         if (!i->go(*loader.getPath())) {

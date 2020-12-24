@@ -2,7 +2,7 @@
 #define ENEMY_HPP
 
 #include "enums.h"
-#include "globals.hpp"
+#include "globals.h"
 #include <SFML/Graphics.hpp>
 
 class SfmlEnemy : public sf::Sprite {

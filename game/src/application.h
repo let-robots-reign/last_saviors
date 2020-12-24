@@ -2,7 +2,7 @@
 #define GAME_HPP
 
 #include "enums.h"
-#include "globals.hpp"
+#include "globals.h"
 #include "button.h"
 #include "game_map.h"
 #include "sfml_enemy.h"
@@ -12,8 +12,17 @@
 #include <SFML/Graphics.hpp>
 
 class Application {
+public:
+    Application();
+
+    void run();
+
+    std::vector<size_t> getSize() { return std::vector<size_t>(sizeX, sizeY); }
+
+private:
+    size_t sizeX, sizeY;
+
     sf::RenderWindow window;
-    bool fastForward = false;
     std::vector<sf::Sprite *> drawable;
     sf::Sprite mouseCursor, lastClickedTower;
 
@@ -23,13 +32,16 @@ class Application {
     sf::Text statusText, towerDesc;
 
     bool running, waveRunning;
-    size_t lives, money;
+    size_t money;
+    int lives;
 
     GameMap map;
     std::vector<SfmlEnemy> enemies;
     EnemySpawner spawner;
     std::vector<SfmlTower> towers;
     std::vector<Particle> particles;
+
+    std::pair<size_t, size_t> readSizesFromConfig();
 
     void update();
 
@@ -39,14 +51,7 @@ class Application {
 
     void addDrawable(sf::Sprite *sprite);
 
-    sf::Text createTextField(size_t posx, size_t posy, std::string strText, size_t textSize);
-
-public:
-    Application();
-
-    void run();
-
-    std::vector<size_t> getSize() { return std::vector<size_t>(sizeX, sizeY); }
+    sf::Text createTextField(size_t posx, size_t posy, const std::string& strText, size_t textSize);
 };
 
 #endif

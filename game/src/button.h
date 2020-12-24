@@ -1,7 +1,7 @@
 #ifndef BUTTON_HPP
 #define BUTTON_HPP
 
-#include "globals.hpp"
+#include "globals.h"
 #include "enums.h"
 #include <SFML/Graphics.hpp>
 
@@ -18,6 +18,8 @@ public:
     bool isClicked(const sf::Vector2i &click);
 
 private:
+    void initButton(size_t posx, size_t posy, size_t textureID, const sf::Texture &texture);
+
     size_t width, height, id;
 };
 

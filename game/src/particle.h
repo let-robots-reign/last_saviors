@@ -1,7 +1,7 @@
 #ifndef PARTICLE_HPP
 #define PARTICLE_HPP
 
-#include "globals.hpp"
+#include "globals.h"
 #include "sfml_enemy.h"
 #include <SFML/Graphics.hpp>
 #include <iostream>

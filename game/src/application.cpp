@@ -1,6 +1,10 @@
 #include "application.h"
 
+#include <sstream>
+#include <fstream>
+
 Application::Application() {
+    std::tie(sizeX, sizeY) = readSizesFromConfig();
     loader.loadTextures();
     loader.loadMaps();
     loader.loadFont();
@@ -8,8 +12,8 @@ Application::Application() {
     loader.calculatePath();
     std::string towerDescString = loader.loadTowerDescription();
 
-    window.create(sf::VideoMode(sizeX, sizeY), "SfmlTower Defense");
-    window.setFramerateLimit(30);
+    window.create(sf::VideoMode(sizeX, sizeY), "Last Saviors");
+    window.setFramerateLimit(60);
     window.setMouseCursorVisible(false);
     lastClickedTower.setPosition(605, sizeY);   // out of screen
     lastClickedTower.setTexture(*loader.getMouseTextures(2));
@@ -23,7 +27,7 @@ Application::Application() {
     statusText = createTextField(605, 0, "", 22);
     towerDesc = createTextField(645, 100, towerDescString, 15);
 
-    for (Button &button : towerButtons) {
+    for (auto &button : towerButtons) {
         addDrawable(&button);
     }
     addDrawable(&startButton);
@@ -40,17 +44,9 @@ Application::Application() {
 
 void Application::run() {
     while (window.isOpen()) {
-        sf::Event event;
+        sf::Event event{};
         while (window.pollEvent(event)) {
             switch (event.type) {
-                case sf::Event::KeyPressed:
-                    if (event.key.code == sf::Keyboard::F) {
-                        if (fastForward) window.setFramerateLimit(30);
-                        else window.setFramerateLimit(60);
-                        std::cout << "Fast Forward: " << std::boolalpha << !fastForward << std::endl;
-                        fastForward = !fastForward;
-                    }
-                    if (!(event.key.code == sf::Keyboard::Escape)) break;
                 case sf::Event::Closed:
                     window.close();
                     break;
@@ -64,7 +60,7 @@ void Application::run() {
             spawner.spawn(enemies);
             spawner.move(enemies, money, lives);
 
-            for (SfmlTower &tower : towers) {
+            for (auto &tower : towers) {
                 tower.shoot(enemies, particles);
             }
             updateParticles(particles);
@@ -73,30 +69,38 @@ void Application::run() {
                 running = false;
                 particles = {};
             }
-            if (lives <= 0) window.close();      // could be better
+            if (lives <= 0) {
+                window.close();
+            }
         }
 
-        statusText.setString("lives: " + std::to_string(lives) +
-                             "\nMoney: " + std::to_string(money) +
-                             "$\nWave: " + std::to_string(spawner.getWave() + 1) + "/" +
-                             std::to_string(spawner.getMaxWaves())
-        );
+        std::stringstream status;
+        status << "Lives: " << lives << "\nCoins: " << money << "$\nWave: "
+               << spawner.getWave() + 1 << "/" << spawner.getMaxWaves();
+        statusText.setString(status.str());
 
         handleMouseCursor();
         update();
     }
 }
 
+std::pair<size_t, size_t> Application::readSizesFromConfig() {
+    std::ifstream sizes("data/sizes.txt");
+    size_t x = 0, y = 0;
+    sizes >> x >> y;
+    return {x, y};
+}
+
 void Application::update() {
     window.clear(sf::Color(90, 106, 41));
 
-    for (sf::Sprite *sprite : drawable) {
+    for (auto *sprite : drawable) {
         window.draw(*sprite);
     }
-    for (SfmlEnemy &enemy : enemies) {
+    for (auto &enemy : enemies) {
         window.draw(enemy);
     }
-    for (Particle &particle : particles) {
+    for (auto &particle : particles) {
         window.draw(particle);
     }
     window.draw(statusText);
@@ -137,7 +141,7 @@ void Application::handleMouseClick() {
     } else if (pauseButton.isClicked(mousePos)) {
         running = false;
     }
-    for (Button &button : towerButtons) {
+    for (auto &button : towerButtons) {
         if (button.isClicked(mousePos)) {
             lastClickedID = button.getID();
             lastClickedTower.setPosition(lastClickedTower.getPosition().x, 100 * (button.getID() - 1));
@@ -149,7 +153,7 @@ void Application::addDrawable(sf::Sprite *sprite) {
     drawable.push_back(sprite);
 }
 
-sf::Text Application::createTextField(size_t posx, size_t posy, std::string strText, size_t textSize) {
+sf::Text Application::createTextField(size_t posx, size_t posy, const std::string &strText, size_t textSize) {
     sf::Text textField(strText, *(loader.getFont()));
     textField.setPosition(posx, posy);
     textField.setColor(sf::Color(188, 175, 105));

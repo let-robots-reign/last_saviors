@@ -36,6 +36,7 @@ void SfmlTower::shoot(std::vector<SfmlEnemy> &enemies, std::vector<Particle> &pa
 }
 
 bool placeTower(size_t &coins, Tile *tile, std::vector<SfmlTower> &towers, const TileType towerID) {
+    size_t towerPrices[4] = {0, 0, 60, 90};
     size_t price = towerPrices[static_cast<size_t>(towerID)];
     if (coins >= price && tile->getTileType() == EMPTY) {
         coins -= price;

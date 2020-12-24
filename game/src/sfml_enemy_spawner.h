@@ -1,7 +1,7 @@
 #ifndef ENEMYSPAWNER_HPP
 #define ENEMYSPAWNER_HPP
 
-#include "globals.hpp"
+#include "globals.h"
 #include "sfml_enemy.h"
 
 #include <SFML/Graphics.hpp>
@@ -18,7 +18,7 @@ public:
 
     void spawn(std::vector<SfmlEnemy> &enemies);
 
-    void move(std::vector<SfmlEnemy> &enemies, size_t &coins, size_t &lives);
+    void move(std::vector<SfmlEnemy> &enemies, size_t &coins, int &lives);
 
     size_t getMaxWaves();
 
@@ -31,6 +31,7 @@ public:
     size_t getWave() { return wave; }
 
 private:
+    size_t sizeY;
     size_t wave, step, spawnTimer;
     sf::Vector2f startVect;
     bool waveRunning, endOfMoving;
