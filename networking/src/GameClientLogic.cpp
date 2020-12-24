@@ -59,7 +59,7 @@ void GameClientLogic::ProcessPacket(const Packet & packet) {
     else if (type == PacketType::QuizResultPacket) {
         std::cout << "Received QuizResultPacket" << std::endl;
         const QuizResultPacket resultpacket(packet);
-        std::cout << resultpacket.result << std::endl;
+        std::cout << "Answer was (1 - correct, 0 - incorrect): " << resultpacket.result << std::endl;
         ///TODO: some Application stuff xd
     }
     else {
