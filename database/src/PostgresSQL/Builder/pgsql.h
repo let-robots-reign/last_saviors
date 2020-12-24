@@ -2,35 +2,34 @@
 #define DATABASE_MYSQL_H
 
 #include <memory>
-#include "dbms.h"
-#include "score_mapper.h"
-#include "qquest_mapper.h"
-#include "user_mapper.h"
-#include "pquest_mapper.h"
+#include <iusers_mapper.h>
+#include <iscore_mapper.h>
+#include <iqquest_mapper.h>
+#include <ipquest_mapper.h>
 #include "idb_conn.h"
+#include "IDB.h"
 
-class pgsql : public DBMS {
+
+class pgsql : public IDB {
 public:
-    pgsql();
+    pgsql(std::shared_ptr<IDBConn> &_dbConn,
+          std::shared_ptr<IUsersMapper> &_userM,
+          std::shared_ptr<IScoreMapper> &_scoreM,
+          std::shared_ptr<IQQuestMapper> &new_QQuestM,
+          std::shared_ptr<IPQuestMapper> &new_PQuestM);
 
-    bool sign_in(User user) override;
+    std::shared_ptr<IUsersMapper> getUserM() override;
+    std::shared_ptr<IScoreMapper> getScoreM() override;
+    std::shared_ptr<IQQuestMapper> getQQuestM() override;
+    std::shared_ptr<IPQuestMapper> getPQuestM() override;
 
-    bool sign_up(User user) override;
-
-    UserScore getUserScore(int userId) override;
-
-    std::vector<UserScore> getTopNScore(int N) override;
-
-    QuizPuzzle getRandQuizPuzzle() override;
-
-    ProgPuzzle getRandProgPuzzle() override;
 
 private:
     std::shared_ptr<IDBConn> dbConn = nullptr;
-    std::unique_ptr<UsersMapper> userM = nullptr;
-    std::unique_ptr<ScoreMapper> scoreM = nullptr;
-    std::unique_ptr<QQuestMapper> QQuestM = nullptr;
-    std::unique_ptr<PQuestMapper> PQuestM = nullptr;
+    std::shared_ptr<IUsersMapper> userM = nullptr;
+    std::shared_ptr<IScoreMapper> scoreM = nullptr;
+    std::shared_ptr<IQQuestMapper> QQuestM = nullptr;
+    std::shared_ptr<IPQuestMapper> PQuestM = nullptr;
 
 };
 

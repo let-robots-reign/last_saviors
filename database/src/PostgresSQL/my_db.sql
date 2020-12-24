@@ -24,8 +24,11 @@ CREATE TABLE IF NOT EXISTS quiz_question (
 	qst_id SERIAL PRIMARY KEY NOT NULL,
 	complexity INTEGER NOT NULL,
 	question TEXT NOT NULL,
-	answer_options TEXT NOT NULL,
-	correct_answer TEXT NOT NULL
+	answer1 TEXT NOT NULL,
+    answer2 TEXT NOT NULL,
+    answer3 TEXT NOT NULL,
+    answer4 TEXT NOT NULL,
+	correct_answer INTEGER NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS programming_question (

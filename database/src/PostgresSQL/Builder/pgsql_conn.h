@@ -1,29 +1,34 @@
-#ifndef DATABASE_MYSQLCONN_H
-#define DATABASE_MYSQLCONN_H
+#ifndef DATABASE_PDBCONN_H
+#define DATABASE_PDBCONN_H
 
 
+#include "ConnPool.h"
 #include "idb_conn.h"
 
-class MySQLConn : public IDBConn {
+
+class PDBConn : public IDBConn {
 public:
-    bool DBInit() override;
+    explicit PDBConn(std::shared_ptr<ConnPool> &connP);
+    ~PDBConn();
 
     bool DBConnect(DBServerInfo info) override;
 
-    bool DBQuery(std::string query) override;
+    bool DBExec(std::string query) override;
 
-    std::string DBStoreRes() override;
+    bool DBExecStatus() override;
 
-    std::string DBFetchField(int attr) override;
+    int getDBTuples() override;
 
-    void DBClose() override;
+    int getDBNFields() override;
+
+    std::string DBGetValue(int i, int j) override;
+
+    void DBClear() override;
 
 private:
-//    unique_ptr<sql::Driver> driver    ;
-//    unique_ptr<sql::Connection> con;
-//    shared_ptr<sql::Statement> stmt;
-//    shared_ptr<sql::ResultSet> res;
+    std::shared_ptr<ConnPool> conn_pool = nullptr;
+    PGresult *res = nullptr;
 };
 
 
-#endif //DATABASE_MYSQLCONN_H
+#endif //DATABASE_PDBCONN_H

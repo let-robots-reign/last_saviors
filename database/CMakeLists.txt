@@ -29,4 +29,4 @@ include_directories(${PostgreSQL_INCLUDE_DIRS})
 #target_link_libraries(untitled PRIVATE ${PostgreSQL_LIBRARIES})
 add_subdirectory(test)
 
-add_library(db_lib ${BUILDER} ${DATA} ${DATAMAPPERS} ${CONN_POOL})
+add_library(db_lib ${BUILDER} ${DATA} ${DATAMAPPERS} ${CONN_POOL} src/PostgresSQL/ConnectionPool/ConnPool.cpp src/PostgresSQL/ConnectionPool/ConnPool.h src/PostgresSQL/Builder/IDB.h src/PostgresSQL/Builder/DBBuilder.cpp src/PostgresSQL/Builder/DBBuilder.h)

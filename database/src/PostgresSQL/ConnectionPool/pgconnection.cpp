@@ -17,4 +17,3 @@ std::shared_ptr<PGconn> PGConnection::connection() const
 {
     return m_connection;
 }
-

@@ -2,10 +2,10 @@
 #include <thread>
 #include "pg_conn_pool.h"
 
+
 PGConnPool::PGConnPool()
 {
     createPool();
-
 }
 
 void PGConnPool::createPool()
@@ -40,4 +40,3 @@ void PGConnPool::freeConnection(std::shared_ptr<PGConnection> conn_)
     lock_.unlock();
     m_condition.notify_one();
 }
-

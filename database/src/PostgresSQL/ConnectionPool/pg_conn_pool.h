@@ -8,17 +8,18 @@
 #include <condition_variable>
 #include <libpq-fe.h>
 #include "pgconnection.h"
+#include "ConnPool.h"
 
 
-class PGConnPool
+class PGConnPool : public ConnPool
 {
 public:
     PGConnPool();
-    std::shared_ptr<PGConnection> connection();
-    void freeConnection(std::shared_ptr<PGConnection>);
+    std::shared_ptr<PGConnection> connection() override;
+    void freeConnection(std::shared_ptr<PGConnection>) override;
 
 private:
-    void createPool();
+    void createPool() override;
     
     std::mutex m_mutex;
     std::condition_variable m_condition;

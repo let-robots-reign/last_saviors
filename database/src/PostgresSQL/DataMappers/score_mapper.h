@@ -7,12 +7,11 @@
 
 class ScoreMapper : public IScoreMapper {
 public:
+    explicit ScoreMapper(std::shared_ptr<IDBConn> &new_dbConn);
+
     UserScore getUserScore(int userId) override;
 
     std::vector<UserScore> getTopNScore(int N) override;
-
-private:
-    std::shared_ptr<IDBConn> dbConn = nullptr;
 };
 
 

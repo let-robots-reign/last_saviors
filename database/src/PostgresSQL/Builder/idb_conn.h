@@ -6,17 +6,21 @@
 
 class IDBConn {
 public:
-    virtual bool DBInit() = 0;
+//    virtual bool DBInit() = 0;
 
     virtual bool DBConnect(DBServerInfo info) = 0;
 
-    virtual bool DBQuery(std::string query) = 0;
+    virtual bool DBExec(std::string query) = 0;
 
-    virtual std::string DBStoreRes() = 0;
+    virtual bool DBExecStatus() = 0;
 
-    virtual std::string DBFetchField(int attr) = 0;
+    virtual int getDBTuples() = 0;
 
-    virtual void DBClose() = 0;
+    virtual int getDBNFields() = 0;
+
+    virtual std::string DBGetValue(int i, int j) = 0;
+
+    virtual void DBClear() = 0;
 };
 
 

@@ -9,8 +9,11 @@ class QuizPuzzle {
 public:
     int id;
     std::string question;
-    std::vector<std::string> answerOptions;
-    std::string correctAnswer;
+    std::string answer1;
+    std::string answer2;
+    std::string answer3;
+    std::string answer4;
+    int correctAnswer;
     int questionComplexity;
 };
 

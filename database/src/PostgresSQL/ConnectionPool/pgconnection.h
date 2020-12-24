@@ -20,7 +20,7 @@ private:
     int         m_dbport = 5432;
     std::string m_dbname = "postgres";
     std::string m_dbuser = "postgres";
-    std::string m_dbpass = "my_password";
+    std::string m_dbpass = "new_password";
 
     std::shared_ptr<PGconn>  m_connection;
 

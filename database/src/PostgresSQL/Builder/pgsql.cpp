@@ -1,29 +1,27 @@
 #include "pgsql.h"
 
-pgsql::pgsql() {
+
+pgsql::pgsql(std::shared_ptr<IDBConn> &_dbConn, std::shared_ptr<IUsersMapper> &_userM,
+             std::shared_ptr<IScoreMapper> &_scoreM, std::shared_ptr<IQQuestMapper> &new_QQuestM,
+             std::shared_ptr<IPQuestMapper> &new_PQuestM)
+             : dbConn(_dbConn), userM(_userM),
+               scoreM(_scoreM), QQuestM(new_QQuestM),
+               PQuestM(new_PQuestM) {
 
 }
 
-bool pgsql::sign_in(User user) {
-    return false;
+std::shared_ptr<IUsersMapper> pgsql::getUserM() {
+    return this->userM;
 }
 
-bool pgsql::sign_up(User user) {
-    return false;
+std::shared_ptr<IScoreMapper> pgsql::getScoreM() {
+    return this->scoreM;
 }
 
-UserScore pgsql::getUserScore(int userId) {
-    return UserScore();
+std::shared_ptr<IQQuestMapper> pgsql::getQQuestM() {
+    return this->QQuestM;
 }
 
-std::vector<UserScore> pgsql::getTopNScore(int N) {
-    return std::vector<UserScore>();
-}
-
-QuizPuzzle pgsql::getRandQuizPuzzle() {
-    return QuizPuzzle();
-}
-
-ProgPuzzle pgsql::getRandProgPuzzle() {
-    return ProgPuzzle();
+std::shared_ptr<IPQuestMapper> pgsql::getPQuestM() {
+    return this->PQuestM;
 }
