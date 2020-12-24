@@ -9,6 +9,7 @@ class Unit {
     Coordinate position_;
 
    public:
+    Unit() = default;
     explicit Unit(Coordinate position);
     virtual ~Unit() = default;
     double distance(const Unit &anotherUnit) const;

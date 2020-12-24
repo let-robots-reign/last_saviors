@@ -12,11 +12,12 @@ class Pawn : public Enemy {
     unsigned int damage_;
 
    public:
+    Pawn() {};
+
     Pawn(unsigned int current_time, unsigned int max_health, double speed,
          unsigned int attack_cooldown, size_t coins_for_death,
          unsigned int damage, Coordinate position = Coordinate());
 
-    Pawn(const Pawn &) = delete;
     void attack(std::shared_ptr<Attackable> &target, unsigned int current_time) override;
     std::shared_ptr<Attackable> findTarget(
         std::vector<std::shared_ptr<Attackable>> &possible_targets) override;

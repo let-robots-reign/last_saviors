@@ -10,6 +10,7 @@ class Attackable : public Unit {
     bool is_alive;
 
    public:
+    Attackable() {};
     explicit Attackable(unsigned int health, Coordinate position) noexcept(false);
     virtual ~Attackable() = default;
     void reduceHealth(unsigned int value);

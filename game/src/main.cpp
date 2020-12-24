@@ -1,7 +1,7 @@
 #include "application.h"
 
 int main(){
-    Application game;
-    game.run();
+    Application application;
+    application.run();
     return 0;
 }

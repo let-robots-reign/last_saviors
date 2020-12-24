@@ -26,5 +26,3 @@ include_directories(${header_client_dir_list})
 
 add_subdirectory(test)
 
-add_executable(${PROJECT_NAME} src/main.cpp)
-target_link_libraries(${PROJECT_NAME} client_lib)

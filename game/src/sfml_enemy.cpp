@@ -1,21 +1,16 @@
 #include "sfml_enemy.h"
 
-SfmlEnemy::SfmlEnemy(sf::Vector2f pos, size_t id_, float fieldWidth) : sf::Sprite(), id(id_) {
-    pos.x += fieldWidth / 2;
-    pos.y -= fieldWidth / 2;
+SfmlEnemy::SfmlEnemy(sf::Vector2f pos, size_t id_, float tileWidth) : sf::Sprite(), Pawn(), id(id_) {
+    pos.x += tileWidth / 2;
+    pos.y -= tileWidth / 2;
     setPosition(pos);
     setOrigin(10, 10);
     setTexture(*loader.getEnemyTexture(id));
     dead = false, freezed = false;
     value = health = id + 1;
     location = counter = 0;
-    speed = 2;
-    steps = fieldWidth / speed;
-}
-
-void SfmlEnemy::freeze() {
-    freezeCounter = 0;
-    freezed = true;
+    speed = getSpeed();
+    steps = tileWidth / speed;
 }
 
 void SfmlEnemy::hurt(size_t damage) {
