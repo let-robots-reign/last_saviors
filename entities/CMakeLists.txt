@@ -21,7 +21,7 @@ include_directories(src)
 HEADER_DIRECTORIES(header_entities_dir_list)
 include_directories(${header_entities_dir_list})
 
-#add_subdirectory(test)
+add_subdirectory(test)
 
 
 file(GLOB_RECURSE SOURCES ${PROJECT_SOURCE_DIR}/src/*.h ${PROJECT_SOURCE_DIR}/src/*.cpp)
