@@ -1,6 +1,7 @@
 #include "gtest/gtest.h"
 #include "gmock/gmock.h"
 #include "tower.h"
+#include "some_enemy.h"
 
 const unsigned int kStartTime = 0;
 const size_t kLevel = 0;
@@ -49,15 +50,6 @@ TEST(Tower, repair){
     EXPECT_EQ(tower.getHealth(), kMaxHealthPerLevel[kLevel]);
 }
 
-
-class SomeEnemy:public Enemy {
-   public:
-    SomeEnemy():Enemy(0, 100, 1, 1, 100, Coordinate()){}
-    void attack(std::shared_ptr<Attackable> &target, unsigned int current_time) override{
-    };
-    bool canAttack(const std::shared_ptr<Attackable> &target) override{return true;};
-    std::shared_ptr<Attackable> findTarget(std::vector<std::shared_ptr<Attackable>> &possible_targets) override{return nullptr;};
-};
 
 TEST(Tower, canAttack){
     MockTower tower;

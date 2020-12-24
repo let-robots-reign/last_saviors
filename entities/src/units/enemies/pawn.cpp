@@ -15,9 +15,10 @@ bool Pawn::canAttack(const std::shared_ptr<Attackable> &target) {
 
 std::shared_ptr<Attackable> Pawn::findTarget(
     std::vector<std::shared_ptr<Attackable>> &possible_targets) {
-    return *std::find_if(
+    auto result = std::find_if(
         possible_targets.begin(), possible_targets.end(),
         [&](const std::shared_ptr<Attackable> &target) { return canAttack(target); });
+    return result != possible_targets.end() ? *result : nullptr;
 }
 Pawn::Pawn(unsigned int current_time, unsigned int max_health, double speed,
            unsigned int attack_cooldown, size_t coins_for_death,

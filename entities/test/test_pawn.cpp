@@ -59,4 +59,8 @@ TEST(Pawn, findTarget) {
                                                      second_attackable};
     auto final_target = pawn.findTarget(targets);
     EXPECT_EQ(final_target, citadel);
+    targets.clear();
+    targets.push_back(first_attackable);
+    targets.push_back(second_attackable);
+    EXPECT_EQ(pawn.findTarget(targets), nullptr);
 }

@@ -11,7 +11,7 @@ find_package(GMock REQUIRED)
 include_directories(${GTEST_INCLUDE_DIRS})
 include_directories(${GMOCK_INCLUDE_DIRS})
 
-FILE(GLOB SOURCES *.cpp)
+FILE(GLOB SOURCES *.cpp some_enemy.h)
 include_directories(${header_entities_dir_list})
 include_directories(../src)
 
