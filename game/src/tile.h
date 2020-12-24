@@ -2,7 +2,7 @@
 #define FIELD_HPP
 
 #include "enums.h"
-#include "globals.h"
+#include "vars.h"
 #include <SFML/Graphics.hpp>
 
 class Tile : public sf::Sprite {

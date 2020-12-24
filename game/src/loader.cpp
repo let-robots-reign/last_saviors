@@ -29,7 +29,7 @@ void Loader::loadFont() {
 
 int Loader::findStart() {
     for (size_t i = 0; i < mapSize; ++i) {
-        if (CURRENT_MAP[i][0] == '#') {
+        if (CURRENT_MAP[i][0] == Loader::ROAD_CHAR) {
             return i;
         }
     }
@@ -44,19 +44,19 @@ void Loader::calculatePath() {
 
     path.push_back(RIGHT);
     while (i >= 0 && j >= 0 && i < mapSize && j < mapSize) {
-        if (last[0] != i + 1 && i < mapSize - 1 && CURRENT_MAP[i + 1][j] == '#') {
+        if (last[0] != i + 1 && i < mapSize - 1 && CURRENT_MAP[i + 1][j] == Loader::ROAD_CHAR) {
             path.push_back(DOWN);
             last = {i, j};
             i++;
-        } else if (last[0] != i - 1 && i > 0 && CURRENT_MAP[i - 1][j] == '#') {
+        } else if (last[0] != i - 1 && i > 0 && CURRENT_MAP[i - 1][j] == Loader::ROAD_CHAR) {
             path.push_back(UP);
             last = {i, j};
             i--;
-        } else if (last[1] != j + 1 && j < mapSize - 1 && CURRENT_MAP[i][j + 1] == '#') {
+        } else if (last[1] != j + 1 && j < mapSize - 1 && CURRENT_MAP[i][j + 1] == Loader::ROAD_CHAR) {
             path.push_back(RIGHT);
             last = {i, j};
             j++;
-        } else if (last[1] != j - 1 && j > 0 && CURRENT_MAP[i][j - 1] == '#') {
+        } else if (last[1] != j - 1 && j > 0 && CURRENT_MAP[i][j - 1] == Loader::ROAD_CHAR) {
             path.push_back(LEFT);
             last = {i, j};
             j--;

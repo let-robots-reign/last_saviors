@@ -3,10 +3,10 @@
 EnemySpawner::EnemySpawner() : wave(0), step(0), spawnTimer(0), sizeY(600) {}
 
 void EnemySpawner::setup() {
-    size_t startx = loader.getStart();
-    startx *= sizeY;
-    startx /= loader.getMapSize();
-    startVect = sf::Vector2f(startx, 0);
+    size_t startX = loader.getStart();
+    startX *= sizeY;
+    startX /= loader.getMapSize();
+    startVect = sf::Vector2f(startX, 0);
 }
 
 void EnemySpawner::start() {

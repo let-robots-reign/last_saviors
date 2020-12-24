@@ -1,7 +1,7 @@
 #ifndef GAMEMAP_HPP
 #define GAMEMAP_HPP
 
-#include "globals.h"
+#include "vars.h"
 #include "enums.h"
 #include "tile.h"
 #include <SFML/Graphics.hpp>

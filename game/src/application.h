@@ -2,7 +2,7 @@
 #define GAME_HPP
 
 #include "enums.h"
-#include "globals.h"
+#include "vars.h"
 #include "button.h"
 #include "game_map.h"
 #include "sfml_enemy.h"
@@ -29,10 +29,10 @@ private:
     size_t lastClickedID;
     std::vector<Button> towerButtons;
     Button startButton, pauseButton;
-    sf::Text statusText, towerDesc;
+    sf::Text statusText, towerDescription;
 
     bool running, waveRunning;
-    size_t money;
+    size_t coins;
     int lives;
 
     GameMap map;

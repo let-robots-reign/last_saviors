@@ -1,7 +1,7 @@
 #ifndef BUTTON_HPP
 #define BUTTON_HPP
 
-#include "globals.h"
+#include "vars.h"
 #include "enums.h"
 #include <SFML/Graphics.hpp>
 

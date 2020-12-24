@@ -15,17 +15,17 @@ Application::Application() {
     window.create(sf::VideoMode(sizeX, sizeY), "Last Saviors");
     window.setFramerateLimit(60);
     window.setMouseCursorVisible(false);
-    lastClickedTower.setPosition(605, sizeY);   // out of screen
-    lastClickedTower.setTexture(*loader.getMouseTextures(2));
+    lastClickedTower.setPosition(605, sizeY);
+    lastClickedTower.setTexture(*loader.getMouseTextures(Loader::MOUSE_INACTIVE_SELECT_ID));
 
     running = false, waveRunning = false;
-    money = 200, lives = 20;
+    coins = 200, lives = 20;
     lastClickedID = 0;
     towerButtons = createTowerButtons();
-    startButton = Button(705, 540, 0);
-    pauseButton = Button(605, 540, 1);
+    startButton = Button(705, 540, Loader::BUTTON_START_ID);
+    pauseButton = Button(605, 540, Loader::BUTTON_PAUSE_ID);
     statusText = createTextField(605, 0, "", 22);
-    towerDesc = createTextField(645, 100, towerDescString, 15);
+    towerDescription = createTextField(645, 100, towerDescString, 15);
 
     for (auto &button : towerButtons) {
         addDrawable(&button);
@@ -51,14 +51,16 @@ void Application::run() {
                     window.close();
                     break;
                 case sf::Event::MouseButtonPressed:
-                    if (event.mouseButton.button == sf::Mouse::Left) handleMouseClick();
+                    if (event.mouseButton.button == sf::Mouse::Left) {
+                        handleMouseClick();
+                    }
                 default:
                     break;
             }
         }
         if (running) {
             spawner.spawn(enemies);
-            spawner.move(enemies, money, lives);
+            spawner.move(enemies, coins, lives);
 
             for (auto &tower : towers) {
                 tower.shoot(enemies, particles);
@@ -75,7 +77,7 @@ void Application::run() {
         }
 
         std::stringstream status;
-        status << "Lives: " << lives << "\nCoins: " << money << "$\nWave: "
+        status << "Lives: " << lives << "\nCoins: " << coins << "$\nWave: "
                << spawner.getWave() + 1 << "/" << spawner.getMaxWaves();
         statusText.setString(status.str());
 
@@ -104,7 +106,7 @@ void Application::update() {
         window.draw(particle);
     }
     window.draw(statusText);
-    window.draw(towerDesc);
+    window.draw(towerDescription);
     window.draw(lastClickedTower);
     window.draw(mouseCursor);
     window.display();
@@ -116,10 +118,10 @@ void Application::handleMouseCursor() {
         size_t *pos = map.getTileCoords(mousePos);
         float fieldWidth = static_cast<float>(sizeY) / loader.getMapSize();
         mouseCursor.setPosition(fieldWidth * pos[0], fieldWidth * pos[1]);
-        mouseCursor.setTexture(*loader.getMouseTextures(1));
+        mouseCursor.setTexture(*loader.getMouseTextures(Loader::MOUSE_ACTIVE_SELECT_ID));
     } else {
         mouseCursor.setPosition(static_cast<sf::Vector2f>(mousePos));
-        mouseCursor.setTexture(*loader.getMouseTextures(0));
+        mouseCursor.setTexture(*loader.getMouseTextures(Loader::MOUSE_POINTER_ID));
     }
 }
 
@@ -129,12 +131,12 @@ void Application::handleMouseClick() {
         if (lastClickedID > 1) {
             size_t *pos = map.getTileCoords(mousePos);
             Tile *field = map.getTileAt(pos[0], pos[1]);
-            placeTower(money, field, towers, static_cast<TileType>(lastClickedID));
+            placeTower(coins, field, towers, static_cast<TileType>(lastClickedID));
             lastClickedID = 0;
             lastClickedTower.setPosition(lastClickedTower.getPosition().x, sizeY);
         }
     } else if (startButton.isClicked(mousePos)) {
-        if (!spawner.isRunning()) {       // && enemies.size() == 0){
+        if (!spawner.isRunning()) {
             if (!spawner.endOfWaves()) spawner.start();
         }
         running = true;

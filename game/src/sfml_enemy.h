@@ -3,7 +3,7 @@
 
 #include "pawn.h"
 #include "enums.h"
-#include "globals.h"
+#include "vars.h"
 #include <SFML/Graphics.hpp>
 
 class SfmlEnemy : public Pawn, public sf::Sprite {

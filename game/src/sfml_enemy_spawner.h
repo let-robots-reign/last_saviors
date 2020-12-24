@@ -1,7 +1,7 @@
 #ifndef ENEMYSPAWNER_HPP
 #define ENEMYSPAWNER_HPP
 
-#include "globals.h"
+#include "vars.h"
 #include "sfml_enemy.h"
 
 #include <SFML/Graphics.hpp>
