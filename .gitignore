@@ -26,7 +26,27 @@
 *.a
 *.lib
 
+.idea/
+cmake-build-debug/
+
 # Executables
 *.exe
 *.out
 *.app
+
+#vscode
+/networking/.vscode
+/networking/build
+
+#cmake & build
+networking/CMakeCache.txt
+networking/CMakeFiles/
+networking/Makefile
+networking/cmake_install.cmake
+networking/networking
+networking/test/CMakeCache.txt
+networking/test/CMakeFiles/
+networking/test/Makefile
+networking/test/cmake_install.cmake
+networking/test/networking_unit_tests
+
