@@ -36,8 +36,10 @@ Packet QuizRequestPacket::ToPacket() const {
 }
 
 
-
-QuizResponsePacket::QuizResponsePacket(const ClientQuiz & quiz) : quiz(quiz) {}
+#include <iostream>
+QuizResponsePacket::QuizResponsePacket(const ClientQuiz & quiz) : quiz(quiz) {
+    std::cout << this->quiz.question << std::endl;
+}
 
 QuizResponsePacket::QuizResponsePacket(const Packet & packet) {
     size_t offset = 0;

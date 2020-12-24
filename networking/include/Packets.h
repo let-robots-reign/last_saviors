@@ -1,9 +1,8 @@
 #pragma once
 #include "PacketBase.h"
+#include "ClientQuiz.h"
 #include "BinaryStream.Game.h"
 #include <string>
-///TODO: #include Ilya's Quiz struct
-#include "quiz_puzzlez.h"
 
 
 namespace PacketType {
@@ -37,23 +36,6 @@ namespace PacketType {
     const PacketType QuizResponsePacket = 3;  // unique
 }
 
-
-struct ClientQuiz {
-    ClientQuiz() = default;
-    ~ClientQuiz() = default;
-    ClientQuiz(const QuizPuzzle & quiz) :
-            question(quiz.question),
-            optionA(quiz.answer1),
-            optionB(quiz.answer2),
-            optionC(quiz.answer3),
-            optionD(quiz.answer4)
-        {}
-    std::string question;
-    std::string optionA;
-    std::string optionB;
-    std::string optionC;
-    std::string optionD;
-};
 struct QuizResponsePacket {    
     ClientQuiz quiz;
     

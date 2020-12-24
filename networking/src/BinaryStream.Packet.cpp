@@ -29,3 +29,38 @@ size_t BinaryStream::Erase<Packet>(const size_t offset) {
     Erase(erase_size, offset);
     return erase_size;
 }
+
+
+
+template<>
+void BinaryStream::Insert<ClientQuiz>(const ClientQuiz & quiz) {
+    const uint64_t quiz_size = quiz.question.size() + quiz.optionA.size() + quiz.optionB.size() + quiz.optionC.size() + quiz.optionD.size();
+    Insert(quiz_size);
+    Insert(quiz.question);
+    Insert(quiz.optionA);
+    Insert(quiz.optionB);
+    Insert(quiz.optionC);
+    Insert(quiz.optionD);
+}
+
+template<>
+size_t BinaryStream::Read<ClientQuiz>(ClientQuiz & quiz, const size_t offset) const {
+    uint64_t quiz_size = 0;
+    size_t read_offset = 0;
+    read_offset += Read(quiz_size, read_offset + offset);
+    read_offset += Read(quiz.question, read_offset + offset);
+    read_offset += Read(quiz.optionA, read_offset + offset);
+    read_offset += Read(quiz.optionB, read_offset + offset);
+    read_offset += Read(quiz.optionC, read_offset + offset);
+    read_offset += Read(quiz.optionD, read_offset + offset);
+    return quiz_size;
+}
+
+template<>
+size_t BinaryStream::Erase<ClientQuiz>(const size_t offset) {
+    uint64_t quiz_size = 0;
+    uint64_t read_offset = 0;
+    read_offset += Read(quiz_size, offset);
+    Erase(quiz_size, offset);
+    return quiz_size;
+}

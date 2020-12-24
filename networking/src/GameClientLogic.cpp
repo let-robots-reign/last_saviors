@@ -47,11 +47,19 @@ void GameClientLogic::ProcessPacket(const Packet & packet) {
         std::cout << chatmessage.name << ": " << chatmessage.message << std::endl;
     }
     else if (type == PacketType::QuizResponsePacket) {
+        std::cout << "Received QuizResponsePacket" << std::endl;
         const QuizResponsePacket responsepacket(packet);
+        std::cout << responsepacket.quiz.question << std::endl;
+        std::cout << responsepacket.quiz.optionA << std::endl;
+        std::cout << responsepacket.quiz.optionB << std::endl;
+        std::cout << responsepacket.quiz.optionC << std::endl;
+        std::cout << responsepacket.quiz.optionD << std::endl;
         ///TODO: some Application stuff xd
     }
     else if (type == PacketType::QuizResultPacket) {
+        std::cout << "Received QuizResultPacket" << std::endl;
         const QuizResultPacket resultpacket(packet);
+        std::cout << resultpacket.result << std::endl;
         ///TODO: some Application stuff xd
     }
     else {

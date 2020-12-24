@@ -21,7 +21,7 @@ int main() {
     Client.Send(QuizRequestPacket().ToPacket());
     std::this_thread::sleep_for(std::chrono::milliseconds(500));
     Client.ReceiveAndProcess();
-    Client.Send(QuizAnswerPacket(1).ToPacket());
+    Client.Send(QuizAnswerPacket(2).ToPacket());    // correct for this one quiz
     std::this_thread::sleep_for(std::chrono::milliseconds(500));
 
     Client.ReceiveAndProcess();
