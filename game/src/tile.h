@@ -1,27 +1,25 @@
-#ifndef LAST_SAVIORS_TILE_H
-#define LAST_SAVIORS_TILE_H
+#ifndef FIELD_HPP
+#define FIELD_HPP
 
 #include "enums.h"
-#include "loader.h"
+#include "globals.hpp"
 #include <SFML/Graphics.hpp>
 
 class Tile : public sf::Sprite {
 public:
-    Tile(size_t size, float posx, float posy, Loader &loader);
+    Tile() {}
 
-    void setTileType(const TileType &type, Loader &loader);
+    Tile(size_t size_, float posx, float posy);
 
-    inline TileType getTileType() const {
-        return tileType;
-    }
+    size_t getTileType() const { return tileType; };
 
-    inline size_t getSize() const {
-        return size;
-    }
+    void setTileType(TileType newType);
+
+    size_t getSize() const { return size; }
 
 private:
     size_t size;
     TileType tileType;
 };
 
-#endif //LAST_SAVIORS_TILE_H
+#endif

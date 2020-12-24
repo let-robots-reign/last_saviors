@@ -1,30 +1,26 @@
-#ifndef GAME_BUTTON_H
-#define GAME_BUTTON_H
+#ifndef BUTTON_HPP
+#define BUTTON_HPP
 
+#include "globals.hpp"
 #include "enums.h"
-#include "loader.h"
 #include <SFML/Graphics.hpp>
 
 class Button : public sf::Sprite {
 public:
     Button() {}
 
-    Button(size_t posx, size_t posy, size_t textureId, Loader &loader);
+    Button(size_t posx, size_t posy, size_t textureID);
 
-    Button(size_t posx, size_t posy, TileType textureId, Loader &loader);
+    Button(size_t posx, size_t posy, TileType textureID);
 
-    inline size_t getID() const {
-        return id;
-    }
+    size_t getID() { return id; }
 
     bool isClicked(const sf::Vector2i &click);
 
 private:
     size_t width, height, id;
-
-    void initButton(size_t posx, size_t posy, const sf::Texture &texture);
 };
 
-std::vector<Button> createTowerButtons(Loader &loader);
+std::vector<Button> createTowerButtons();
 
-#endif //GAME_BUTTON_H
+#endif

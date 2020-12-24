@@ -1,28 +1,33 @@
-#ifndef LAST_SAVIORS_SFML_ENEMY_H
-#define LAST_SAVIORS_SFML_ENEMY_H
+#ifndef ENEMY_HPP
+#define ENEMY_HPP
 
 #include "enums.h"
-#include "enemy.h"
-#include "loader.h"
+#include "globals.hpp"
 #include <SFML/Graphics.hpp>
 
-class SfmlEnemy : public sf::Sprite, public Enemy {
+class SfmlEnemy : public sf::Sprite {
 public:
-    SfmlEnemy(sf::Vector2f pos, size_t id, float tileWidth, Loader &loader);
+    SfmlEnemy(sf::Vector2f pos, size_t id_, float fieldWidth);
 
-    void receiveDamage(size_t damage, Loader &loader);
+    size_t getValue() { return std::max<size_t>(value / 2 + 1, 2); }
+
+    size_t getHealth() { return health; }
+
+    bool isDead() { return dead; }
+
+    bool isFreezed() { return freezed; }
+
+    void freeze();
+
+    void hurt(size_t damage);
 
     bool go(std::vector<Directions> &path);
 
 private:
-    void attack(std::shared_ptr<Attackable> &target, unsigned int current_time) override;
-
-    std::shared_ptr<Attackable> findTarget(std::vector<std::shared_ptr<Attackable>> &possible_targets) override;
-
-    bool canAttack(const std::shared_ptr<Attackable> &target) override;
-
-private:
-    size_t location, steps, id;
+    size_t id, health, counter, steps, value, freezeCounter;
+    unsigned int location;
+    float speed;
+    bool dead, freezed;
 };
 
-#endif //LAST_SAVIORS_SFML_ENEMY_H
+#endif

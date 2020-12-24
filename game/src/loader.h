@@ -1,28 +1,31 @@
 #ifndef LOADER_HPP
 #define LOADER_HPP
 
-#include "iloader.h"
 #include "enums.h"
 #include <SFML/Graphics.hpp>
 #include <fstream>
 
-class Loader : public ILoader {
+class Loader {
 public:
-    Loader() : ILoader(), start(-1) {}
+    Loader() {}
 
-    void loadTextures() override;
+    void loadTextures();
 
-    void loadFont() override;
+    void loadMaps();
 
-    std::string loadTowerDescription() const override;
+    void loadFont();
 
-    void calculatePath() override;
+    void loadWaves();
 
-    std::vector<std::string> *getCurrentMap() override {
+    void calculatePath();
+
+    std::string loadTowerDescription();
+
+    std::vector<std::string> *getCurrentMap() {
         return &CURRENT_MAP;
     }
 
-    std::vector<std::string> *getWaves() override {
+    std::vector<std::string> *getWaves() {
         return &waves;
     }
 
@@ -34,11 +37,11 @@ public:
         return &font;
     }
 
-    size_t getMapSize() const override {
+    size_t getMapSize() {
         return mapSize;
     }
 
-    size_t getStart() const override {
+    size_t getStart() {
         return start;
     }
 
@@ -63,10 +66,12 @@ public:
     }
 
 private:
-    sf::Texture fieldTextures[4], enemyTextures[2], buttonTextures[2], particleTextures[2], mouseTextures[3];
+    sf::Texture fieldTextures[6], enemyTextures[2], buttonTextures[2], particleTextures[4], mouseTextures[3];
+    std::vector<std::string> CURRENT_MAP;
     std::vector<std::string> waves;
     std::vector<Directions> path;
     sf::Font font;
+    size_t mapSize;
     int start;
 
     int findStart();

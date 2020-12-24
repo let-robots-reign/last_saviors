@@ -3,26 +3,61 @@
 #include <sstream>
 
 void Loader::loadTextures() {
-    fieldTextures[0].loadFromFile("assets/images/grass.jpg");
-    fieldTextures[1].loadFromFile("assets/images/path.jpg");
-    fieldTextures[2].loadFromFile("assets/images/tower0.gif");
-    fieldTextures[3].loadFromFile("assets/images/tower1.gif");
+    fieldTextures[0].loadFromFile("data/images/grass.jpg");
+    fieldTextures[1].loadFromFile("data/images/path.jpg");
+    fieldTextures[2].loadFromFile("data/images/tower0.gif");
+    fieldTextures[3].loadFromFile("data/images/tower1.gif");
+    fieldTextures[4].loadFromFile("data/images/tower2.gif");
+    fieldTextures[5].loadFromFile("data/images/tower3.gif");
 
-//    for(size_t i = 0; i<size_t(sizeof(enemyTextures)/sizeof(sf::Texture)); ++i){
-//        enemyTextures[i].loadFromFile("assets/images/enemy"+std::to_string(i)+".gif");
-//    }
-//    for(size_t i = 0; i<size_t(sizeof(particleTextures)/sizeof(sf::Texture)); ++i){
-//        particleTextures[i].loadFromFile("assets/images/particle"+std::to_string(i)+".gif");
-//    }
-    buttonTextures[0].loadFromFile("assets/images/buttonstart.gif");
-    buttonTextures[1].loadFromFile("assets/images/buttonpause.gif");
-    mouseTextures[0].loadFromFile("assets/images/mouse0.gif");
-    mouseTextures[1].loadFromFile("assets/images/mouse1.gif");
-    mouseTextures[2].loadFromFile("assets/images/mouse2.gif");
+    enemyTextures[0].loadFromFile("data/images/enemy0.gif");
+    enemyTextures[1].loadFromFile("data/images/enemy1.gif");
+
+    particleTextures[0].loadFromFile("data/images/particle0.gif");
+    particleTextures[1].loadFromFile("data/images/particle1.gif");
+
+    buttonTextures[0].loadFromFile("data/images/buttonstart.gif");
+    buttonTextures[1].loadFromFile("data/images/buttonpause.gif");
+    mouseTextures[0].loadFromFile("data/images/mouse0.gif");
+    mouseTextures[1].loadFromFile("data/images/mouse1.gif");
+    mouseTextures[2].loadFromFile("data/images/mouse2.gif");
 }
 
+void Loader::loadMaps() {
+    std::ifstream mapFile("data/map.txt");
+    while (!mapFile.eof()) {
+        std::string line;
+        mapFile >> line;
+        if (!line.empty()) {
+            CURRENT_MAP.push_back(line);
+        }
+    }
+    mapSize = CURRENT_MAP.size();
+}
+
+void Loader::loadWaves() {
+    std::ifstream waveFile("data/waves.txt");
+    std::string line;
+    while (!waveFile.eof()) {
+        waveFile >> line;
+        waves.push_back(line);
+    }
+}
+
+std::string Loader::loadTowerDescription() {
+    std::ifstream data("data/towers.txt");
+    std::stringstream description;
+    while (!data.eof()) {
+        std::string line;
+        std::getline(data, line);
+        description << line << "\n";
+    }
+    return description.str();
+}
+
+
 void Loader::loadFont() {
-    font.loadFromFile("assets/Roboto.ttf");
+    font.loadFromFile("data/Roboto-Regular.ttf");
 }
 
 int Loader::findStart() {
@@ -45,32 +80,19 @@ void Loader::calculatePath() {
         if (last[0] != i + 1 && i < mapSize - 1 && CURRENT_MAP[i + 1][j] == '#') {
             path.push_back(DOWN);
             last = {i, j};
-            ++i;
+            i++;
         } else if (last[0] != i - 1 && i > 0 && CURRENT_MAP[i - 1][j] == '#') {
             path.push_back(UP);
             last = {i, j};
-            --i;
+            i--;
         } else if (last[1] != j + 1 && j < mapSize - 1 && CURRENT_MAP[i][j + 1] == '#') {
             path.push_back(RIGHT);
             last = {i, j};
-            ++j;
+            j++;
         } else if (last[1] != j - 1 && j > 0 && CURRENT_MAP[i][j - 1] == '#') {
             path.push_back(LEFT);
             last = {i, j};
-            --j;
-        } else {
-            break;
-        }
+            j--;
+        } else { break; }
     }
-}
-
-std::string Loader::loadTowerDescription() const {
-    std::ifstream towersData("assets/towers.txt");
-    std::stringstream description;
-    std::string line;
-    while (!towersData.eof()) {
-        std::getline(towersData, line);
-        description << line << '\n';
-    }
-    return description.str();
 }

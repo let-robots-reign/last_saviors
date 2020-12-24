@@ -1,8 +1,7 @@
 #include "application.h"
 
-int main() {
-    Loader loader;
-    Application game(loader);
+int main(){
+    Application game;
     game.run();
     return 0;
 }

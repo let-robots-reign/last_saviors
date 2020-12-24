@@ -1,11 +1,14 @@
-#ifndef LAST_SAVIORS_SFML_ENEMY_SPAWNER_H
-#define LAST_SAVIORS_SFML_ENEMY_SPAWNER_H
+#ifndef ENEMYSPAWNER_HPP
+#define ENEMYSPAWNER_HPP
 
+#include "globals.hpp"
 #include "sfml_enemy.h"
+
+#include <SFML/Graphics.hpp>
 
 class EnemySpawner {
 public:
-    EnemySpawner(Loader load);
+    EnemySpawner();
 
     void setup();
 
@@ -17,30 +20,20 @@ public:
 
     void move(std::vector<SfmlEnemy> &enemies, size_t &coins, size_t &lives);
 
-    int getMaxWaves();
+    size_t getMaxWaves();
 
     bool endOfWaves();
 
-    inline bool isRunning() {
-        return waveRunning;
-    }
+    bool isRunning() { return waveRunning; }
 
-    inline bool movingFinished() {
-        return endOfMoving;
-    }
+    bool movingFinished() { return endOfMoving; }
 
-    inline int getWave() {
-        return wave;
-    }
+    size_t getWave() { return wave; }
 
 private:
-    size_t sizeY;
     size_t wave, step, spawnTimer;
-    Loader loader;
     sf::Vector2f startVect;
     bool waveRunning, endOfMoving;
-
-    size_t readHeightFromConfig();
 };
 
-#endif //LAST_SAVIORS_SFML_ENEMY_SPAWNER_H
+#endif

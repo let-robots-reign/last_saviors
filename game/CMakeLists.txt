@@ -18,7 +18,7 @@ ENDMACRO()
 HEADER_DIRECTORIES(header_client_dir_list)
 include_directories(${header_client_dir_list})
 
-file(COPY ../assets DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+file(COPY ../data DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
 file(GLOB SOURCES src/*.cpp src/*.h)
 add_library(game_lib ${SOURCES})

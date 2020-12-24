@@ -1,23 +1,30 @@
 #include "sfml_enemy.h"
 
-SfmlEnemy::SfmlEnemy(sf::Vector2f pos, size_t id, float tileWidth, Loader &loader)
-        : Enemy(id + 1, id + 1, id + 1), id(id), location(0) {
-    pos.x += tileWidth / 2;
-    pos.y -= tileWidth / 2;
+SfmlEnemy::SfmlEnemy(sf::Vector2f pos, size_t id_, float fieldWidth) : sf::Sprite(), id(id_) {
+    pos.x += fieldWidth / 2;
+    pos.y -= fieldWidth / 2;
     setPosition(pos);
     setOrigin(10, 10);
     setTexture(*loader.getEnemyTexture(id));
-    speed_ = 2;
-    steps = tileWidth / speed_;
+    dead = false, freezed = false;
+    value = health = id + 1;
+    location = counter = 0;
+    speed = 2;
+    steps = fieldWidth / speed;
 }
 
-void SfmlEnemy::receiveDamage(size_t damage, Loader &loader) {
-    if (damage >= health_) {
-        health_ = 0;
+void SfmlEnemy::freeze() {
+    freezeCounter = 0;
+    freezed = true;
+}
+
+void SfmlEnemy::hurt(size_t damage) {
+    if (damage >= health) {
+        health = 0;
         dead = true;
     } else {
-        health_ -= damage;
-        setTexture(*loader.getEnemyTexture(id));
+        health -= damage;
+        setTexture(*loader.getEnemyTexture(id - 1));
     }
 }
 
@@ -26,41 +33,28 @@ bool SfmlEnemy::go(std::vector<Directions> &path) {
         return false;
     }
     if (freezed) {
-        if (freeze_counter >= steps * 2.5) {
-            freezed = false;
-        }
-        ++freeze_counter;
+        if (freezeCounter >= steps * 2.5) freezed = false;
+        freezeCounter++;
         return true;
     }
     switch (path[location]) {
         case RIGHT:
-            move(0, speed_);
+            move(0, speed);
             break;
         case LEFT:
-            move(0, -speed_);
+            move(0, -speed);
             break;
         case UP:
-            move(-speed_, 0);
+            move(-speed, 0);
+            break;
         case DOWN:
-            move(speed_, 0);
+            move(speed, 0);
             break;
     }
-    ++counter;
+    counter++;
     if (counter >= steps) {
-        counter %= steps;
-        ++location;
+        counter = counter % steps;
+        location++;
     }
     return true;
-}
-
-void SfmlEnemy::attack(std::shared_ptr<Attackable> &target, unsigned int current_time) {
-
-}
-
-std::shared_ptr<Attackable> SfmlEnemy::findTarget(std::vector<std::shared_ptr<Attackable>> &possible_targets) {
-    return std::shared_ptr<Attackable>();
-}
-
-bool SfmlEnemy::canAttack(const std::shared_ptr<Attackable> &target) {
-    return false;
 }

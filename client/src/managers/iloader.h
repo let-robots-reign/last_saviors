@@ -18,7 +18,7 @@ public:
 
     virtual void loadMaps();
 
-    virtual void loadWaves();
+    virtual void loadWaves() = 0;
 
     virtual void loadTextures() = 0;
 
@@ -38,7 +38,6 @@ public:
 
 protected:
     std::vector<std::string> CURRENT_MAP;
-    std::vector<std::string> waves;
     size_t mapSize = 1;
 };
 

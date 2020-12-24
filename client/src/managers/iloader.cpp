@@ -17,11 +17,3 @@ void ILoader::loadMaps() {
     }
     mapSize = CURRENT_MAP.size();
 }
-
-void ILoader::loadWaves() {
-    std::ifstream waveFile("assets/waves.txt");
-    std::string line;
-    while (waveFile >> line) {
-        waves.push_back(line);
-    }
-}
