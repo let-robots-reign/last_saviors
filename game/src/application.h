@@ -4,6 +4,7 @@
 #include "enums.h"
 #include "button.h"
 #include "game_map.h"
+#include "sfml_enemy_spawner.h"
 
 #include <SFML/Graphics.hpp>
 
@@ -35,6 +36,8 @@ private:
     size_t lives, coins;
 
     GameMap map;
+    std::vector<SfmlEnemy> enemies;
+    EnemySpawner spawner;
 
     std::pair<size_t, size_t> readSizesFromConfig() const;
 

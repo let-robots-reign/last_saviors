@@ -1,7 +1,7 @@
 #include "sfml_enemy.h"
 
 SfmlEnemy::SfmlEnemy(sf::Vector2f pos, size_t id, float tileWidth, Loader &loader)
-        : Enemy(id + 1), id(id), location(0) {
+        : Enemy(id + 1, id + 1, id + 1), id(id), location(0) {
     pos.x += tileWidth / 2;
     pos.y -= tileWidth / 2;
     setPosition(pos);
@@ -12,10 +12,11 @@ SfmlEnemy::SfmlEnemy(sf::Vector2f pos, size_t id, float tileWidth, Loader &loade
 }
 
 void SfmlEnemy::receiveDamage(size_t damage, Loader &loader) {
-    health_ -= damage;
-    if (health_ <= 0) {
+    if (damage >= health_) {
+        health_ = 0;
         dead = true;
     } else {
+        health_ -= damage;
         setTexture(*loader.getEnemyTexture(id));
     }
 }
@@ -50,4 +51,16 @@ bool SfmlEnemy::go(std::vector<Directions> &path) {
         ++location;
     }
     return true;
+}
+
+void SfmlEnemy::attack(std::shared_ptr<Attackable> &target, unsigned int current_time) {
+
+}
+
+std::shared_ptr<Attackable> SfmlEnemy::findTarget(std::vector<std::shared_ptr<Attackable>> &possible_targets) {
+    return std::shared_ptr<Attackable>();
+}
+
+bool SfmlEnemy::canAttack(const std::shared_ptr<Attackable> &target) {
+    return false;
 }

@@ -1,6 +1,6 @@
 #include "application.h"
 
-Application::Application(Loader load) : loader(std::move(load)) {
+Application::Application(Loader load) : loader(std::move(load)), spawner(EnemySpawner(load)) {
     std::tie(sizeX, sizeY) = readSizesFromConfig();
 
     loader.loadTextures();
@@ -37,7 +37,8 @@ Application::Application(Loader load) : loader(std::move(load)) {
             addDrawable(map.getTileAt(i, j));
         }
     }
-    // Spawner.setup();
+
+    spawner.setup();
 }
 
 void Application::run() {
@@ -52,6 +53,24 @@ void Application::run() {
                     if (event.mouseButton.button == sf::Mouse::Left) handleMouseClick();
                 default:
                     break;
+            }
+        }
+
+        if (running) {
+            spawner.spawn(enemies);
+            spawner.move(enemies, coins, lives);
+//
+//            for (Tower &tower : Towers) {
+//                tower.shoot(enemies, particles);
+//            }
+//            updateParticles(particles);
+
+            if (spawner.movingFinished()) {
+                running = false;
+//                particles = {};
+            }
+            if (!lives) {
+                window.close();  // could be better
             }
         }
 
@@ -76,9 +95,7 @@ void Application::update() {
     for (sf::Sprite *sprite : drawables) {
         window.draw(*sprite);
     }
-//    for (Enemy &enemy : enemies) {
-//        window.draw(enemy);
-//    }
+
 //    for (Particle &particle : particles) {
 //        window.draw(particle);
 //    }
@@ -113,9 +130,11 @@ void Application::handleMouseClick() {
             lastClickedTower.setPosition(lastClickedTower.getPosition().x, sizeY);
         }
     } else if (startButton.isClicked(mousePos)) {
-//        if (!Spawner.isRunning()) {       // && enemies.size() == 0){
-//            if (!Spawner.endOfWaves()) Spawner.start();
-//        }
+        if (!spawner.isRunning()) {       // && enemies.size() == 0){
+            if (!spawner.endOfWaves()) {
+                spawner.start();
+            }
+        }
         running = true;
     } else if (pauseButton.isClicked(mousePos)) {
         running = false;
