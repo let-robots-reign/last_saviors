@@ -1,12 +1,12 @@
 #ifndef PGBACKEND_H
 #define PGBACKEND_H
 
+
 #include <memory>
 #include <mutex>
 #include <string>
 #include <queue>
 #include <condition_variable>
-#include <libpq-fe.h>
 #include "pgconnection.h"
 #include "ConnPool.h"
 

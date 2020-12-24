@@ -1,9 +1,11 @@
 #ifndef DATABASE_USERSMAPPER_H
 #define DATABASE_USERSMAPPER_H
 
+
 #include <memory>
 #include "iusers_mapper.h"
 #include "idb_conn.h"
+
 
 class UsersMapper : public IUsersMapper {
 public:

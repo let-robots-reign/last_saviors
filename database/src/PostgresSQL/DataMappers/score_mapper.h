@@ -1,9 +1,11 @@
 #ifndef DATABASE_SCOREMAPPER_H
 #define DATABASE_SCOREMAPPER_H
 
+
 #include <memory>
 #include "iscore_mapper.h"
 #include "idb_conn.h"
+
 
 class ScoreMapper : public IScoreMapper {
 public:

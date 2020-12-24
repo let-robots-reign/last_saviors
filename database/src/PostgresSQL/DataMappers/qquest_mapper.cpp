@@ -1,5 +1,6 @@
 #include "qquest_mapper.h"
 
+
 QQuestMapper::QQuestMapper(std::shared_ptr<IDBConn> &new_dbConn) {
     this->dbConn = new_dbConn;
 }

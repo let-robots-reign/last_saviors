@@ -1,8 +1,10 @@
 #ifndef DATABASE_IPQUESTMAPPER_H
 #define DATABASE_IPQUESTMAPPER_H
 
+
 #include "idb_conn.h"
 #include "prog_puzzle.h"
+
 
 class IPQuestMapper {
 public:

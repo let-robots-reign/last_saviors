@@ -1,8 +1,10 @@
 #ifndef DATABASE_IUSERSMAPPER_H
 #define DATABASE_IUSERSMAPPER_H
 
+
 #include <idb_conn.h>
 #include "user.h"
+
 
 class IUsersMapper {
 public:

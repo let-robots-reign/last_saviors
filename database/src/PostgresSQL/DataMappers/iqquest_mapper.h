@@ -1,8 +1,10 @@
 #ifndef DATABASE_IQQUESTMAPPER_H
 #define DATABASE_IQQUESTMAPPER_H
 
+
 #include <idb_conn.h>
 #include "quiz_puzzlez.h"
+
 
 class IQQuestMapper {
 public:

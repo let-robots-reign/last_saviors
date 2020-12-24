@@ -1,6 +1,7 @@
 #include <iostream>
 #include "user_mapper.h"
 
+
 UsersMapper::UsersMapper(std::shared_ptr<IDBConn> &new_dbConn) {
     this->dbConn = new_dbConn;
 }
