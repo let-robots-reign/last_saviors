@@ -7,11 +7,11 @@
 
 class HUD {
 public:
+    HUD() = default;
+
     explicit HUD(std::vector<Widget> w);
 
     void addWidget(const Widget &widget);
-
-    void processEvent(const Event &event);
 
     void clear();
 

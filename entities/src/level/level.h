@@ -16,7 +16,6 @@ public:
     }
 
 private:
-    std::string mapGenerator;
     Grid grid;
 
     void initGrid();
