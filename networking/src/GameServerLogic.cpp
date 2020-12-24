@@ -4,11 +4,22 @@
 #include <iostream>
 #include <thread>
 ///TODO: #include Ilya's DB
+#include "quiz_puzzlez.h"
+#include "idb_conn.h"
+#include <iusers_mapper.h>
+#include <iscore_mapper.h>
+#include <iqquest_mapper.h>
+#include <ipquest_mapper.h>
+#include <DBBuilder.h>
+
 
 // warning: example logic
 
 template<typename TClient>
-GameServerLogic<TClient>::GameServerLogic(TCPServer<GameServerLogic<TClient>, TClient> & server) : Server(server) {}
+GameServerLogic<TClient>::GameServerLogic(TCPServer<GameServerLogic<TClient>, TClient> & server) : Server(server) {
+    auto builder = std::make_shared<DBBuilder>();
+    qwerty = builder->buildAllDB();
+}
 
 template<typename TClient>
 void GameServerLogic<TClient>::OnStart() {
@@ -68,26 +79,26 @@ void GameServerLogic<TClient>::ProcessPacket(const size_t i, const Packet & pack
         Server.SendEveryone(packet);
     }
     else if (type == PacketType::QuizRequestPacket) {
-        if (Server.GetClient(i).m_quizstate == GameClientStruct::QuizState::ANSWERING)
+        if (Server.GetClient(i).m_quizstate == TClient::QuizState::ANSWERING)
             return; //break?
 
         ///TODO: get quiz = random quiz from DB (and transform it to ClientQuiz)
-        const Quiz quiz = {};
+        const QuizPuzzle quiz = qwerty->getQQuestM()->getRandQuizPuzzle();
 
-        Server.GetClient(i).m_quizstate = GameClientStruct::QuizState::ANSWERING;
+        Server.GetClient(i).m_quizstate = TClient::QuizState::ANSWERING;
         Server.GetClient(i).m_quiz = quiz;
 
         Server.Send(i, QuizResponsePacket(ClientQuiz(quiz)).ToPacket());
     }
     else if (type == PacketType::QuizAnswerPacket) {
-        if (Server.GetClient(i).m_quizstate == GameClientStruct::QuizState::NONE)
+        if (Server.GetClient(i).m_quizstate == TClient::QuizState::NONE)
             return; //break?
 
         const QuizAnswerPacket answerpacket(packet);
-        const bool result = answerpacket.answer == Server.GetClient(i).m_quiz.correct;
+        const bool result = answerpacket.answer == Server.GetClient(i).m_quiz.correctAnswer;
 
-        Server.GetClient(i).m_quizstate = GameClientStruct::QuizState::NONE;
-        Server.GetClient(i).m_quiz = Quiz();    // not really necessary
+        Server.GetClient(i).m_quizstate = TClient::QuizState::NONE;
+        Server.GetClient(i).m_quiz = QuizPuzzle();    // not really necessary
 
         Server.Send(i, QuizResultPacket(result).ToPacket());
     }

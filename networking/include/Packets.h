@@ -3,6 +3,8 @@
 #include "BinaryStream.Game.h"
 #include <string>
 ///TODO: #include Ilya's Quiz struct
+#include "quiz_puzzlez.h"
+
 
 namespace PacketType {
     const PacketType ChatMessage = 1;  // unique
@@ -35,16 +37,16 @@ namespace PacketType {
     const PacketType QuizResponsePacket = 3;  // unique
 }
 
-///TODO: Ilya's Quiz
-//struct Quiz {}; //(probable same as ClientQuiz but with "uint8_t correct" field)
+
 struct ClientQuiz {
     ClientQuiz() = default;
-    ClientQuiz(const Quiz & quiz) :
-            question(quiz.quesion),
-            optionA(quiz.optionA),
-            optionB(quiz.optionB),
-            optionC(quiz.optionC),
-            optionD(quiz.optionD)
+    ~ClientQuiz() = default;
+    ClientQuiz(const QuizPuzzle & quiz) :
+            question(quiz.question),
+            optionA(quiz.answer1),
+            optionB(quiz.answer2),
+            optionC(quiz.answer3),
+            optionD(quiz.answer4)
         {}
     std::string question;
     std::string optionA;

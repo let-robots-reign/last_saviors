@@ -6,4 +6,5 @@ cd ./networking_library
 cd ..
 
 ./build.sh
-./test.sh
+#./test.sh
+

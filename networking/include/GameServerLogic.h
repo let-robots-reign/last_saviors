@@ -1,6 +1,12 @@
 #pragma once
 #include "ServerLogic.h"
 #include "PacketBase.h"
+#include "idb_conn.h"
+#include <iusers_mapper.h>
+#include <iscore_mapper.h>
+#include <iqquest_mapper.h>
+#include <ipquest_mapper.h>
+#include <DBBuilder.h>
 
 
 // TODO: GameServerLogic is always about GameClientStruct, right?
@@ -30,5 +36,8 @@ private:
     void Send(const Packet & packet);
 
     void ProcessPacket(const size_t i, const Packet & packet);
+
+private:
+    std::shared_ptr<IDB> qwerty;
 
 };

@@ -8,6 +8,8 @@
 // example program
 
 int main() {
+    // client example
+
     printf("Hello, World!\n");
     TCPClient<GameClientLogic> Client;
 
@@ -16,7 +18,11 @@ int main() {
     Client.Send(ChatMessagePacket("grillow1337", "First Message").ToPacket());
     Client.Send(ChatMessagePacket("grillow1337", "Second Message").ToPacket());
 
-    std::this_thread::sleep_for(std::chrono::milliseconds(500));   // sending and receiving has delays
+    Client.Send(QuizRequestPacket().ToPacket());
+    std::this_thread::sleep_for(std::chrono::milliseconds(500));
+    Client.ReceiveAndProcess();
+    Client.Send(QuizAnswerPacket(1).ToPacket());
+    std::this_thread::sleep_for(std::chrono::milliseconds(500));
 
     Client.ReceiveAndProcess();
 
