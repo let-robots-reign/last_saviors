@@ -19,8 +19,12 @@ class Tower : public Attackable {
     std::vector<size_t> upgrade_cost_per_level_;
     std::vector<double> attack_radius_per_level_;
 
+    size_t shootDelay, strength;
+    float range;
 
    public:
+    Tower() {};
+
     Tower(size_t max_level,const std::vector<unsigned int> &max_health_per_level,
           const std::vector<unsigned int> &attack_cooldown_per_level,
           const std::vector<unsigned int> &damage_per_level,
