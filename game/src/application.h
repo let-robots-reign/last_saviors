@@ -1,6 +1,8 @@
 #ifndef GAME_HPP
 #define GAME_HPP
 
+#include "event.h"
+#include "functor_event_handler.h"
 #include "enums.h"
 #include "vars.h"
 #include "button.h"
@@ -18,6 +20,10 @@ public:
     void run();
 
     std::vector<size_t> getSize() { return std::vector<size_t>(sizeX, sizeY); }
+
+    TEvent<const sf::Mouse::Button &> onMouseClick;
+
+    TEvent<> onClose;
 
 private:
     size_t sizeX, sizeY;

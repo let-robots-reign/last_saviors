@@ -40,6 +40,16 @@ Application::Application() {
         }
     }
     spawner.setup();
+
+    onMouseClick += LAMBDA_HANDLER([this](const sf::Mouse::Button &button) {
+        if (button == sf::Mouse::Left) {
+            handleMouseClick();
+        }
+    });
+
+    onClose += LAMBDA_HANDLER([this]() {
+        window.close();
+    });
 }
 
 void Application::run() {
@@ -48,12 +58,10 @@ void Application::run() {
         while (window.pollEvent(event)) {
             switch (event.type) {
                 case sf::Event::Closed:
-                    window.close();
+                    onClose();
                     break;
                 case sf::Event::MouseButtonPressed:
-                    if (event.mouseButton.button == sf::Mouse::Left) {
-                        handleMouseClick();
-                    }
+                    onMouseClick(event.mouseButton.button);
                 default:
                     break;
             }
