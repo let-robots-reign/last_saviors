@@ -23,39 +23,6 @@ void Loader::loadTextures() {
     mouseTextures[2].loadFromFile("data/images/mouse2.gif");
 }
 
-void Loader::loadMaps() {
-    std::ifstream mapFile("data/map.txt");
-    while (!mapFile.eof()) {
-        std::string line;
-        mapFile >> line;
-        if (!line.empty()) {
-            CURRENT_MAP.push_back(line);
-        }
-    }
-    mapSize = CURRENT_MAP.size();
-}
-
-void Loader::loadWaves() {
-    std::ifstream waveFile("data/waves.txt");
-    std::string line;
-    while (!waveFile.eof()) {
-        waveFile >> line;
-        waves.push_back(line);
-    }
-}
-
-std::string Loader::loadTowerDescription() {
-    std::ifstream data("data/towers.txt");
-    std::stringstream description;
-    while (!data.eof()) {
-        std::string line;
-        std::getline(data, line);
-        description << line << "\n";
-    }
-    return description.str();
-}
-
-
 void Loader::loadFont() {
     font.loadFromFile("data/Roboto-Regular.ttf");
 }

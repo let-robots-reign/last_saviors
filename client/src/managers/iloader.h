@@ -18,7 +18,9 @@ public:
 
     virtual void loadMaps();
 
-    virtual void loadWaves() = 0;
+    virtual void loadWaves();
+
+    virtual std::string loadTowerDescription();
 
     virtual void loadTextures() = 0;
 
@@ -26,19 +28,18 @@ public:
 
     virtual void calculatePath() = 0;
 
-    virtual std::string loadTowerDescription() const = 0;
-
     virtual std::vector<std::string> *getCurrentMap() = 0;
 
     virtual std::vector<std::string> *getWaves() = 0;
 
-    virtual size_t getMapSize() const = 0;
+    virtual size_t getMapSize() = 0;
 
-    virtual size_t getStart() const = 0;
+    virtual size_t getStart() = 0;
 
 protected:
     std::vector<std::string> CURRENT_MAP;
-    size_t mapSize = 1;
+    size_t mapSize;
+    std::vector<std::string> waves;
 };
 
 #endif //CLIENT_LOADER_H
