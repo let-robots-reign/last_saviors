@@ -1,0 +1,34 @@
+COMPLEXITY:
+2
+TITLE:
+Что будет выведено на консоль в результате работы программы?
+---
+#include <iostream>
+using namespace std;
+
+const int ARR_SIZE = 5;
+typedef int ARR[ARR_SIZE];
+
+int main() {
+    ARR a;
+    for (int i = 0; i < ARR_SIZE; i++)
+        a[i] = (i + 1) * 2;
+
+    ARR b;
+    for (int i = 0; i < ARR_SIZE; i++)
+        b[i] = i + 1;
+    b = a;
+    for (int i = 0; i < ARR_SIZE; i++)
+        cout << b[i];
+}
+---
+FIRST:
+Ошибка времени выполнения.
+SECOND:
+246810
+THIRD:
+12345
+FORTH:
+Ошибка компиляции.
+CORRECT:
+FORTH

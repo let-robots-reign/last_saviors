@@ -1,0 +1,32 @@
+COMPLEXITY:
+may be [1; 3]
+TITLE:
+Что выведет cout?
+---
+#include <iostream>
+
+using std::cout;
+using std::endl;
+
+const int &test() {
+    static int a = 3;
+    return a;
+}
+
+int main() {
+    test()++;
+    test()++;
+    cout << test() << endl;
+    return 0;
+}
+---
+FIRST:
+5
+SECOND:
+3
+THIRD:
+Значение неопределено
+FORTH:
+Не скомпилируется
+CORRECT:
+FORTH

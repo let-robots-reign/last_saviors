@@ -1,0 +1,27 @@
+COMPLEXITY:
+1
+TITLE:
+Что выведет следующая программа:
+---
+#include <iostream>
+
+int main()
+{
+    int * var = new int(2);
+    *var *= 2;
+
+    std::cout << *var;
+
+    return 0;
+}
+---
+FIRST:
+Будет выведено значение адреса переменной var
+SECOND:
+4
+THIRD:
+Возникнет ошибка времени выполнения
+FORTH:
+2
+CORRECT:
+SECOND

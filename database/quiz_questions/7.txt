@@ -1,0 +1,26 @@
+COMPLEXITY:
+2
+TITLE:
+Что будет выведено на консоль в результате работы программы?
+---
+#include <iostream>
+using namespace std;
+
+class A {
+public:
+    A() { cout << "Hello "; }
+    ~A() { cout << "World!"; }
+} a;
+
+int main() {}
+---
+FIRST:
+"Hello World!"
+SECOND:
+"World!"
+THIRD:
+"Hello "
+FORTH:
+Ничего. Функция main ничего не делает.
+CORRECT:
+FIRST

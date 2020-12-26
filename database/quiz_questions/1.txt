@@ -1,0 +1,40 @@
+COMPLEXITY:
+2
+TITLE:
+Что выведется на экран ?
+---
+#include  <iostream>
+using namespace  std;
+class  A
+{
+public:
+    virtual void  Foo(int  n = 10)
+    {
+        cout << "A::Foo, n = " << n << endl;
+    }
+};
+class  B : public  A{
+public:
+    virtual void  Foo(int  n = 20)
+    {
+        cout << "B::Foo, n = " << n << endl;
+    }
+};
+
+int  main()
+{
+    A * pa = new B();
+    pa->Foo();
+    return  0;
+}
+---
+FIRST:
+B::Foo, n = 10
+SECOND:
+A::Foo, n = 10
+THIRD:
+B::Foo, n = 20
+FORTH:
+A::Foo, n = 20
+CORRECT:
+FIRST

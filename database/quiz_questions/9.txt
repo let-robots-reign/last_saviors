@@ -1,0 +1,21 @@
+COMPLEXITY:
+1
+TITLE:
+Что будет выведено в результате работы программы?
+---
+#include <iostream>
+
+int main() {
+     std::cout << 1U - 5 << std::endl;
+}
+---
+FIRST:
+Ошибка компиляции
+SECOND:
+-4
+THIRD:
+ 4294967292
+FORTH:
+6
+CORRECT:
+THIRD

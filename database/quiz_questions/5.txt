@@ -1,0 +1,19 @@
+COMPLEXITY:
+1
+TITLE:
+С учетом следующих объявлений:
+---
+T obj;
+void foo(T *);
+---
+какие варианты вызова функции можно использовать?
+FIRST:
+foo(~obj);
+SECOND:
+foo(obj);
+THIRD:
+foo(&obj);
+FORTH:
+foo(*obj);
+CORRECT:
+THIRD
