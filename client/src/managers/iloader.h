@@ -15,6 +15,8 @@ public:
     static const size_t MOUSE_INACTIVE_SELECT_ID;
     static const size_t BUTTON_START_ID;
     static const size_t BUTTON_PAUSE_ID;
+    static const size_t BUTTON_UPGRADE_ID;
+    static const size_t BUTTON_QUIZ_ID;
 
     virtual void loadMaps();
 

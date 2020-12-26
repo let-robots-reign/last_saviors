@@ -18,6 +18,9 @@ void Loader::loadTextures() {
 
     buttonTextures[0].loadFromFile("data/images/buttonstart.gif");
     buttonTextures[1].loadFromFile("data/images/buttonpause.gif");
+    buttonTextures[2].loadFromFile("data/images/upgrade.png");
+    buttonTextures[3].loadFromFile("data/images/quiz.png");
+
     mouseTextures[0].loadFromFile("data/images/mouse0.gif");
     mouseTextures[1].loadFromFile("data/images/mouse1.gif");
     mouseTextures[2].loadFromFile("data/images/mouse2.gif");

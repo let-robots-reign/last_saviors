@@ -22,8 +22,10 @@ Application::Application() {
     coins = 200, lives = 20;
     lastClickedID = 0;
     towerButtons = createTowerButtons();
-    startButton = Button(705, 540, Loader::BUTTON_START_ID);
-    pauseButton = Button(605, 540, Loader::BUTTON_PAUSE_ID);
+    startButton = Button(705, 500, Loader::BUTTON_START_ID);
+    pauseButton = Button(605, 500, Loader::BUTTON_PAUSE_ID);
+    upgradeButton = Button(600, 350, Loader::BUTTON_UPGRADE_ID);
+    quizButton = Button(600, 410, Loader::BUTTON_QUIZ_ID);
     statusText = createTextField(605, 0, "", 22);
     towerDescription = createTextField(645, 100, towerDescString, 15);
 
@@ -32,6 +34,8 @@ Application::Application() {
     }
     addDrawable(&startButton);
     addDrawable(&pauseButton);
+    addDrawable(&upgradeButton);
+    addDrawable(&quizButton);
 
     map = GameMap(sizeY);
     for (size_t i = 0; i < loader.getMapSize(); ++i) {
@@ -40,16 +44,6 @@ Application::Application() {
         }
     }
     spawner.setup();
-
-    onMouseClick += LAMBDA_HANDLER([this](const sf::Mouse::Button &button) {
-        if (button == sf::Mouse::Left) {
-            handleMouseClick();
-        }
-    });
-
-    onClose += LAMBDA_HANDLER([this]() {
-        window.close();
-    });
 }
 
 void Application::run() {
@@ -58,10 +52,12 @@ void Application::run() {
         while (window.pollEvent(event)) {
             switch (event.type) {
                 case sf::Event::Closed:
-                    onClose();
+                    window.close();
                     break;
                 case sf::Event::MouseButtonPressed:
-                    onMouseClick(event.mouseButton.button);
+                    if (event.mouseButton.button == sf::Mouse::Left) {
+                        handleMouseClick();
+                    }
                 default:
                     break;
             }

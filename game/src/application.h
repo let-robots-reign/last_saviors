@@ -21,10 +21,6 @@ public:
 
     std::vector<size_t> getSize() { return std::vector<size_t>(sizeX, sizeY); }
 
-    TEvent<const sf::Mouse::Button &> onMouseClick;
-
-    TEvent<> onClose;
-
 private:
     size_t sizeX, sizeY;
 
@@ -34,7 +30,7 @@ private:
 
     size_t lastClickedID;
     std::vector<Button> towerButtons;
-    Button startButton, pauseButton;
+    Button startButton, pauseButton, upgradeButton, quizButton;
     sf::Text statusText, towerDescription;
 
     bool running, waveRunning;
