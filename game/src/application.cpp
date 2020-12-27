@@ -1,6 +1,5 @@
 #include "application.h"
 
-#include <sstream>
 #include <fstream>
 #include <iostream>
 
@@ -27,8 +26,9 @@ Application::Application() {
     pauseButton = Button(605, 500, Loader::BUTTON_PAUSE_ID);
     upgradeButton = Button(600, 350, Loader::BUTTON_UPGRADE_ID);
     quizButton = Button(600, 410, Loader::BUTTON_QUIZ_ID);
-    statusText = createTextField(605, 0, "", 22, sf::Color(188, 175, 105));
-    towerDescription = createTextField(645, 100, towerDescString, 15, sf::Color(188, 175, 105));
+    statusText = createTextField(605, 0, 22);
+    towerDescription = createTextField(645, 100, 15);
+    towerDescription << sf::Color(188, 175, 105) << towerDescString;
 
     for (auto &button : towerButtons) {
         addDrawable(&button);
@@ -81,10 +81,11 @@ void Application::run() {
             }
         }
 
-        std::stringstream status;
-        status << "Lives: " << lives << "\nCoins: " << coins << "$\nWave: "
-               << spawner.getWave() + 1 << "/" << spawner.getMaxWaves();
-        statusText.setString(status.str());
+        statusText = createTextField(605, 0, 22);
+        statusText << sf::Color(188, 175, 105) << sf::Text::Bold << "Lives: " << std::to_string(lives)
+                   << "\nCoins: " << sf::Color::Yellow << std::to_string(coins) << sf::String(L" ©\n")
+                   << sf::Color(188, 175, 105) << "Wave: " << std::to_string(spawner.getWave() + 1)
+                   << " /" << std::to_string(spawner.getMaxWaves());
 
         handleMouseCursor();
         update();
@@ -130,8 +131,10 @@ void Application::update() {
     }
 
     if (showQuiz) {
-        QuizPuzzle quiz = getQuiz();
-        quizWidget = QuizWidget(quiz);
+        if (!quizWidget.isInitialized()) {
+            QuizPuzzle quiz = getQuiz();
+            quizWidget = QuizWidget(quiz);
+        }
         window.draw(quizWidget);
     }
 
@@ -193,11 +196,9 @@ void Application::addDrawable(sf::Sprite *sprite) {
     drawable.push_back(sprite);
 }
 
-sf::Text Application::createTextField(size_t posx, size_t posy, const std::string &strText, size_t textSize,
-                                      const sf::Color &color) {
-    sf::Text textField(strText, *(loader.getFont()));
+sfe::RichText Application::createTextField(size_t posx, size_t posy, size_t textSize) {
+    sfe::RichText textField(*(loader.getFont()));
     textField.setPosition(posx, posy);
-    textField.setColor(color);
     textField.setCharacterSize(textSize);
     return textField;
 }

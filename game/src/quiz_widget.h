@@ -1,6 +1,7 @@
 #ifndef LAST_SAVIORS_QUIZ_WIDGET_H
 #define LAST_SAVIORS_QUIZ_WIDGET_H
 
+#include "rich_text.h"
 #include "quiz_puzzle.h"
 #include <SFML/Graphics.hpp>
 
@@ -16,6 +17,10 @@ public:
         return currentUserAnswer;
     }
 
+    inline bool isInitialized() {
+        return initialized;
+    }
+
     static constexpr int CLICKED_CLOSE = -1;
     static constexpr int CLICKED_OUTSIDE = -2;
 
@@ -24,15 +29,16 @@ protected:
 
 private:
     QuizPuzzle puzzle;
+    bool initialized = false;
 
     int currentUserAnswer;
 
     sf::RectangleShape quizOverlay;
-    sf::Text questionText;
+    sfe::RichText questionText;
     std::vector<sf::RectangleShape> optionsButtons;
-    std::vector<sf::Text> optionsTexts;
+    std::vector<sfe::RichText> optionsTexts;
     sf::RectangleShape submitButton;
-    sf::Text submitText;
+    sfe::RichText submitText;
 };
 
 #endif //LAST_SAVIORS_QUIZ_WIDGET_H

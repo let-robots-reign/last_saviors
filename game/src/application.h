@@ -10,6 +10,7 @@
 #include "sfml_enemy.h"
 #include "sfml_enemy_spawner.h"
 #include "sfml_tower.h"
+#include "rich_text.h"
 #include "quiz_widget.h"
 
 #include <SFML/Graphics.hpp>
@@ -22,7 +23,7 @@ public:
 
     std::vector<size_t> getSize() { return std::vector<size_t>(sizeX, sizeY); }
 
-    static sf::Text createTextField(size_t posx, size_t posy, const std::string& strText, size_t textSize, const sf::Color &color);
+    static sfe::RichText createTextField(size_t posx, size_t posy, size_t textSize);
 
 private:
     size_t sizeX, sizeY;
@@ -35,7 +36,7 @@ private:
     size_t lastClickedID;
     std::vector<Button> towerButtons;
     Button startButton, pauseButton, upgradeButton, quizButton;
-    sf::Text statusText, towerDescription;
+    sfe::RichText statusText, towerDescription;
     QuizWidget quizWidget;
 
     bool running, waveRunning, showQuiz;
