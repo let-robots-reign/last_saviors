@@ -3,6 +3,7 @@
 #include "Packets.h"
 #include <iostream>
 ///TODO: #include Alexey's "Applcation.h"
+#include "application.h"
 
 // warning: example logic
 
@@ -57,12 +58,15 @@ void GameClientLogic::ProcessPacket(const Packet & packet) {
         std::cout << responsepacket.quiz.optionC << std::endl;
         std::cout << responsepacket.quiz.optionD << std::endl;
         ///TODO: some Application stuff xd
+        Application::currentQuiz = responsepacket.quiz;
     }
     else if (type == PacketType::QuizResultPacket) {
         std::cout << "Received QuizResultPacket" << std::endl;
         const QuizResultPacket resultpacket(packet);
         std::cout << "Answer was (1 - correct, 0 - incorrect): " << resultpacket.result << std::endl;
         ///TODO: some Application stuff xd
+        Application::resultReceived = true;
+        Application::currentQuizResult = resultpacket.result;
     }
     else {
         std::cout << "Unknown packet type: " << type() << std::endl;
