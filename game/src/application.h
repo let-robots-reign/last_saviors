@@ -74,4 +74,8 @@ private:
     void addDrawable(sf::Sprite *sprite);
 };
 
+ClientQuiz Application::currentQuiz = ClientQuiz();
+bool Application::resultReceived = false;
+bool Application::currentQuizResult = false;
+
 #endif
