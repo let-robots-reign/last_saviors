@@ -93,6 +93,10 @@ void Application::run() {
                    << " /" << std::to_string(spawner.getMaxWaves());
 
         Client.ReceiveAndProcess();
+        if (!currentQuiz.question.empty()) {
+            std::cout << currentQuiz.question << " " << currentQuiz.optionA;
+            currentQuiz = ClientQuiz();
+        }
 
         handleMouseCursor();
         update();
@@ -106,15 +110,19 @@ std::pair<size_t, size_t> Application::readSizesFromConfig() {
     return {x, y};
 }
 
-QuizPuzzle Application::getQuiz() {
+QuizPuzzleEntity Application::getQuiz() {
+    std::cout << "Getting Quiz\n";
     if (!Client.Connected()) {
+        std::cout << "Not connected\n";
         Client.Connect(Address(*IPAddress::Create(std::string("46.138.240.15")), 3000));
+        std::cout << "Attempted to connect " << Client.Connected() << "\n";
     }
 
+    std::cout << "Sending Packet\n";
     Client.Send(QuizRequestPacket().ToPacket());
 
 
-    return QuizPuzzle(0, "How are you?\ngdfgfdg\ngfg\nffffffffffff", {"Good", "Fine", "So-so", "Bad"}, 0);
+    return QuizPuzzleEntity(0, "How are you?\ngdfgfdg\ngfg\nffffffffffff", {"Good", "Fine", "So-so", "Bad"}, 0);
 }
 
 void Application::checkQuiz() {
@@ -147,7 +155,7 @@ void Application::update() {
 
     if (showQuiz) {
         if (!quizWidget.isInitialized()) {
-            QuizPuzzle quiz = getQuiz();
+            QuizPuzzleEntity quiz = getQuiz();
             quizWidget = QuizWidget(quiz);
         }
         window.draw(quizWidget);

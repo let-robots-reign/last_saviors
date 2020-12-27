@@ -4,6 +4,8 @@
 template<typename ...TParams>
 class AbstractEventHandler {
 public:
+    virtual ~AbstractEventHandler();
+
     virtual void call(TParams... params) = 0;
 
     // чтобы реализовать отписку (operator -=) от события, добавим операторы сравнения

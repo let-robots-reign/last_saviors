@@ -2,7 +2,7 @@
 #include "application.h"
 
 
-QuizWidget::QuizWidget(QuizPuzzle quiz) : puzzle(std::move(quiz)), currentUserAnswer(CLICKED_OUTSIDE) {
+QuizWidget::QuizWidget(QuizPuzzleEntity quiz) : puzzle(std::move(quiz)), currentUserAnswer(CLICKED_OUTSIDE) {
     quizOverlay.setSize(sf::Vector2f(500, 550));
     quizOverlay.setPosition(30, 30);
     quizOverlay.setFillColor(sf::Color(188, 175, 105, 200));

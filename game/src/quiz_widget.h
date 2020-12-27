@@ -9,7 +9,7 @@ class QuizWidget : public sf::Drawable {
 public:
     QuizWidget() = default;
 
-    explicit QuizWidget(QuizPuzzle puzzle);
+    explicit QuizWidget(QuizPuzzleEntity puzzle);
 
     int checkButtonClicked(const sf::Vector2i &mousePos);
 
@@ -28,7 +28,7 @@ protected:
     void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
 private:
-    QuizPuzzle puzzle;
+    QuizPuzzleEntity puzzle;
     bool initialized = false;
 
     int currentUserAnswer;

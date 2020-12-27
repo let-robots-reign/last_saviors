@@ -5,11 +5,11 @@
 #include <string>
 #include <vector>
 
-class QuizPuzzle : public Puzzle {
+class QuizPuzzleEntity : public Puzzle {
 public:
-    QuizPuzzle() {}
+    QuizPuzzleEntity() {}
 
-    QuizPuzzle(size_t id, const std::string &question, std::vector<std::string> answerOptions,
+    QuizPuzzleEntity(size_t id, const std::string &question, std::vector<std::string> answerOptions,
                size_t answerIndex) : Puzzle(id, question), answerOptions(std::move(answerOptions)),
                                             correctAnswerIndex(answerIndex) {}
 

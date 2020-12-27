@@ -18,6 +18,13 @@ ENDMACRO()
 HEADER_DIRECTORIES(header_client_dir_list)
 include_directories(${header_client_dir_list})
 
+include_directories(src)
+include_directories(../networking/include)
+include_directories(../networking/networking_library/include)
+include_directories(../database/src/PostgresSQL/Data)
+include_directories(../entities/src/units/enemies ../entities/src/units/buildings)
+
+
 file(COPY ../data DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
 file(GLOB SOURCES src/*.cpp src/*.h)
@@ -31,5 +38,3 @@ target_link_libraries(${PROJECT_NAME} sfml-system)
 target_link_libraries(${PROJECT_NAME} client_lib)
 target_link_libraries(${PROJECT_NAME} game_networking)
 target_link_libraries(${PROJECT_NAME} db_lib)
-include_directories(../networking/include)
-include_directories(../networking/networking_library/include)

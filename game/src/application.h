@@ -29,14 +29,15 @@ public:
 
     static sfe::RichText createTextField(size_t posx, size_t posy, size_t textSize);
 
+    static ClientQuiz currentQuiz;
+    static bool resultReceived;
+    static bool currentQuizResult;
+
 private:
     size_t sizeX, sizeY;
     static constexpr size_t COINS_FINE_FOR_CLOSE = 20;
 
     TCPClient<GameClientLogic> Client;
-    static ClientQuiz currentQuiz;
-    static bool resultReceived;
-    static bool currentQuizResult;
 
     sf::RenderWindow window;
     std::vector<sf::Sprite *> drawable;
@@ -60,7 +61,7 @@ private:
 
     std::pair<size_t, size_t> readSizesFromConfig();
 
-    QuizPuzzle getQuiz();
+    QuizPuzzleEntity getQuiz();
 
     void checkQuiz();
 
