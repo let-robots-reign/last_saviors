@@ -16,13 +16,18 @@ MACRO(HEADER_DIRECTORIES return_list)
 ENDMACRO()
 
 
-FILE(GLOB BUILDER src/MySQL/Builder/*.cpp src/MySQL/Builder/*.h)
-FILE(GLOB DATA src/MySQL/Data/*.cpp src/MySQL/Data/*.h)
-FILE(GLOB DATAMAPPERS src/MySQL/DataMappers/*.cpp src/MySQL/DataMappers/*.h)
+
+FILE(GLOB BUILDER src/PostgresSQL/Builder/*.cpp src/PostgresSQL/Builder/*.h)
+FILE(GLOB DATA src/PostgresSQL/Data/*.cpp src/PostgresSQL/Data/*.h)
+FILE(GLOB DATAMAPPERS src/PostgresSQL/DataMappers/*.cpp src/PostgresSQL/DataMappers/*.h)
+FILE(GLOB CONN_POOL src/PostgresSQL/ConnectionPool/*.cpp src/PostgresSQL/ConnectionPool/*.h)
+
+find_package(PostgreSQL REQUIRED)
 
 HEADER_DIRECTORIES(header_db_dir_list)
 include_directories(${header_db_dir_list})
-
+include_directories(${PostgreSQL_INCLUDE_DIRS})
+#target_link_libraries(untitled PRIVATE ${PostgreSQL_LIBRARIES})
 add_subdirectory(test)
 
-add_library(db_lib ${BUILDER} ${DATA} ${DATAMAPPERS})
+add_library(db_lib ${BUILDER} ${DATA} ${DATAMAPPERS} ${CONN_POOL} src/PostgresSQL/ConnectionPool/ConnPool.h src/PostgresSQL/Builder/IDB.h src/PostgresSQL/Builder/DBBuilder.cpp src/PostgresSQL/Builder/DBBuilder.h)
