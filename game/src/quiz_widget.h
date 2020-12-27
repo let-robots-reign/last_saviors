@@ -10,13 +10,22 @@ public:
 
     explicit QuizWidget(QuizPuzzle puzzle);
 
+    int checkButtonClicked(const sf::Vector2i &mousePos);
+
+    inline int getCurrentUserAnswer() {
+        return currentUserAnswer;
+    }
+
+    static constexpr int CLICKED_CLOSE = -1;
+    static constexpr int CLICKED_OUTSIDE = -2;
+
 protected:
     void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
 private:
     QuizPuzzle puzzle;
 
-    std::string currentUserAnswer;
+    int currentUserAnswer;
 
     sf::RectangleShape quizOverlay;
     sf::Text questionText;

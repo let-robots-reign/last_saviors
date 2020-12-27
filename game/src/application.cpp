@@ -2,6 +2,7 @@
 
 #include <sstream>
 #include <fstream>
+#include <iostream>
 
 Application::Application() {
     std::tie(sizeX, sizeY) = readSizesFromConfig();
@@ -101,6 +102,20 @@ QuizPuzzle Application::getQuiz() {
     return QuizPuzzle(0, "How are you?\ngdfgfdg\ngfg\nffffffffffff", {"Good", "Fine", "So-so", "Bad"}, 0);
 }
 
+void Application::checkQuiz() {
+    int userAnswer = quizWidget.getCurrentUserAnswer();
+    if (userAnswer == QuizWidget::CLICKED_CLOSE) {
+        if (COINS_FINE_FOR_CLOSE > coins) {
+            coins = 0;
+        } else {
+            coins -= COINS_FINE_FOR_CLOSE;
+        }
+        showQuiz = false;
+    }
+
+    std::cout << "Checking Quiz\nUser answer is " << quizWidget.getCurrentUserAnswer() << std::endl;
+}
+
 void Application::update() {
     window.clear(sf::Color(90, 106, 41));
 
@@ -157,8 +172,13 @@ void Application::handleMouseClick() {
         running = true;
     } else if (pauseButton.isClicked(mousePos)) {
         running = false;
-    } else if (quizButton.isClicked(mousePos)) {
+        showQuiz = false;
+    } else if (quizButton.isClicked(mousePos) && !showQuiz && running) {
         showQuiz = true;
+    }
+
+    if (showQuiz && running && quizWidget.checkButtonClicked(mousePos) != QuizWidget::CLICKED_OUTSIDE) {
+        checkQuiz();
     }
 
     for (auto &button : towerButtons) {

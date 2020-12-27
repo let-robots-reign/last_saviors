@@ -26,6 +26,7 @@ public:
 
 private:
     size_t sizeX, sizeY;
+    static constexpr size_t COINS_FINE_FOR_CLOSE = 20;
 
     sf::RenderWindow window;
     std::vector<sf::Sprite *> drawable;
@@ -50,6 +51,8 @@ private:
     std::pair<size_t, size_t> readSizesFromConfig();
 
     QuizPuzzle getQuiz();
+
+    void checkQuiz();
 
     void update();
 

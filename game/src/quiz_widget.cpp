@@ -1,7 +1,9 @@
 #include "quiz_widget.h"
 #include "application.h"
 
-QuizWidget::QuizWidget(QuizPuzzle quiz) : puzzle(std::move(quiz)) {
+#include <iostream>
+
+QuizWidget::QuizWidget(QuizPuzzle quiz) : puzzle(std::move(quiz)), currentUserAnswer(CLICKED_OUTSIDE) {
     quizOverlay.setSize(sf::Vector2f(500, 550));
     quizOverlay.setPosition(30, 30);
     quizOverlay.setFillColor(sf::Color(188, 175, 105, 200));
@@ -31,6 +33,33 @@ QuizWidget::QuizWidget(QuizPuzzle quiz) : puzzle(std::move(quiz)) {
     submitButton.setOutlineThickness(1);
 
     submitText = Application::createTextField(55, submitButton.getPosition().y + 5, "Close (-20$)", 18, sf::Color(255, 255, 255));
+}
+
+
+int QuizWidget::checkButtonClicked(const sf::Vector2i &mousePos) {
+    sf::Vector2f pos;
+    currentUserAnswer = CLICKED_OUTSIDE;
+    for (size_t i = 0; i < optionsButtons.size(); ++i) {
+        auto button = optionsButtons[i];
+        pos = button.getPosition();
+        size_t buttonWidth = button.getLocalBounds().width;
+        size_t buttonHeight = button.getLocalBounds().height;
+        size_t x = mousePos.x - pos.x;
+        size_t y = mousePos.y - pos.y;
+        if (x > 0 && x < buttonWidth && y > 0 && y < buttonHeight) {
+            currentUserAnswer = i;
+            break;
+        }
+    }
+
+    sf::Vector2f submitPos = submitButton.getPosition();
+    size_t x = mousePos.x - submitPos.x;
+    size_t y = mousePos.y - submitPos.y;
+    if (x > 0 && x < submitButton.getLocalBounds().width && y > 0 && y < submitButton.getLocalBounds().height) {
+        currentUserAnswer = CLICKED_CLOSE;
+    }
+
+    return currentUserAnswer;
 }
 
 void QuizWidget::draw(sf::RenderTarget &target, sf::RenderStates states) const {
