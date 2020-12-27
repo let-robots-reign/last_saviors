@@ -1,0 +1,9 @@
+BASIC TOWER
+range: 65px
+speed: 1.5s
+price: 60$
+
+CIRCLE TOWER
+range: 55px
+speed: 2.8s
+price: 90$
