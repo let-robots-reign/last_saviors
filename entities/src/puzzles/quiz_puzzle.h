@@ -5,15 +5,25 @@
 #include <string>
 #include <vector>
 
-class QuizPuzzle : Puzzle {
+class QuizPuzzle : public Puzzle {
+public:
+    QuizPuzzle() {}
+
+    QuizPuzzle(size_t id, const std::string &question, std::vector<std::string> answerOptions,
+               size_t answerIndex) : Puzzle(id, question), answerOptions(std::move(answerOptions)),
+                                            correctAnswerIndex(answerIndex) {}
+
+    inline std::vector<std::string> getAnswerOptions() const {
+        return answerOptions;
+    }
+
+    inline size_t getCorrectAnswerIndex() const {
+        return correctAnswerIndex;
+    }
+
 private:
     std::vector<std::string> answerOptions;
-    std::string correctAnswer;
-public:
-    QuizPuzzle();
-
-    QuizPuzzle(size_t id, const std::string &question, size_t puzzleComplexity,
-               std::vector<std::string> answerOptions, std::string correctAnswer);
+    size_t correctAnswerIndex;
 };
 
 

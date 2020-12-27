@@ -6,13 +6,16 @@
 
 class Puzzle {
 private:
-    size_t id;
+    size_t id{};
     std::string question;
-    size_t puzzleComplexity;
 public:
-    Puzzle(size_t id, std::string question, size_t puzzleComplexity);
+    Puzzle() {}
 
-    Puzzle();
+    Puzzle(size_t id, std::string question) : id(id), question(std::move(question)) {}
+
+    inline std::string getQuestion() const {
+        return question;
+    }
 };
 
 #endif //LAST_SAVIORS_PUZZLE_H

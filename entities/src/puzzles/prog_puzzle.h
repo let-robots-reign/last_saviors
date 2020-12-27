@@ -5,12 +5,11 @@
 #include <string>
 
 class ProgPuzzle : public Puzzle {
+public:
+    ProgPuzzle(size_t id, const std::string &question, std::string answer);
+
 private:
     std::string answer;
-public:
-    ProgPuzzle();
-
-    ProgPuzzle(size_t id, const std::string &question, size_t puzzleComplexity, const std::string &answer);
 };
 
 

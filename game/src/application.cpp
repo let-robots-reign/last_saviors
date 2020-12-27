@@ -18,7 +18,7 @@ Application::Application() {
     lastClickedTower.setPosition(605, sizeY);
     lastClickedTower.setTexture(*loader.getMouseTextures(Loader::MOUSE_INACTIVE_SELECT_ID));
 
-    running = false, waveRunning = false;
+    running = false, waveRunning = false, showQuiz = false;
     coins = 200, lives = 20;
     lastClickedID = 0;
     towerButtons = createTowerButtons();
@@ -26,8 +26,8 @@ Application::Application() {
     pauseButton = Button(605, 500, Loader::BUTTON_PAUSE_ID);
     upgradeButton = Button(600, 350, Loader::BUTTON_UPGRADE_ID);
     quizButton = Button(600, 410, Loader::BUTTON_QUIZ_ID);
-    statusText = createTextField(605, 0, "", 22);
-    towerDescription = createTextField(645, 100, towerDescString, 15);
+    statusText = createTextField(605, 0, "", 22, sf::Color(188, 175, 105));
+    towerDescription = createTextField(645, 100, towerDescString, 15, sf::Color(188, 175, 105));
 
     for (auto &button : towerButtons) {
         addDrawable(&button);
@@ -97,6 +97,10 @@ std::pair<size_t, size_t> Application::readSizesFromConfig() {
     return {x, y};
 }
 
+QuizPuzzle Application::getQuiz() {
+    return QuizPuzzle(0, "How are you?\ngdfgfdg\ngfg\nffffffffffff", {"Good", "Fine", "So-so", "Bad"}, 0);
+}
+
 void Application::update() {
     window.clear(sf::Color(90, 106, 41));
 
@@ -109,6 +113,13 @@ void Application::update() {
     for (auto &particle : particles) {
         window.draw(particle);
     }
+
+    if (showQuiz) {
+        QuizPuzzle quiz = getQuiz();
+        quizWidget = QuizWidget(quiz);
+        window.draw(quizWidget);
+    }
+
     window.draw(statusText);
     window.draw(towerDescription);
     window.draw(lastClickedTower);
@@ -118,7 +129,7 @@ void Application::update() {
 
 void Application::handleMouseCursor() {
     sf::Vector2i mousePos = sf::Mouse::getPosition(window);
-    if (map.isInMap(mousePos)) {
+    if (map.isInMap(mousePos) && !showQuiz) {
         size_t *pos = map.getTileCoords(mousePos);
         float fieldWidth = static_cast<float>(sizeY) / loader.getMapSize();
         mouseCursor.setPosition(fieldWidth * pos[0], fieldWidth * pos[1]);
@@ -146,7 +157,10 @@ void Application::handleMouseClick() {
         running = true;
     } else if (pauseButton.isClicked(mousePos)) {
         running = false;
+    } else if (quizButton.isClicked(mousePos)) {
+        showQuiz = true;
     }
+
     for (auto &button : towerButtons) {
         if (button.isClicked(mousePos)) {
             lastClickedID = button.getID();
@@ -159,10 +173,11 @@ void Application::addDrawable(sf::Sprite *sprite) {
     drawable.push_back(sprite);
 }
 
-sf::Text Application::createTextField(size_t posx, size_t posy, const std::string &strText, size_t textSize) {
+sf::Text Application::createTextField(size_t posx, size_t posy, const std::string &strText, size_t textSize,
+                                      const sf::Color &color) {
     sf::Text textField(strText, *(loader.getFont()));
     textField.setPosition(posx, posy);
-    textField.setColor(sf::Color(188, 175, 105));
+    textField.setColor(color);
     textField.setCharacterSize(textSize);
     return textField;
 }
