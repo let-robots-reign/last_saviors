@@ -4,6 +4,10 @@
 
 #include <fstream>
 
+ClientQuiz Application::currentQuiz = ClientQuiz();
+bool Application::resultReceived = false;
+bool Application::currentQuizResult = false;
+
 Application::Application() {
     std::tie(sizeX, sizeY) = readSizesFromConfig();
     loader.loadTextures();

@@ -17,6 +17,7 @@
 
 #include "TCPClient.h"
 #include "GameClientLogic.h"
+#include "ClientQuiz.h"
 
 class Application {
 public:
@@ -33,6 +34,9 @@ private:
     static constexpr size_t COINS_FINE_FOR_CLOSE = 20;
 
     TCPClient<GameClientLogic> Client;
+    static ClientQuiz currentQuiz;
+    static bool resultReceived;
+    static bool currentQuizResult;
 
     sf::RenderWindow window;
     std::vector<sf::Sprite *> drawable;
