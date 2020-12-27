@@ -1,7 +1,7 @@
 #ifndef DATABASE_IQQUESTMAPPER_H
 #define DATABASE_IQQUESTMAPPER_H
 
-#include "quiz_puzzle.h"
+#include "quiz_puzzlez.h"
 
 class IQQuestMapper {
 public:

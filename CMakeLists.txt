@@ -5,8 +5,10 @@ set(CMAKE_CXX_STANDARD 17)
 
 set(ROOT ${PROJECT_SOURCE_DIR})
 
-add_subdirectory(client)
-add_subdirectory(networking)
+
 add_subdirectory(entities)
 add_subdirectory(database)
+add_subdirectory(networking)
+add_subdirectory(client)
 add_subdirectory(game)
+

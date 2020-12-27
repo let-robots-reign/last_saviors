@@ -6,16 +6,17 @@ set(CMAKE_CXX_FLAGS -g)	# temp
 #set(CMAKE_CXX_FLAGS "-Wall -Werror -Wpedantic") # same problem as in networking_library
 set(CMAKE_CXX_FLAGS "-Wall -Werror -fPIC")
 
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/lib)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/lib)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/bin)
 
 
-# networking library
-set(NETWORKING_LIBRARY_DIRECTORY "${CMAKE_SOURCE_DIR}/networking_library")
+# networking_base library
+add_subdirectory(networking_library)
+set(NETWORKING_LIBRARY_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/networking_library")
 include_directories(${NETWORKING_LIBRARY_DIRECTORY}/include)
 include_directories(${NETWORKING_LIBRARY_DIRECTORY}/src)
-add_library(networking SHARED IMPORTED)
-set_target_properties(networking PROPERTIES
+add_library(networking_base SHARED IMPORTED)
+set_target_properties(networking_base PROPERTIES
   IMPORTED_LOCATION "${NETWORKING_LIBRARY_DIRECTORY}/lib/libnetworking.so"
   INTERFACE_INCLUDE_DIRECTORIES "${NETWORKING_LIBRARY_DIRECTORY}/include"
 )
@@ -53,7 +54,7 @@ FILE(GLOB HEADERS include/*.h)
 FILE(GLOB SOURCES src/*.cpp)
 
 add_library(${PROJECT_NAME} STATIC ${HEADERS} ${SOURCES})
-target_link_libraries(${PROJECT_NAME} networking database ${PostgreSQL_LIBRARIES} pthread)
+target_link_libraries(${PROJECT_NAME} networking_base database ${PostgreSQL_LIBRARIES} pthread)
 
 
 # example Server and Client
