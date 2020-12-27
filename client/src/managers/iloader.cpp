@@ -30,7 +30,6 @@ void ILoader::loadWaves() {
     while (!waveFile.eof()) {
         waveFile >> line;
         waves.push_back(line);
-        std::cout << "Line: " << line << std::endl;
     }
 }
 

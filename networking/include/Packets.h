@@ -72,3 +72,13 @@ struct QuizResultPacket {
     QuizResultPacket(const Packet & packet);
     Packet ToPacket() const;
 };
+
+namespace PacketType {
+    const PacketType QuizAbortionPacket = 6;  // unique
+}
+
+struct QuizAbortionPacket {
+    QuizAbortionPacket();
+    QuizAbortionPacket(const Packet & packet);
+    Packet ToPacket() const;
+};

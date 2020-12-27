@@ -90,7 +90,12 @@ void Application::run() {
 
         Client.ReceiveAndProcess();
         if (!currentQuiz.question.empty()) {
-            std::cout << currentQuiz.question << " " << currentQuiz.optionA;
+            showQuiz = true;
+        }
+        if (resultReceived) {
+            std::cout << "Correctness: " << currentQuizResult << std::endl;
+            resultReceived = false;
+            showQuiz = false;
             currentQuiz = ClientQuiz();
         }
 
@@ -106,7 +111,7 @@ std::pair<size_t, size_t> Application::readSizesFromConfig() {
     return {x, y};
 }
 
-QuizPuzzleEntity Application::getQuiz() {
+void Application::fetchQuiz() {
     std::cout << "Getting Quiz\n";
     if (!Client.Connected()) {
         std::cout << "Not connected\n";
@@ -116,9 +121,6 @@ QuizPuzzleEntity Application::getQuiz() {
 
     std::cout << "Sending Packet\n";
     Client.Send(QuizRequestPacket().ToPacket());
-
-
-    return QuizPuzzleEntity(0, "How are you?\ngdfgfdg\ngfg\nffffffffffff", {"Good", "Fine", "So-so", "Bad"}, 0);
 }
 
 void Application::checkQuiz() {
@@ -129,10 +131,13 @@ void Application::checkQuiz() {
         } else {
             coins -= COINS_FINE_FOR_CLOSE;
         }
+        quizWidget = QuizWidget();
         showQuiz = false;
+
+        Client.Send(QuizAbortionPacket().ToPacket());
     }
 
-
+    Client.Send(QuizAnswerPacket(userAnswer).ToPacket());
     std::cout << "Checking Quiz\nUser answer is " << quizWidget.getCurrentUserAnswer() << std::endl;
 }
 
@@ -151,8 +156,7 @@ void Application::update() {
 
     if (showQuiz) {
         if (!quizWidget.isInitialized()) {
-            QuizPuzzleEntity quiz = getQuiz();
-            quizWidget = QuizWidget(quiz);
+            quizWidget = QuizWidget(currentQuiz);
         }
         window.draw(quizWidget);
     }
@@ -189,14 +193,16 @@ void Application::handleMouseClick() {
         }
     } else if (startButton.isClicked(mousePos)) {
         if (!spawner.isRunning()) {
-            if (!spawner.endOfWaves()) spawner.start();
+            if (!spawner.endOfWaves()) {
+                spawner.start();
+            }
         }
         running = true;
     } else if (pauseButton.isClicked(mousePos)) {
         running = false;
         showQuiz = false;
     } else if (quizButton.isClicked(mousePos) && !showQuiz && running) {
-        showQuiz = true;
+        fetchQuiz();
     }
 
     if (showQuiz && running && quizWidget.checkButtonClicked(mousePos) != QuizWidget::CLICKED_OUTSIDE) {

@@ -90,3 +90,17 @@ Packet QuizResultPacket::ToPacket() const {
     packet.stream.Insert(result);
     return packet;
 }
+
+QuizAbortionPacket::QuizAbortionPacket() {}
+
+QuizAbortionPacket::QuizAbortionPacket(const Packet & packet) {
+    size_t offset = 0;
+    PacketType::PacketType Type;
+    offset += packet.stream.Read(Type, offset);
+}
+
+Packet QuizAbortionPacket::ToPacket() const {
+    Packet packet;
+    packet.stream.Insert(PacketType::QuizAbortionPacket);
+    return packet;
+}

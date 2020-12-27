@@ -2,13 +2,14 @@
 #include "application.h"
 
 
-QuizWidget::QuizWidget(QuizPuzzleEntity quiz) : puzzle(std::move(quiz)), currentUserAnswer(CLICKED_OUTSIDE) {
+QuizWidget::QuizWidget(const ClientQuiz& quiz) : puzzle(quiz), currentUserAnswer(CLICKED_OUTSIDE) {
     quizOverlay.setSize(sf::Vector2f(500, 550));
     quizOverlay.setPosition(30, 30);
     quizOverlay.setFillColor(sf::Color(188, 175, 105, 200));
     quizOverlay.setOutlineColor(sf::Color(0, 0, 0));
     quizOverlay.setOutlineThickness(3);
 
+    std::cout << "QUESTION: " << puzzle.getQuestion() << std::endl;
     questionText = Application::createTextField(50, 40, 20);
     questionText << sf::Color(0, 0, 0) << puzzle.getQuestion();
 

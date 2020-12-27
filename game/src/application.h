@@ -29,9 +29,9 @@ public:
 
     static sfe::RichText createTextField(size_t posx, size_t posy, size_t textSize);
 
-    static ClientQuiz currentQuiz;
-    static bool resultReceived;
-    static bool currentQuizResult;
+    inline static ClientQuiz currentQuiz = ClientQuiz();
+    inline static bool resultReceived = false;
+    inline static bool currentQuizResult = false;
 
 private:
     size_t sizeX, sizeY;
@@ -61,7 +61,9 @@ private:
 
     std::pair<size_t, size_t> readSizesFromConfig();
 
-    QuizPuzzleEntity getQuiz();
+    void fetchQuiz();
+
+    void sendAnswer();
 
     void checkQuiz();
 
@@ -74,8 +76,5 @@ private:
     void addDrawable(sf::Sprite *sprite);
 };
 
-ClientQuiz Application::currentQuiz = ClientQuiz();
-bool Application::resultReceived = false;
-bool Application::currentQuizResult = false;
 
 #endif

@@ -2,14 +2,14 @@
 #define LAST_SAVIORS_QUIZ_WIDGET_H
 
 #include "rich_text.h"
-#include "quiz_puzzle.h"
+#include "ClientQuiz.h"
 #include <SFML/Graphics.hpp>
 
 class QuizWidget : public sf::Drawable {
 public:
     QuizWidget() = default;
 
-    explicit QuizWidget(QuizPuzzleEntity puzzle);
+    explicit QuizWidget(const ClientQuiz& puzzle);
 
     int checkButtonClicked(const sf::Vector2i &mousePos);
 
@@ -28,7 +28,7 @@ protected:
     void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
 private:
-    QuizPuzzleEntity puzzle;
+    ClientQuiz puzzle;
     bool initialized = false;
 
     int currentUserAnswer;

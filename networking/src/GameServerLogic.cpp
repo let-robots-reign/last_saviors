@@ -101,8 +101,16 @@ void GameServerLogic<TClient>::ProcessPacket(const size_t i, const Packet & pack
         Server.GetClient(i).m_quiz = QuizPuzzle();    // not really necessary
 
         Server.Send(i, QuizResultPacket(result).ToPacket());
-    }
-    else {
+    } else if (type == PacketType::QuizAbortionPacket) {
+        if (Server.GetClient(i).m_quizstate == TClient::QuizState::NONE)
+            return; //break?
+
+        const QuizAbortionPacket abortionpacket(packet);
+
+        Server.GetClient(i).m_quizstate = TClient::QuizState::NONE;
+        Server.GetClient(i).m_quiz = QuizPuzzle();
+
+    } else {
         std::cout << "Unknown packet type: " << type() << std::endl;
     }
 }
