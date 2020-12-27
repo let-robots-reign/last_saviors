@@ -31,19 +31,12 @@
 *.out
 *.app
 
-#vscode
-/networking/.vscode
-/networking/build
+# networking garbage
+networking/networking_library/build
+networking/networking_library/lib
+networking/networking_library/test/build
 
-#cmake & build
-networking/CMakeCache.txt
-networking/CMakeFiles/
-networking/Makefile
-networking/cmake_install.cmake
-networking/networking
-networking/test/CMakeCache.txt
-networking/test/CMakeFiles/
-networking/test/Makefile
-networking/test/cmake_install.cmake
-networking/test/networking_unit_tests
-
+networking/build
+networking/lib
+networking/bin
+networking/test/build
