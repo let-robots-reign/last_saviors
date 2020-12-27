@@ -1,5 +1,7 @@
 #include "application.h"
 
+#include "Packets.h"
+
 #include <fstream>
 
 Application::Application() {
@@ -86,6 +88,8 @@ void Application::run() {
                    << sf::Color(188, 175, 105) << "Wave: " << std::to_string(spawner.getWave())
                    << " /" << std::to_string(spawner.getMaxWaves());
 
+        Client.ReceiveAndProcess();
+
         handleMouseCursor();
         update();
     }
@@ -99,6 +103,13 @@ std::pair<size_t, size_t> Application::readSizesFromConfig() {
 }
 
 QuizPuzzle Application::getQuiz() {
+    if (!Client.Connected()) {
+        Client.Connect(Address(*IPAddress::Create(std::string("46.138.240.15")), 3000));
+    }
+
+    Client.Send(QuizRequestPacket().ToPacket());
+
+
     return QuizPuzzle(0, "How are you?\ngdfgfdg\ngfg\nffffffffffff", {"Good", "Fine", "So-so", "Bad"}, 0);
 }
 
@@ -112,6 +123,7 @@ void Application::checkQuiz() {
         }
         showQuiz = false;
     }
+
 
     std::cout << "Checking Quiz\nUser answer is " << quizWidget.getCurrentUserAnswer() << std::endl;
 }

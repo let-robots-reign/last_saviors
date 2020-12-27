@@ -6,13 +6,13 @@ set(CMAKE_CXX_FLAGS -g)	# temp
 #set(CMAKE_CXX_FLAGS "-Wall -Werror -Wpedantic") # same problem as in networking_library
 set(CMAKE_CXX_FLAGS "-Wall -Werror -fPIC")
 
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/lib)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/bin)
-
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/lib)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin)
 
 # networking_base library
 add_subdirectory(networking_library)
-set(NETWORKING_LIBRARY_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/networking_library")
+message(DEBUG ${CMAKE_CURRENT_SOURCE_DIR})
+set(NETWORKING_LIBRARY_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/networking_library")
 include_directories(${NETWORKING_LIBRARY_DIRECTORY}/include)
 include_directories(${NETWORKING_LIBRARY_DIRECTORY}/src)
 add_library(networking_base SHARED IMPORTED)
@@ -40,7 +40,7 @@ find_package(PostgreSQL REQUIRED)
 HEADER_DIRECTORIES(header_db_dir_list)
 include_directories(${header_db_dir_list})
 include_directories(${PostgreSQL_INCLUDE_DIRS})
-include_directories("/home/grillow/Documents/park/ccpp/project/db/database/src/PostgresSQL/Data")
+include_directories("${PARENT_DIR}/database/src/PostgresSQL/Data")
 add_library(database STATIC IMPORTED)
 set_target_properties(database PROPERTIES
   IMPORTED_LOCATION "${PARENT_DIR}/database/libdb_lib.a"

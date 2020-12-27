@@ -28,6 +28,8 @@ void GameClientLogic::OnProcess() {
         ProcessPacket(packet);
         read = Client.GetBuffer().Extract(packet);
     }
+
+
 }
 
 

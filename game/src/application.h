@@ -15,6 +15,9 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "TCPClient.h"
+#include "GameClientLogic.h"
+
 class Application {
 public:
     Application();
@@ -28,6 +31,8 @@ public:
 private:
     size_t sizeX, sizeY;
     static constexpr size_t COINS_FINE_FOR_CLOSE = 20;
+
+    TCPClient<GameClientLogic> Client;
 
     sf::RenderWindow window;
     std::vector<sf::Sprite *> drawable;
