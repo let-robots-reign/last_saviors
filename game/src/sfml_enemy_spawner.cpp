@@ -26,14 +26,14 @@ void EnemySpawner::spawn(std::vector<SfmlEnemy> &enemies) {
             waveRunning = false;
             step = 0;
             spawnTimer = 0;
-            wave++;
+            ++wave;
         } else {
             size_t enemyClass = static_cast<size_t>((*loader.getWaves())[wave][step]) - static_cast<size_t>('0');
             enemies.emplace_back(startVect, enemyClass, sizeY / loader.getMapSize());
-            step++;
+            ++step;
         }
     }
-    spawnTimer++;
+    ++spawnTimer;
 }
 
 void EnemySpawner::move(std::vector<SfmlEnemy> &enemies, size_t &coins, int &lives) {
@@ -61,5 +61,5 @@ size_t EnemySpawner::getMaxWaves() {
 }
 
 bool EnemySpawner::endOfWaves() {
-    return wave == (size_t) getMaxWaves() - 1;
+    return wave == (size_t) getMaxWaves();
 }

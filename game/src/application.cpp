@@ -1,7 +1,6 @@
 #include "application.h"
 
 #include <fstream>
-#include <iostream>
 
 Application::Application() {
     std::tie(sizeX, sizeY) = readSizesFromConfig();
@@ -84,7 +83,7 @@ void Application::run() {
         statusText = createTextField(605, 0, 22);
         statusText << sf::Color(188, 175, 105) << sf::Text::Bold << "Lives: " << std::to_string(lives)
                    << "\nCoins: " << sf::Color::Yellow << std::to_string(coins) << sf::String(L" ©\n")
-                   << sf::Color(188, 175, 105) << "Wave: " << std::to_string(spawner.getWave() + 1)
+                   << sf::Color(188, 175, 105) << "Wave: " << std::to_string(spawner.getWave())
                    << " /" << std::to_string(spawner.getMaxWaves());
 
         handleMouseCursor();

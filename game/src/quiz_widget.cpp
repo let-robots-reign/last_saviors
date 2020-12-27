@@ -1,7 +1,6 @@
 #include "quiz_widget.h"
 #include "application.h"
 
-#include <iostream>
 
 QuizWidget::QuizWidget(QuizPuzzle quiz) : puzzle(std::move(quiz)), currentUserAnswer(CLICKED_OUTSIDE) {
     quizOverlay.setSize(sf::Vector2f(500, 550));

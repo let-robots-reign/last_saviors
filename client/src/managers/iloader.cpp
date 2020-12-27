@@ -1,6 +1,7 @@
 #include "iloader.h"
 
 #include <sstream>
+#include <iostream>
 
 const char ILoader::ROAD_CHAR = '#';
 const size_t ILoader::MOUSE_POINTER_ID = 0;
@@ -29,6 +30,7 @@ void ILoader::loadWaves() {
     while (!waveFile.eof()) {
         waveFile >> line;
         waves.push_back(line);
+        std::cout << "Line: " << line << std::endl;
     }
 }
 
