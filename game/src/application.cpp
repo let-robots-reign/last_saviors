@@ -97,6 +97,7 @@ void Application::run() {
             resultReceived = false;
             showQuiz = false;
             currentQuiz = ClientQuiz();
+            quizWidget = QuizWidget();
         }
 
         handleMouseCursor();
@@ -125,6 +126,7 @@ void Application::fetchQuiz() {
 
 void Application::checkQuiz() {
     int userAnswer = quizWidget.getCurrentUserAnswer();
+    std::cout << "Checking Quiz\nUser answer is " << quizWidget.getCurrentUserAnswer() << std::endl;
     if (userAnswer == QuizWidget::CLICKED_CLOSE) {
         if (COINS_FINE_FOR_CLOSE > coins) {
             coins = 0;
@@ -138,7 +140,6 @@ void Application::checkQuiz() {
     }
 
     Client.Send(QuizAnswerPacket(userAnswer).ToPacket());
-    std::cout << "Checking Quiz\nUser answer is " << quizWidget.getCurrentUserAnswer() << std::endl;
 }
 
 void Application::update() {

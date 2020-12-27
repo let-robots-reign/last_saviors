@@ -2,7 +2,7 @@
 #include "application.h"
 
 
-QuizWidget::QuizWidget(const ClientQuiz& quiz) : puzzle(quiz), currentUserAnswer(CLICKED_OUTSIDE) {
+QuizWidget::QuizWidget(const ClientQuiz &quiz) : puzzle(quiz), currentUserAnswer(CLICKED_OUTSIDE) {
     quizOverlay.setSize(sf::Vector2f(500, 550));
     quizOverlay.setPosition(30, 30);
     quizOverlay.setFillColor(sf::Color(188, 175, 105, 200));
@@ -11,7 +11,8 @@ QuizWidget::QuizWidget(const ClientQuiz& quiz) : puzzle(quiz), currentUserAnswer
 
     std::cout << "QUESTION: " << puzzle.getQuestion() << std::endl;
     questionText = Application::createTextField(50, 40, 20);
-    questionText << sf::Color(0, 0, 0) << puzzle.getQuestion();
+    questionText << sf::Color(0, 0, 0)
+                 << sf::String::fromUtf8(puzzle.getQuestion().begin(), puzzle.getQuestion().end());
 
     size_t count = puzzle.getAnswerOptions().size();
     optionsButtons.resize(count);
@@ -23,12 +24,14 @@ QuizWidget::QuizWidget(const ClientQuiz& quiz) : puzzle(quiz), currentUserAnswer
         optionsButtons[i].setOutlineThickness(1);
         optionsButtons[i].setPosition(50, questionText.getPosition().y + questionText.getLocalBounds().height + 50 * (i + 1));
 
-        optionsTexts[i] = Application::createTextField(55, questionText.getPosition().y + questionText.getLocalBounds().height + 50 * (i + 1) + 5, 18);
+        optionsTexts[i] = Application::createTextField(55, questionText.getPosition().y +
+                                                           questionText.getLocalBounds().height + 50 * (i + 1) + 5, 18);
         optionsTexts[i] << sf::Color(255, 255, 255) << puzzle.getAnswerOptions()[i];
     }
 
     submitButton.setSize(sf::Vector2f(250, 30));
-    submitButton.setPosition(sf::Vector2f(50, optionsButtons[count - 1].getPosition().y + optionsButtons[count - 1].getLocalBounds().height + 15));
+    submitButton.setPosition(sf::Vector2f(50, optionsButtons[count - 1].getPosition().y +
+                                              optionsButtons[count - 1].getLocalBounds().height + 15));
     submitButton.setFillColor(sf::Color(90, 106, 41));
     submitButton.setOutlineColor(sf::Color(0, 0, 0));
     submitButton.setOutlineThickness(1);
