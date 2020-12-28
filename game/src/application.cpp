@@ -199,7 +199,7 @@ void Application::handleMouseCursor() {
 
 void Application::handleMouseClick() {
     sf::Vector2i mousePos = sf::Mouse::getPosition(window);
-    if (map.isInMap(mousePos)) {
+    if (map.isInMap(mousePos) && !showQuiz) {
         size_t *pos = map.getTileCoords(mousePos);
         Tile *tile = map.getTileAt(pos[0], pos[1]);
         if (lastClickedID > 1) {
@@ -239,6 +239,7 @@ void Application::handleMouseClick() {
     }
 
     if (showQuiz && running && quizWidget.checkButtonClicked(mousePos) != QuizWidget::CLICKED_OUTSIDE) {
+        std::cout << "CLICKED\n";
         checkQuiz();
     }
 

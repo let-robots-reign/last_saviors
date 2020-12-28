@@ -10,15 +10,15 @@ QuizWidget::QuizWidget(const ClientQuiz &quiz) : puzzle(quiz), currentUserAnswer
     quizOverlay.setOutlineThickness(3);
 
     std::cout << "QUESTION: " << puzzle.getQuestion() << std::endl;
-    questionText = Application::createTextField(50, 40, 20);
-    questionText << sf::Color(0, 0, 0)
-                 << sf::String::fromUtf8(puzzle.getQuestion().begin(), puzzle.getQuestion().end());
+    questionText = Application::createTextField(50, 40, 15);
+    std::string q = puzzle.getQuestion();
+    questionText << sf::Color(0, 0, 0) << sf::String::fromUtf8(q.begin(), q.end());
 
     size_t count = puzzle.getAnswerOptions().size();
     optionsButtons.resize(count);
     optionsTexts.resize(count);
     for (size_t i = 0; i < count; ++i) {
-        optionsButtons[i].setSize(sf::Vector2f(250, 30));
+        optionsButtons[i].setSize(sf::Vector2f(450, 30));
         optionsButtons[i].setFillColor(sf::Color(90, 106, 41));
         optionsButtons[i].setOutlineColor(sf::Color(0, 0, 0));
         optionsButtons[i].setOutlineThickness(1);
@@ -26,18 +26,10 @@ QuizWidget::QuizWidget(const ClientQuiz &quiz) : puzzle(quiz), currentUserAnswer
 
         optionsTexts[i] = Application::createTextField(55, questionText.getPosition().y +
                                                            questionText.getLocalBounds().height + 50 * (i + 1) + 5, 18);
-        optionsTexts[i] << sf::Color(255, 255, 255) << puzzle.getAnswerOptions()[i];
+        std::string option = puzzle.getAnswerOptions()[i];
+        optionsTexts[i] << sf::Color(255, 255, 255) << sf::String::fromUtf8(option.begin(), option.end());;
     }
 
-    submitButton.setSize(sf::Vector2f(250, 30));
-    submitButton.setPosition(sf::Vector2f(50, optionsButtons[count - 1].getPosition().y +
-                                              optionsButtons[count - 1].getLocalBounds().height + 15));
-    submitButton.setFillColor(sf::Color(90, 106, 41));
-    submitButton.setOutlineColor(sf::Color(0, 0, 0));
-    submitButton.setOutlineThickness(1);
-
-    submitText = Application::createTextField(55, submitButton.getPosition().y + 5, 18);
-    submitText << sf::Color(255, 255, 255) << "Close " << sf::Color::Red << "(-20" << sf::String(L" ©)");
     initialized = true;
 }
 
@@ -58,13 +50,6 @@ int QuizWidget::checkButtonClicked(const sf::Vector2i &mousePos) {
         }
     }
 
-    sf::Vector2f submitPos = submitButton.getPosition();
-    size_t x = mousePos.x - submitPos.x;
-    size_t y = mousePos.y - submitPos.y;
-    if (x > 0 && x < submitButton.getLocalBounds().width && y > 0 && y < submitButton.getLocalBounds().height) {
-        currentUserAnswer = CLICKED_CLOSE;
-    }
-
     return currentUserAnswer;
 }
 
@@ -75,6 +60,4 @@ void QuizWidget::draw(sf::RenderTarget &target, sf::RenderStates states) const {
         target.draw(optionsButtons[i], states);
         target.draw(optionsTexts[i], states);
     }
-    target.draw(submitButton);
-    target.draw(submitText);
 }

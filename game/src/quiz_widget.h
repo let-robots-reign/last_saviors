@@ -37,8 +37,6 @@ private:
     sfe::RichText questionText;
     std::vector<sf::RectangleShape> optionsButtons;
     std::vector<sfe::RichText> optionsTexts;
-    sf::RectangleShape submitButton;
-    sfe::RichText submitText;
 };
 
 #endif //LAST_SAVIORS_QUIZ_WIDGET_H
