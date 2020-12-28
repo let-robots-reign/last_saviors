@@ -32,6 +32,10 @@ public:
         return &font;
     }
 
+    sf::Font *getCodeFont() {
+        return &codeFont;
+    }
+
     size_t getMapSize() override {
         return mapSize;
     }
@@ -64,6 +68,7 @@ private:
     sf::Texture fieldTextures[6], enemyTextures[2], buttonTextures[4], particleTextures[4], mouseTextures[4];
     std::vector<Directions> path;
     sf::Font font;
+    sf::Font codeFont;
     int start;
 
     int findStart();

@@ -29,6 +29,7 @@ void Loader::loadTextures() {
 
 void Loader::loadFont() {
     font.loadFromFile("data/Roboto-Regular.ttf");
+    codeFont.loadFromFile("data/jetbrains.ttf");
 }
 
 int Loader::findStart() {

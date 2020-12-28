@@ -2,6 +2,8 @@
 #include "application.h"
 
 
+#include <sstream>
+
 QuizWidget::QuizWidget(const ClientQuiz &quiz) : puzzle(quiz), currentUserAnswer(CLICKED_OUTSIDE) {
     quizOverlay.setSize(sf::Vector2f(500, 550));
     quizOverlay.setPosition(30, 30);
@@ -10,9 +12,14 @@ QuizWidget::QuizWidget(const ClientQuiz &quiz) : puzzle(quiz), currentUserAnswer
     quizOverlay.setOutlineThickness(3);
 
     std::cout << "QUESTION: " << puzzle.getQuestion() << std::endl;
-    questionText = Application::createTextField(50, 40, 15);
+    questionText = Application::createTextField(50, 40, 12);
     std::string q = puzzle.getQuestion();
-    questionText << sf::Color(0, 0, 0) << sf::String::fromUtf8(q.begin(), q.end());
+    std::string firstPart = q.substr(0, q.find("---"));
+    std::string code = q.substr(q.find("---") + 3, q.length());
+
+    questionText.setFont(*loader.getCodeFont());
+    questionText << sf::Color(0, 0, 0) << sf::String::fromUtf8(firstPart.begin(), firstPart.end())
+                 << sf::String::fromUtf8(code.begin(), code.end());
 
     size_t count = puzzle.getAnswerOptions().size();
     optionsButtons.resize(count);
@@ -22,10 +29,11 @@ QuizWidget::QuizWidget(const ClientQuiz &quiz) : puzzle(quiz), currentUserAnswer
         optionsButtons[i].setFillColor(sf::Color(90, 106, 41));
         optionsButtons[i].setOutlineColor(sf::Color(0, 0, 0));
         optionsButtons[i].setOutlineThickness(1);
-        optionsButtons[i].setPosition(50, questionText.getPosition().y + questionText.getLocalBounds().height + 50 * (i + 1));
+        optionsButtons[i].setPosition(50, questionText.getPosition().y + questionText.getLocalBounds().height +
+                                          40 * (i + 1));
 
         optionsTexts[i] = Application::createTextField(55, questionText.getPosition().y +
-                                                           questionText.getLocalBounds().height + 50 * (i + 1) + 5, 18);
+                                                           questionText.getLocalBounds().height + 40 * (i + 1) + 5, 12);
         std::string option = puzzle.getAnswerOptions()[i];
         optionsTexts[i] << sf::Color(255, 255, 255) << sf::String::fromUtf8(option.begin(), option.end());;
     }

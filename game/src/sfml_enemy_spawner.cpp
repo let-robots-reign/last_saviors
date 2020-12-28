@@ -44,7 +44,7 @@ void EnemySpawner::move(std::vector<SfmlEnemy> &enemies, size_t &coins, int &liv
                 coins += i->getValue();
                 i = enemies.erase(i);
             } else {
-                lives -= i->getHealth();
+                lives -= i->getValue();
                 i = enemies.erase(i);
                 if (enemies.empty()) {
                     endOfMoving = true;
