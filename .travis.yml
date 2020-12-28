@@ -19,7 +19,6 @@ addons:
     - cmake
     - lcov
     - cppcheck
-    - libgtest-dev
 
 before_install:
   - sudo apt install libgtest-dev
@@ -27,8 +26,8 @@ before_install:
   - sudo cmake .
   - sudo make
   - cd -
-  - bash <ls -a
   - sudo apt install libgmock-dev
+  - ls -a
   - cd /usr/src/gmock
   - sudo cmake .
   - sudo make
