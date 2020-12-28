@@ -7,9 +7,9 @@ SfmlEnemy::SfmlEnemy(sf::Vector2f pos, size_t id_, float tileWidth) : sf::Sprite
     setOrigin(10, 10);
     setTexture(*loader.getEnemyTexture(id));
     dead = false, freezed = false;
-    value = health = id + 1;
+    value = health = 2 * id + 1;
     location = counter = 0;
-    speed = getSpeed();
+    speed = 2.0f - id * 0.25f;
     steps = tileWidth / speed;
 }
 
@@ -19,7 +19,7 @@ void SfmlEnemy::hurt(size_t damage) {
         dead = true;
     } else {
         health -= damage;
-        setTexture(*loader.getEnemyTexture(id - 1));
+//        setTexture(*loader.getEnemyTexture(id - 1));
     }
 }
 

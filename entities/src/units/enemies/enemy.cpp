@@ -18,7 +18,3 @@ void Enemy::freeze() {
     freezeCounter = 0;
     freezed = true;
 }
-
-float Enemy::getSpeed() const {
-    return 2;
-}
