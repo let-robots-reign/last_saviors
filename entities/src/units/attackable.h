@@ -15,7 +15,7 @@ class Attackable : public Unit {
     void reduceHealth(unsigned int value);
     unsigned int getHealth() const { return health_; };
     void setHealth(unsigned int value) noexcept(false);
-    bool isAlive() { return is_alive;}
+    bool isAlive() const { return is_alive;}
 };
 
 

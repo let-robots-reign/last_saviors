@@ -22,6 +22,8 @@ addons:
     - libgtest-dev
     - libgmock-dev
 
+before_script:
+  - cppcheck --inconclusive --enable=all --language=c++ --error-exitcode=1 entities/
 
 script:
   - cmake .

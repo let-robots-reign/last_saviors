@@ -3,8 +3,8 @@
 class SomeEnemy : public Enemy {
    public:
     SomeEnemy() : Enemy(0, 100, 1, 1, 100, Coordinate()) {}
-    SomeEnemy(unsigned int health) : Enemy(0, health, 1, 1, 100, Coordinate()) {}
-    SomeEnemy(Coordinate position) : Enemy(0, 100, 1, 1, 100, position) {}
+    explicit SomeEnemy(unsigned int health) : Enemy(0, health, 1, 1, 100, Coordinate()) {}
+    explicit SomeEnemy(Coordinate position) : Enemy(0, 100, 1, 1, 100, position) {}
     void attack(std::shared_ptr<Attackable> &target,
                 unsigned int current_time) override{};
     bool canAttack(const std::shared_ptr<Attackable> &target) override {

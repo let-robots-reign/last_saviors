@@ -50,7 +50,7 @@ std::vector<std::shared_ptr<Attackable>> AreaDamageTower::findTargets(
     if (in_attack_radius.size() > 1) {
         size_t last_elem_pos = in_attack_radius.size() - 1;
         for (size_t pos = in_attack_radius.size() - 2;
-             pos >= 0 &&
+             pos <= (in_attack_radius.size() - 2) &&
              in_attack_radius[last_elem_pos]->distance(*in_attack_radius[pos]) <
                  damage_radius_per_level_[level_];
              --pos) {

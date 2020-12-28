@@ -9,7 +9,7 @@ class Player {
     size_t coins_;
 
    public:
-    Player(size_t initial_coins);
+    explicit Player(size_t initial_coins);
     void increaseCoins(size_t value);
     void reduceCoins(size_t value);
     size_t getCoins() const {return coins_; }
