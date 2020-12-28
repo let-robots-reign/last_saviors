@@ -22,16 +22,6 @@ addons:
     - libgtest-dev
     - libgmock-dev
 
-before_install:
-  - ls /usr/src -a
-  - cd /usr/src/gtest
-  - sudo cmake .
-  - sudo make
-  - cd -
-  #- cd /usr/src/gmock
-  #- sudo cmake .
-  #- sudo make
-  #- cd -
 
 script:
   - cmake .
