@@ -1,0 +1,33 @@
+dist: focal
+sudo: required
+
+language: c++
+os: linux
+compiler:
+  - gcc
+
+addons:
+  apt:
+    packages:
+    - clang-format
+    - valgrind
+    - cmake
+    - lcov
+    - cppcheck
+    - libgtest-dev
+
+before_install:
+  - sudo apt install libgtest-dev
+  - cd /usr/src/gtest
+  - sudo cmake .
+  - sudo make
+  - cd -
+
+script:
+  - cmake .
+  - make || travis_terminate 1
+  - valgrind --error-exitcode=1 --tool=memcheck --leak-check=full --show-leak-kinds=all --leak-resolution=med --track-origins=yes ./entities/test/entities_unit_tests || travis_terminate 1
+
+after_script:
+  - lcov --capture --directory ./entities/CMakeFiles/entities_lib.dir --output-file coverage.info
+  - bash <(curl -s https://codecov.io/bash) -f coverage.info || echo "coverage info didn't collect"
