@@ -12,16 +12,29 @@
 
 class SfmlTower : public PointDamageTower {
 public:
-    SfmlTower(Tile *field, TileType tileType);
+    SfmlTower(size_t x_pos, size_t y_pos, Tile *tile, TileType tileType);
 
     void shoot(std::vector<SfmlEnemy> &enemies, std::vector<Particle> &particles);
 
+    inline size_t getX() const {
+        return x;
+    }
+
+    inline size_t getY() const {
+        return y;
+    }
+
+    static constexpr size_t UPGRADE_COST = 20;
+
 private:
+    size_t x, y;
     size_t step;
     Tile *tile;
     TileType id;
 };
 
-bool placeTower(size_t &coins, Tile *tile, std::vector<SfmlTower> &towers, TileType towerID);
+bool placeTower(size_t &coins, size_t x, size_t y, Tile *tile, std::vector<SfmlTower> &towers, TileType towerID);
+
+bool upgradeTower(size_t &coins, size_t x, size_t y, Tile *tile, SfmlTower &tower);
 
 #endif

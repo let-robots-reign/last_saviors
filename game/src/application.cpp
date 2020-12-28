@@ -200,14 +200,29 @@ void Application::handleMouseCursor() {
 void Application::handleMouseClick() {
     sf::Vector2i mousePos = sf::Mouse::getPosition(window);
     if (map.isInMap(mousePos)) {
+        size_t *pos = map.getTileCoords(mousePos);
+        Tile *tile = map.getTileAt(pos[0], pos[1]);
         if (lastClickedID > 1) {
-            size_t *pos = map.getTileCoords(mousePos);
-            Tile *field = map.getTileAt(pos[0], pos[1]);
-            placeTower(coins, field, towers, static_cast<TileType>(lastClickedID));
+            placeTower(coins, pos[0], pos[1], tile, towers, static_cast<TileType>(lastClickedID));
             lastClickedID = 0;
             lastClickedTower.setPosition(lastClickedTower.getPosition().x, sizeY);
+        } else {
+            if (wantToUpgrade && tile->getTileType() > 1) {
+                // ищем именно тот объект, на который кликнули
+                for (SfmlTower &tower : towers) {
+                    if (tower.getX() == pos[0] && tower.getY() == pos[1]) {
+                        upgradeTower(coins, tower.getX(), tower.getY(), tile, tower);
+                        break;
+                    }
+                }
+            }
         }
-    } else if (startButton.isClicked(mousePos)) {
+        wantToUpgrade = false;
+        return;
+    }
+    wantToUpgrade = false;
+
+    if (startButton.isClicked(mousePos)) {
         if (!spawner.isRunning()) {
             if (!spawner.endOfWaves()) {
                 spawner.start();

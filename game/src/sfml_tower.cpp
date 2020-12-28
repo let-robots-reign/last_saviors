@@ -1,6 +1,6 @@
 #include "sfml_tower.h"
 
-SfmlTower::SfmlTower(Tile *field_, TileType tileType) : tile(field_), id(tileType), step(0) {
+SfmlTower::SfmlTower(size_t x_pos, size_t y_pos, Tile *tile, TileType tileType) : x(x_pos), y(y_pos), tile(tile), id(tileType), step(0) {
     tile->setTileType(tileType);
     switch (tileType) {
         case BASIC_TOWER:
@@ -35,13 +35,23 @@ void SfmlTower::shoot(std::vector<SfmlEnemy> &enemies, std::vector<Particle> &pa
     }
 }
 
-bool placeTower(size_t &coins, Tile *tile, std::vector<SfmlTower> &towers, const TileType towerID) {
+bool placeTower(size_t &coins, size_t x, size_t y, Tile *tile, std::vector<SfmlTower> &towers, const TileType towerID) {
     size_t towerPrices[4] = {0, 0, 60, 90};
     size_t price = towerPrices[static_cast<size_t>(towerID)];
     if (coins >= price && tile->getTileType() == EMPTY) {
         coins -= price;
-        SfmlTower tower(tile, towerID);
+        SfmlTower tower(x, y, tile, towerID);
         towers.push_back(tower);
+        return true;
+    }
+    return false;
+}
+
+bool upgradeTower(size_t &coins, size_t x, size_t y, Tile *tile, SfmlTower &tower) {
+    tower.setShootDelay(std::max<size_t>(tower.getShootDelay() - 10, 10));
+    tower.setRange(tower.getRange() * 1.25f);
+    if (coins > SfmlTower::UPGRADE_COST) {
+        coins -= SfmlTower::UPGRADE_COST;
         return true;
     }
     return false;
