@@ -1,5 +1,10 @@
+if: branch = master
+
 dist: focal
 sudo: required
+
+git:
+  depth: false
 
 language: c++
 os: linux
@@ -22,6 +27,7 @@ before_install:
   - sudo cmake .
   - sudo make
   - cd -
+  - bash <ls -a
   - sudo apt install libgmock-dev
   - cd /usr/src/gmock
   - sudo cmake .
