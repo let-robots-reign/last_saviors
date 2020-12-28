@@ -19,7 +19,7 @@ Application::Application() {
     lastClickedTower.setPosition(605, sizeY);
     lastClickedTower.setTexture(*loader.getMouseTextures(Loader::MOUSE_INACTIVE_SELECT_ID));
 
-    running = false, waveRunning = false, showQuiz = false;
+    running = false, waveRunning = false, showQuiz = false, wantToUpgrade = false;
     coins = 200, lives = 20;
     lastClickedID = 0;
     towerButtons = createTowerButtons();
@@ -186,7 +186,11 @@ void Application::handleMouseCursor() {
         size_t *pos = map.getTileCoords(mousePos);
         float fieldWidth = static_cast<float>(sizeY) / loader.getMapSize();
         mouseCursor.setPosition(fieldWidth * pos[0], fieldWidth * pos[1]);
-        mouseCursor.setTexture(*loader.getMouseTextures(Loader::MOUSE_ACTIVE_SELECT_ID));
+        if (wantToUpgrade && map.getTileAt(pos[0], pos[1])->getTileType() > 1) {
+            mouseCursor.setTexture(*loader.getMouseTextures(Loader::MOUSE_UPGRADE_ID));
+        } else {
+            mouseCursor.setTexture(*loader.getMouseTextures(Loader::MOUSE_ACTIVE_SELECT_ID));
+        }
     } else {
         mouseCursor.setPosition(static_cast<sf::Vector2f>(mousePos));
         mouseCursor.setTexture(*loader.getMouseTextures(Loader::MOUSE_POINTER_ID));
@@ -215,6 +219,8 @@ void Application::handleMouseClick() {
         showQuiz = false;
     } else if (quizButton.isClicked(mousePos) && !showQuiz && running) {
         fetchQuiz();
+    } else if (upgradeButton.isClicked(mousePos) && !showQuiz && running) {
+        wantToUpgrade = true;
     }
 
     if (showQuiz && running && quizWidget.checkButtonClicked(mousePos) != QuizWidget::CLICKED_OUTSIDE) {

@@ -24,6 +24,7 @@ void Loader::loadTextures() {
     mouseTextures[0].loadFromFile("data/images/mouse0.gif");
     mouseTextures[1].loadFromFile("data/images/mouse1.gif");
     mouseTextures[2].loadFromFile("data/images/mouse2.gif");
+    mouseTextures[3].loadFromFile("data/images/mouse3.png");
 }
 
 void Loader::loadFont() {

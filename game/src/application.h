@@ -51,7 +51,7 @@ private:
     sfe::RichText statusText, towerDescription;
     QuizWidget quizWidget;
 
-    bool running, waveRunning, showQuiz;
+    bool running, waveRunning, showQuiz, wantToUpgrade;
     size_t coins;
     int lives;
 

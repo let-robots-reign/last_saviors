@@ -7,6 +7,7 @@ const char ILoader::ROAD_CHAR = '#';
 const size_t ILoader::MOUSE_POINTER_ID = 0;
 const size_t ILoader::MOUSE_ACTIVE_SELECT_ID = 1;
 const size_t ILoader::MOUSE_INACTIVE_SELECT_ID = 2;
+const size_t ILoader::MOUSE_UPGRADE_ID = 3;
 const size_t ILoader::BUTTON_START_ID = 0;
 const size_t ILoader::BUTTON_PAUSE_ID = 1;
 const size_t ILoader::BUTTON_UPGRADE_ID = 2;

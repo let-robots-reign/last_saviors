@@ -61,7 +61,7 @@ public:
     }
 
 private:
-    sf::Texture fieldTextures[6], enemyTextures[2], buttonTextures[4], particleTextures[4], mouseTextures[3];
+    sf::Texture fieldTextures[6], enemyTextures[2], buttonTextures[4], particleTextures[4], mouseTextures[4];
     std::vector<Directions> path;
     sf::Font font;
     int start;

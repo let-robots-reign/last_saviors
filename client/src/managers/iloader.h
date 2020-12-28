@@ -13,6 +13,7 @@ public:
     static const size_t MOUSE_POINTER_ID;
     static const size_t MOUSE_ACTIVE_SELECT_ID;
     static const size_t MOUSE_INACTIVE_SELECT_ID;
+    static const size_t MOUSE_UPGRADE_ID;
     static const size_t BUTTON_START_ID;
     static const size_t BUTTON_PAUSE_ID;
     static const size_t BUTTON_UPGRADE_ID;
