@@ -36,6 +36,8 @@ public:
 private:
     size_t sizeX, sizeY;
     static constexpr size_t COINS_FINE_FOR_CLOSE = 20;
+    static constexpr size_t COINS_FOR_RIGHT_ANSWER = 20;
+    static constexpr size_t COINS_FINE_FOR_WRONG_ANSWER = 10;
 
     TCPClient<GameClientLogic> Client;
 

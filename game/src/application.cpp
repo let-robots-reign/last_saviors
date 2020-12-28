@@ -94,6 +94,17 @@ void Application::run() {
         }
         if (resultReceived) {
             std::cout << "Correctness: " << currentQuizResult << std::endl;
+
+            if (currentQuizResult) {
+                coins += COINS_FOR_RIGHT_ANSWER;
+            } else {
+                if (COINS_FINE_FOR_WRONG_ANSWER >= coins) {
+                    coins = 0;
+                } else {
+                    coins -= COINS_FINE_FOR_WRONG_ANSWER;
+                }
+            }
+
             resultReceived = false;
             showQuiz = false;
             currentQuiz = ClientQuiz();
