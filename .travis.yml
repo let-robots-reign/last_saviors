@@ -22,6 +22,11 @@ before_install:
   - sudo cmake .
   - sudo make
   - cd -
+  - sudo apt install libgmock-dev
+  - cd /usr/src/gmock
+  - sudo cmake .
+  - sudo make
+  - cd -
 
 script:
   - cmake .
