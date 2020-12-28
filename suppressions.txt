@@ -1,0 +1,5 @@
+unusedFunctions:entities/src/units/buildings/towers/area_damage_tower_creator.cpp
+unusedFunctions:entities/src/units/enemies/mindmaster_creator.cpp
+constParameter:entities/src/units/buildings/towers/point_damage_tower_creator.cpp
+constParameter:entities/src/units/buildings/towers/area_damage_tower_creator.cpp
+constParameter:entities/src/units/buildings/shaft.cpp
