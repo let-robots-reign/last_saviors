@@ -14,9 +14,5 @@ void Attackable::setHealth(unsigned int value) {
 }
 Attackable::Attackable(unsigned int health, Coordinate position)
     : Unit(position), is_alive(true) {
-    try {
-        setHealth(health);
-    } catch (...) {
-        throw;
-    }
+    setHealth(health);
 }
