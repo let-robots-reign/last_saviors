@@ -1,15 +1,39 @@
 cmake_minimum_required(VERSION 3.16)
-project(networking)
+project(game_networking)
 
 set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_FLAGS -g)	# temp
 #set(CMAKE_CXX_FLAGS "-Wall -Werror -Wpedantic")
 
-include_directories(src/)
-FILE(GLOB SOURCES src/*.h)
-FILE(GLOB SOURCES src/cpp/*.cpp)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/lib)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
 
-add_library(${PROJECT_NAME}_lib STATIC ${SOURCES})
 
-add_executable(${PROJECT_NAME} src/ServerMain.cpp)
-target_link_libraries(${PROJECT_NAME} LINK_PUBLIC ${PROJECT_NAME}_lib)
+# networking library
+set(NETWORKING_LIBRARY_DIRECTORY "${CMAKE_SOURCE_DIR}/networking_library")
+include_directories(${NETWORKING_LIBRARY_DIRECTORY}/include)
+include_directories(${NETWORKING_LIBRARY_DIRECTORY}/src)
+add_library(networking SHARED IMPORTED)
+set_target_properties(networking PROPERTIES
+  IMPORTED_LOCATION "${NETWORKING_LIBRARY_DIRECTORY}/lib/libnetworking.so"
+  INTERFACE_INCLUDE_DIRECTORIES "${NETWORKING_LIBRARY_DIRECTORY}/include"
+)
+
+# game networking library
+include_directories(include)
+FILE(GLOB HEADERS include/*.h)
+FILE(GLOB SOURCES src/*.cpp)
+
+add_library(${PROJECT_NAME} SHARED ${HEADERS} ${SOURCES})
+target_link_libraries(${PROJECT_NAME} LINK_PUBLIC networking)
+
+# example Server and Client
+add_executable(Server example/ServerMain.cpp)
+add_executable(Client example/ClientMain.cpp)
+
+
+target_link_libraries(Server LINK_PUBLIC networking)
+target_link_libraries(Client LINK_PUBLIC networking)
+target_link_libraries(Server LINK_PUBLIC ${PROJECT_NAME})
+target_link_libraries(Client LINK_PUBLIC ${PROJECT_NAME})
 

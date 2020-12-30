@@ -1,8 +1,9 @@
-cmake . || { echo 'CMAKE FAILED' ; exit 1; }
-make || { echo 'MAKE failed' ; exit 1; }
-./networking || { echo 'PROGRAM failed' ; exit 1; }
-cd test
-cmake . || { echo 'CMAKE failed' ; exit 1; }
-make || { echo 'MAKE failed' ; exit 1; }
-./networking_unit_tests || { echo 'TESTS failed' ; exit 1; }
+#!/bin/bash
 
+cd ./networking_library
+#$(./build_and_test.sh) || { echo 'NETWORKING LIBRARY FAILED' ; exit 1; }
+./build_and_test.sh
+cd ..
+
+./build.sh
+./test.sh
